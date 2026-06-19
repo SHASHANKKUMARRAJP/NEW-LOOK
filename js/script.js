@@ -269,12 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       local: 'assets/logo.png',
       fallback: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><circle cx="50" cy="50" r="46" fill="none" stroke="%23d4af37" stroke-width="2"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="%23d4af37" font-weight="bold">NL</text><text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="8" fill="%23d4af37" letter-spacing="2">NEW LOOK</text></svg>'
     },
-    hero: {
-      type: 'bg',
-      selector: '.hero-bg-image',
-      local: 'assets/hero_bg.jpg',
-      fallback: 'https://images.unsplash.com/photo-1621590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=1600'
-    },
+
     hair: {
       type: 'img',
       selector: '[data-fallback-id="hair"]',
