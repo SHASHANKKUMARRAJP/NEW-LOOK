@@ -1064,7 +1064,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const configKey = document.getElementById('configKey');
 
   if (adminDashboardBtn) {
-    adminDashboardBtn.addEventListener('click', () => {
+    adminDashboardBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       if (configUrl) configUrl.value = localStorage.getItem('supabase_url') || 'https://tftfjndtbuadcocfwuwn.supabase.co';
       if (configKey) configKey.value = localStorage.getItem('supabase_key') || '';
       
@@ -1181,6 +1182,51 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (err) {
         console.error("Sign out error: ", err.message);
         setAdminLoggedIn(false);
+      }
+    });
+  }
+
+  // Admin Update Credentials (Email and/or Password)
+  const adminUpdateCredentialsForm = document.getElementById('adminUpdateCredentialsForm');
+  if (adminUpdateCredentialsForm) {
+    adminUpdateCredentialsForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!supabaseClient) {
+        showToast("Supabase connection is not initialized.", true);
+        return;
+      }
+
+      const newEmail = document.getElementById('newEmail').value.trim();
+      const newPassword = document.getElementById('newPassword').value;
+
+      if (!newEmail && !newPassword) {
+        showToast("Please enter a new email or password to update.", true);
+        return;
+      }
+
+      const updateData = {};
+      if (newEmail) updateData.email = newEmail;
+      if (newPassword) {
+        if (newPassword.length < 6) {
+          showToast("Password must be at least 6 characters.", true);
+          return;
+        }
+        updateData.password = newPassword;
+      }
+
+      try {
+        const { error } = await supabaseClient.auth.updateUser(updateData);
+        if (error) throw error;
+
+        let msg = "Credentials updated successfully!";
+        if (newEmail) {
+          msg += " Check both your old and new email inboxes to confirm the email change.";
+        }
+        showToast(msg);
+        adminUpdateCredentialsForm.reset();
+      } catch (err) {
+        showToast(`Failed to update credentials: ${err.message}`, true);
       }
     });
   }
