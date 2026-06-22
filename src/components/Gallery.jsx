@@ -410,8 +410,8 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                   {/* Default Subtle Vignette */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
 
-                  {/* Hover Luxury Gold Overlay */}
-                  <div className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
+                  {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
+                  <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
                     
                     {/* Header info */}
                     <div className="flex justify-between items-start">

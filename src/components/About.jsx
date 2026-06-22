@@ -53,7 +53,7 @@ export default function About() {
           </motion.div>
 
           {/* Column 2: Rich Stats Dashboard */}
-          <div className="grid grid-cols-2 gap-6 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
             
             {/* Center glow behind cards */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#D4AF37]/5 blur-[80px] pointer-events-none" />
@@ -68,7 +68,7 @@ export default function About() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="relative p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
+                  className="relative p-5 sm:p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
                 >
                   {/* Ambient internal card glow */}
                   <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />

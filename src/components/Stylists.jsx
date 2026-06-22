@@ -73,11 +73,11 @@ export default function Stylists() {
               <div className="absolute inset-0 bg-[#030303]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               {/* Card Footer Detail */}
-              <div className="relative p-6 z-10 transition-transform duration-500 translate-y-24 group-hover:translate-y-0">
+              <div className="relative p-6 z-10 transition-transform duration-500 md:translate-y-24 md:group-hover:translate-y-0 translate-y-0">
                 
                 {/* Meta details */}
                 <div className="flex items-center space-x-2 text-neonOrange text-[9px] tracking-widest font-cyber uppercase mb-2">
-                  <Sparkles className="w-3 h-3" />
+                  <Sparkles className="w-3.5 h-3.5" />
                   <span>{stylist.experience}</span>
                 </div>
 
@@ -89,8 +89,8 @@ export default function Stylists() {
                   {stylist.role}
                 </p>
 
-                {/* Hidden content that reveals on hover */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                {/* Hidden content that reveals on hover on desktop, but always visible on mobile */}
+                <div className="md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-500 delay-100">
                   <p className="font-sans text-neutral-400 text-xs leading-relaxed mb-6 font-light">
                     {stylist.bio}
                   </p>
