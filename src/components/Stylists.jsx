@@ -7,7 +7,7 @@ const stylists = [
     role: 'Master Hair Couturier',
     experience: '12 Years Experience',
     bio: 'Specializes in precision French cuts, custom balayage blends, and prestige hair health therapies.',
-    image: '/stylist_samantha.png',
+    image: 'stylist_samantha.png',
     instagram: '@samantha_couture'
   },
   {
@@ -15,7 +15,7 @@ const stylists = [
     role: 'Elite Aesthetician & Skincare Expert',
     experience: '10 Years Experience',
     bio: 'Expert in dermal rejuvenation, cell-active facials, and organic peel restoration treatments.',
-    image: '/stylist_victoria.png',
+    image: 'stylist_victoria.png',
     instagram: '@victoria_skin'
   },
   {
@@ -23,7 +23,7 @@ const stylists = [
     role: 'Royal Bridal & Celebrity Artist',
     experience: '14 Years Experience',
     bio: 'Crafts flawless HD airbrush bridal makeups and signature high-fashion runway looks.',
-    image: '/stylist_marcus.png',
+    image: 'stylist_marcus.png',
     instagram: '@marcus_glam'
   }
 ];

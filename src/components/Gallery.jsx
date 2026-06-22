@@ -16,7 +16,7 @@ const initialGalleryCategories = [
         category: 'Interior Design',
         likes: '3.1k',
         comments: '112',
-        image: '/luxury_parlour_bg.png'
+        image: 'luxury_parlour_bg.png'
       },
       {
         title: 'VIP Styling Suite',
@@ -51,7 +51,7 @@ const initialGalleryCategories = [
         category: 'Hair Couture',
         likes: '1.2k',
         comments: '48',
-        image: '/gallery_hair.png'
+        image: 'gallery_hair.png'
       },
       {
         title: 'Flawless Editorial Glow',
