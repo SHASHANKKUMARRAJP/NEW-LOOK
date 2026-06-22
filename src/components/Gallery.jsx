@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, MessageCircle, Sparkles, Image as ImageIcon, Camera, Play, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, MessageCircle, Sparkles, Image as ImageIcon, Camera, Play, Lock, ChevronLeft, ChevronRight, Volume2, VolumeX, Pause } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
@@ -190,6 +190,141 @@ const mapFirestoreDocsToCategories = (docs) => {
 
   return newCategories;
 };
+
+// ==========================================
+// CUSTOM GALLERY VIDEO ITEM PLAYER
+// ==========================================
+function GalleryVideoItem({ item, index }) {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn("Auto-play was prevented. Waiting for user interaction.", error);
+            setIsPlaying(false);
+          });
+        }
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
+  const handleCardClick = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleMuteToggle = (e) => {
+    e.stopPropagation(); // Prevent card play/pause toggle
+    setIsMuted(!isMuted);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.05 }}
+      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
+      whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+      onClick={handleCardClick}
+    >
+      {/* Animated Shimmer Overlay */}
+      <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
+
+      {/* Video Element */}
+      <video
+        ref={videoRef}
+        src={item.image}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        loop
+        muted={isMuted}
+        playsInline
+        autoPlay
+      />
+
+      {/* Play/Pause Overlay Indicator (Always show a nice indicator in center if paused) */}
+      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+        <AnimatePresence>
+          {!isPlaying && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.6 }}
+              className="w-16 h-16 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            >
+              <Play className="w-8 h-8 text-neonOrange ml-1" fill="currentColor" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Subtle overlay indicator on hover when playing (showing that tapping pauses it) */}
+      {isPlaying && (
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <Pause className="w-6 h-6 text-white" />
+          </div>
+        </div>
+      )}
+
+      {/* Audio Mute/Unmute Control in Top Right Corner */}
+      <div className="absolute top-4 right-4 z-30">
+        <button
+          onClick={handleMuteToggle}
+          className="w-9 h-9 rounded-full bg-black/65 backdrop-blur-md border border-white/10 hover:border-neonOrange/60 flex items-center justify-center text-white hover:text-neonOrange transition-all duration-300 shadow-md"
+          title={isMuted ? "Unmute Audio" : "Mute Audio"}
+        >
+          {isMuted ? (
+            <VolumeX className="w-4 h-4 text-white/80" />
+          ) : (
+            <Volume2 className="w-4 h-4 text-neonOrange animate-pulse" />
+          )}
+        </button>
+      </div>
+
+      {/* Default Subtle Vignette */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 pointer-events-none" />
+
+      {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
+      <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
+        
+        {/* Header info */}
+        <div className="flex justify-between items-start">
+          <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
+            {item.category}
+          </span>
+          <Play className="w-3.5 h-3.5 text-neonOrange/60" />
+        </div>
+
+        {/* Bottom detail and micro-stats */}
+        <div>
+          <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
+            {item.title}
+          </h3>
+
+          <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
+            <div className="flex items-center space-x-1.5 text-neutral-400">
+              <Heart className="w-4 h-4" />
+              <span className="font-sans text-xs font-light">{item.likes}</span>
+            </div>
+
+            <div className="flex items-center space-x-1.5 text-neutral-400">
+              <MessageCircle className="w-4 h-4" />
+              <span className="font-sans text-xs font-light">{item.comments}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeTab, setActiveTab] = useState('work');
@@ -447,85 +582,71 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                   No items in this section.
                 </div>
               ) : (
-                activeData.items.map((item, index) => (
-                  <motion.div
-                    key={item.id || item.title + index}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6, delay: index * 0.05 }}
-                    className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
-                    whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
-                  >
-                    {/* Animated Shimmer Overlay */}
-                    <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
-                    
-                    {/* Media Rendering (Image or Video) */}
-                    {item.isVideo ? (
-                      <video
-                        src={item.image}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
+                activeData.items.map((item, index) => {
+                  if (item.isVideo) {
+                    return (
+                      <GalleryVideoItem
+                        key={item.id || item.title + index}
+                        item={item}
+                        index={index}
                       />
-                    ) : (
+                    );
+                  }
+                  return (
+                    <motion.div
+                      key={item.id || item.title + index}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.6, delay: index * 0.05 }}
+                      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
+                      whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+                    >
+                      {/* Animated Shimmer Overlay */}
+                      <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
+                      
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
                         style={{ backgroundImage: `url('${item.image || ''}')` }}
                       />
-                    )}
 
-                    {/* Video Play Overlay */}
-                    {item.isVideo && (
-                      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                        <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-neonOrange/20 group-hover:border-neonOrange/50 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                          <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
-                        </div>
-                      </div>
-                    )}
+                      {/* Default Subtle Vignette */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
 
-                    {/* Default Subtle Vignette */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-
-                    {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
-                    <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
-                      
-                      {/* Header info */}
-                      <div className="flex justify-between items-start">
-                        <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
-                          {item.category}
-                        </span>
-                        {item.isVideo ? (
-                          <Play className="w-3.5 h-3.5 text-neonOrange/60" />
-                        ) : (
+                      {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
+                      <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
+                        
+                        {/* Header info */}
+                        <div className="flex justify-between items-start">
+                          <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
+                            {item.category}
+                          </span>
                           <Sparkles className="w-3.5 h-3.5 text-neonOrange/60" />
-                        )}
-                      </div>
+                        </div>
 
-                      {/* Bottom detail and micro-stats */}
-                      <div>
-                        <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
-                          {item.title}
-                        </h3>
+                        {/* Bottom detail and micro-stats */}
+                        <div>
+                          <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
+                            {item.title}
+                          </h3>
 
-                        <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
-                          <div className="flex items-center space-x-1.5 text-neutral-400">
-                            <Heart className="w-4 h-4" />
-                            <span className="font-sans text-xs font-light">{item.likes}</span>
-                          </div>
+                          <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
+                            <div className="flex items-center space-x-1.5 text-neutral-400">
+                              <Heart className="w-4 h-4" />
+                              <span className="font-sans text-xs font-light">{item.likes}</span>
+                            </div>
 
-                          <div className="flex items-center space-x-1.5 text-neutral-400">
-                            <MessageCircle className="w-4 h-4" />
-                            <span className="font-sans text-xs font-light">{item.comments}</span>
+                            <div className="flex items-center space-x-1.5 text-neutral-400">
+                              <MessageCircle className="w-4 h-4" />
+                              <span className="font-sans text-xs font-light">{item.comments}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                    </div>
-                  </motion.div>
-                ))
+                      </div>
+                    </motion.div>
+                  );
+                })
               )}
             </motion.div>
           </AnimatePresence>
