@@ -116,8 +116,8 @@ export default function Contact() {
           </div>
 
           {/* Column 2: Booking Form (7 cols) - Appears first on mobile viewports for quick booking */}
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="premium-card p-8 md:p-10 rounded-3xl relative overflow-hidden border border-neonOrange/20 hover:border-neonOrange shadow-2xl">
+          <div className="lg:col-span-7 order-1 lg:order-2 w-full">
+            <div className="premium-card p-5 sm:p-8 md:p-10 rounded-3xl relative overflow-hidden border border-neonOrange/20 hover:border-neonOrange shadow-2xl w-full">
               {/* Background accent sheet */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-neonOrange/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-cyberOrange/5 rounded-full blur-2xl pointer-events-none" />
@@ -141,43 +141,43 @@ export default function Contact() {
                       </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-6 w-full">
                       {/* Name */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full">
                         <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Full Name</label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
+                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
                           placeholder="Elizabeth Windsor"
                         />
                       </div>
 
                       {/* Phone */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full">
                         <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Phone Number</label>
                         <input
                           type="tel"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
+                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
                           placeholder="+91 83103 11290"
                         />
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-6 w-full">
                       {/* Service Select */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full">
                         <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Selected Treatment</label>
                         <select
                           required
                           value={formData.service}
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-neutral-300 transition-all duration-300 bg-[#0c0a06]"
+                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-neutral-300 transition-all duration-300 bg-[#0c0a06]"
                         >
                           <option value="" disabled className="bg-[#0c0a06] text-neutral-500">Select a specialty...</option>
                           <option value="hair" className="bg-[#0c0a06] text-neutral-200">Hair Couture (Cuts, Styling, Color)</option>
@@ -188,26 +188,26 @@ export default function Contact() {
                       </div>
 
                       {/* Date Picker */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full">
                         <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Preferred Session Date</label>
                         <input
                           type="date"
                           required
                           value={formData.date}
                           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                          className="glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white transition-all duration-300 bg-[#0c0a06]"
+                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white transition-all duration-300 bg-[#0c0a06]"
                         />
                       </div>
                     </div>
 
                     {/* Message */}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-full">
                       <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Special Stylist Directives</label>
                       <textarea
                         rows="4"
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300 resize-none"
+                        className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300 resize-none"
                         placeholder="Please note any skin sensitivities, specific styling ideas, or preferred artist..."
                       />
                     </div>
