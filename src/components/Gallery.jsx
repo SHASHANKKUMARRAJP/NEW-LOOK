@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, MessageCircle, Sparkles, Image as ImageIcon, Camera, Play, Lock } from 'lucide-react';
+import { Heart, MessageCircle, Sparkles, Image as ImageIcon, Camera, Play, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
@@ -195,6 +195,46 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeTab, setActiveTab] = useState('work');
   const [categories, setCategories] = useState(initialGalleryCategories);
 
+  const scrollContainerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const totalScrollable = scrollWidth - clientWidth;
+      
+      if (totalScrollable > 0) {
+        setScrollProgress((scrollLeft / totalScrollable) * 100);
+      } else {
+        setScrollProgress(0);
+      }
+
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth * 0.75 : clientWidth * 0.75;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    setScrollProgress(0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+    const timer = setTimeout(() => {
+      handleScroll();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [activeTab, categories]);
+
   // Load from database on mount (prioritize Firebase Firestore, fallback to local IndexedDB)
   useEffect(() => {
     let unsubscribe = null;
@@ -357,8 +397,40 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
            />
         )}
 
-        {/* Gallery Grid */}
-        <div className="relative min-h-[400px]">
+        {/* Gallery Grid replaced with Swipable Carousel */}
+        <div className="relative min-h-[400px] group/carousel">
+          {/* Previous Button */}
+          <AnimatePresence>
+            {canScrollLeft && (
+              <motion.button
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onClick={() => scroll('left')}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Next Button */}
+          <AnimatePresence>
+            {canScrollRight && (
+              <motion.button
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                onClick={() => scroll('right')}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -366,90 +438,116 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.4 }}
-              className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2"
             >
-              {activeData.items.map((item, index) => (
-                <motion.div
-                  key={item.id || item.title + index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group relative h-[380px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
-                  whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
-                >
-                  {/* Animated Shimmer Overlay */}
-                  <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
-                  
-                  {/* Media Rendering (Image or Video) */}
-                  {item.isVideo ? (
-                    <video
-                      src={item.image}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  ) : (
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                      style={{ backgroundImage: `url('${item.image || ''}')` }}
-                    />
-                  )}
-
-                  {/* Video Play Overlay */}
-                  {item.isVideo && (
-                    <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                      <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-neonOrange/20 group-hover:border-neonOrange/50 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                        <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Default Subtle Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-
-                  {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
-                  <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
+              {activeData.items.length === 0 ? (
+                <div className="w-full text-center py-20 text-neutral-500 font-sans text-sm">
+                  No items in this section.
+                </div>
+              ) : (
+                activeData.items.map((item, index) => (
+                  <motion.div
+                    key={item.id || item.title + index}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: index * 0.05 }}
+                    className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
+                    whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+                  >
+                    {/* Animated Shimmer Overlay */}
+                    <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
                     
-                    {/* Header info */}
-                    <div className="flex justify-between items-start">
-                      <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
-                        {item.category}
-                      </span>
-                      {item.isVideo ? (
-                         <Play className="w-3.5 h-3.5 text-neonOrange/60" />
-                      ) : (
-                         <Sparkles className="w-3.5 h-3.5 text-neonOrange/60" />
-                      )}
-                    </div>
+                    {/* Media Rendering (Image or Video) */}
+                    {item.isVideo ? (
+                      <video
+                        src={item.image}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                        style={{ backgroundImage: `url('${item.image || ''}')` }}
+                      />
+                    )}
 
-                    {/* Bottom detail and micro-stats */}
-                    <div>
-                      <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
-                        {item.title}
-                      </h3>
-
-                      <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
-                        <div className="flex items-center space-x-1.5 text-neutral-400">
-                          <Heart className="w-4 h-4" />
-                          <span className="font-sans text-xs font-light">{item.likes}</span>
-                        </div>
-
-                        <div className="flex items-center space-x-1.5 text-neutral-400">
-                          <MessageCircle className="w-4 h-4" />
-                          <span className="font-sans text-xs font-light">{item.comments}</span>
+                    {/* Video Play Overlay */}
+                    {item.isVideo && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                        <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-neonOrange/20 group-hover:border-neonOrange/50 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]">
+                          <Play className="w-6 h-6 text-white ml-1" fill="currentColor" />
                         </div>
                       </div>
-                    </div>
+                    )}
 
-                  </div>
-                </motion.div>
-              ))}
+                    {/* Default Subtle Vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+
+                    {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
+                    <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
+                      
+                      {/* Header info */}
+                      <div className="flex justify-between items-start">
+                        <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
+                          {item.category}
+                        </span>
+                        {item.isVideo ? (
+                          <Play className="w-3.5 h-3.5 text-neonOrange/60" />
+                        ) : (
+                          <Sparkles className="w-3.5 h-3.5 text-neonOrange/60" />
+                        )}
+                      </div>
+
+                      {/* Bottom detail and micro-stats */}
+                      <div>
+                        <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
+                          {item.title}
+                        </h3>
+
+                        <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
+                          <div className="flex items-center space-x-1.5 text-neutral-400">
+                            <Heart className="w-4 h-4" />
+                            <span className="font-sans text-xs font-light">{item.likes}</span>
+                          </div>
+
+                          <div className="flex items-center space-x-1.5 text-neutral-400">
+                            <MessageCircle className="w-4 h-4" />
+                            <span className="font-sans text-xs font-light">{item.comments}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </motion.div>
+                ))
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Scroll Progress Bar Indicator & Swipe Hint */}
+        {activeData.items.length > 1 && (
+          <div className="max-w-md mx-auto mt-8 px-6">
+            <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
+              <motion.div 
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+                style={{ width: `${scrollProgress}%` }}
+                layoutId="gallery-progress"
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              />
+            </div>
+            <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
+              <span>← Swipe Left</span>
+              <span>Swipe Right →</span>
+            </div>
+          </div>
+        )}
 
       </div>
     </section>
