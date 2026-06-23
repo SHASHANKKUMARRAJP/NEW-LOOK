@@ -707,13 +707,19 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
               onClick={() => setSelectedImageIndex(null)}
               className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 cursor-zoom-out"
             >
-              {/* Close Button in top right */}
-              <button
-                onClick={() => setSelectedImageIndex(null)}
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 border border-white/10 text-white hover:text-neonOrange hover:border-neonOrange/50 flex items-center justify-center transition-all cursor-pointer z-50 text-xl"
-              >
-                ✕
-              </button>
+              {/* Top Navigation Bar with Page Indicator and Tap-friendly Close Button */}
+              <div className="absolute top-4 left-0 right-0 px-6 flex justify-between items-center z-50">
+                <span className="text-white/60 text-xs font-sans tracking-widest bg-black/40 px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-md">
+                  {selectedImageIndex + 1} / {photoItems.length}
+                </span>
+                <button
+                  onClick={() => setSelectedImageIndex(null)}
+                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white hover:text-neonOrange hover:border-neonOrange/50 flex items-center justify-center gap-2 transition-all cursor-pointer text-xs font-sans uppercase tracking-wider z-50 shadow-lg active:scale-95"
+                >
+                  <span>Close</span>
+                  <span className="text-sm font-bold">✕</span>
+                </button>
+              </div>
 
               {/* Left Navigation Chevron */}
               {photoItems.length > 1 && (
@@ -722,10 +728,10 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                     e.stopPropagation();
                     setSelectedImageIndex((prev) => (prev === 0 ? photoItems.length - 1 : prev - 1));
                   }}
-                  className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg"
+                  className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg active:scale-90"
                   aria-label="Previous photo"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
               )}
 
@@ -736,10 +742,10 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                     e.stopPropagation();
                     setSelectedImageIndex((prev) => (prev === photoItems.length - 1 ? 0 : prev + 1));
                   }}
-                  className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg"
+                  className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg active:scale-90"
                   aria-label="Next photo"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
               )}
 
@@ -749,29 +755,37 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="relative max-w-4xl max-h-[85vh] flex flex-col items-center cursor-default"
-                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-4xl max-h-[80vh] flex flex-col items-center cursor-default mt-8"
+                onClick={(e) => {
+                  // On mobile, tap on the image container also closes it for ultimate user friendliness
+                  if (window.innerWidth < 768) {
+                    setSelectedImageIndex(null);
+                  } else {
+                    e.stopPropagation();
+                  }
+                }}
               >
                 <img
                   src={selectedImage.image}
                   alt={selectedImage.title}
-                  className="max-h-[70vh] w-auto object-contain rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+                  className="max-h-[60vh] md:max-h-[70vh] w-auto object-contain rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-zoom-out"
+                  onClick={() => setSelectedImageIndex(null)}
                 />
                 
                 {/* Caption Details */}
-                <div className="text-center mt-6 max-w-xl px-4">
-                  <span className="font-cyber tracking-[0.2em] text-[10px] text-neonOrange uppercase block mb-1">
+                <div className="text-center mt-4 md:mt-6 max-w-xl px-4 pointer-events-none select-none">
+                  <span className="font-cyber tracking-[0.2em] text-[9px] md:text-[10px] text-neonOrange uppercase block mb-1">
                     {selectedImage.category}
                   </span>
-                  <h3 className="font-serif text-xl md:text-2xl text-white font-normal tracking-wide">
+                  <h3 className="font-serif text-lg md:text-2xl text-white font-normal tracking-wide">
                     {selectedImage.title}
                   </h3>
-                  <div className="flex justify-center items-center gap-6 mt-3 text-neutral-400 font-sans text-xs">
+                  <div className="flex justify-center items-center gap-6 mt-2 md:mt-3 text-neutral-400 font-sans text-xs">
                     <span className="flex items-center gap-1.5">
-                      <Heart className="w-4 h-4 text-neonOrange/85" /> {selectedImage.likes}
+                      <Heart className="w-3.5 h-3.5 text-neonOrange/85" /> {selectedImage.likes}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <MessageCircle className="w-4 h-4" /> {selectedImage.comments}
+                      <MessageCircle className="w-3.5 h-3.5" /> {selectedImage.comments}
                     </span>
                   </div>
                 </div>

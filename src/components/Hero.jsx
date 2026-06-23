@@ -68,7 +68,7 @@ export default function Hero() {
           </span>
           
           <h1 className="font-cyber font-extrabold text-5xl md:text-7xl lg:text-[85px] leading-[1.05] text-white tracking-tight uppercase mb-8">
-            Natural Beauty, <br/>
+            New Look, <br/>
             <span className="text-[#D4AF37] italic font-light font-serif lowercase tracking-normal">Expert Care</span>
           </h1>
 
