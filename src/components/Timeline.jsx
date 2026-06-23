@@ -4,23 +4,23 @@ import { Check } from 'lucide-react';
 const steps = [
   {
     step: '01',
-    title: 'Prestige Consultation',
-    desc: 'Begin with a complimentary cup of premium herbal tea or coffee. Sit down with your personal stylist to map out your goals, assess hair/skin profile, and curate your bespoke package.'
+    title: 'Friendly Consultation',
+    desc: 'Start your visit with a hot cup of tea or coffee. Sit down with your stylist to talk about the look you want and pick the best hair or skin treatments for you.'
   },
   {
     step: '02',
-    title: 'Selection & Preparation',
-    desc: 'Our artists select and custom-blend premium serums, active enzymes, or high-fashion hair coloring pigments. Rest and unwind in our plush pre-session seating area.'
+    title: 'Selecting the Best Products',
+    desc: 'Our experts select and mix the perfect hair colors and skincare products for your session. You can relax in our comfortable lounge while we get everything ready.'
   },
   {
     step: '03',
-    title: 'Prestige Treatment',
-    desc: 'The core transformation. Whether it is a hair makeover, facial glow, or bridal draping, relax under the hands of our master technicians using luxury international products.'
+    title: 'Your Transformation',
+    desc: 'Relax and enjoy your treatment. Whether you are getting a haircut, a glowing facial, or bridal makeup, our skilled team uses safe, high-quality products to care for you.'
   },
   {
     step: '04',
-    title: 'Reveal & Styling Tips',
-    desc: 'We present your completed look in our signature mirror gallery. Your stylist outlines a personalized home-care routine, complete with product recommendations, to extend your glow.'
+    title: 'The Final Reveal & Care Tips',
+    desc: 'See your beautiful new look in our styling mirrors. Your stylist will give you simple, easy-to-follow tips on how to keep your hair and skin glowing at home.'
   }
 ];
 
@@ -45,7 +45,7 @@ export default function Timeline() {
             </span>
           </h2>
           <p className="font-sans text-neutral-400 text-xs md:text-sm leading-relaxed mt-4 md:mt-6 max-w-xl mx-auto font-light">
-            From the moment you cross our threshold to your final radiant reveal, follow the bespoke steps of the Prestige experience.
+            From the moment you walk in to your final beautiful reveal, follow our simple steps to get the perfect styling experience.
           </p>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-6 md:mt-8" />
         </div>
