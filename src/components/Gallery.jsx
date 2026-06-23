@@ -626,7 +626,7 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
               transition={{ duration: 0.4 }}
               ref={scrollContainerRef}
               onScroll={handleScroll}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2"
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
             >
               {activeData.items.length === 0 ? (
                 <div className="w-full text-center py-20 text-neutral-500 font-sans text-sm">

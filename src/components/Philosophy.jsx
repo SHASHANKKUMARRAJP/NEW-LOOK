@@ -104,7 +104,7 @@ export default function Philosophy() {
         <div className="w-full max-w-full overflow-hidden">
           <div 
             ref={containerRef}
-            className="flex overflow-x-auto scrollbar-none gap-6 pb-8 snap-x snap-mandatory scroll-smooth -mx-6 px-6 md:mx-0 md:px-0 w-[calc(100%+3rem)]"
+            className="flex overflow-x-auto scrollbar-none gap-6 pb-8 snap-x snap-mandatory scroll-smooth touch-pan-x w-full px-2"
           >
             {pillars.map((pillar, index) => {
               const Icon = pillar.icon;

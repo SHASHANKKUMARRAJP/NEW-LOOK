@@ -57,7 +57,7 @@ export default function About() {
       <div className="absolute top-0 left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#D4AF37]/5 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
           
           {/* Column 1: Editorial Content */}
           <motion.div
@@ -65,6 +65,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full lg:w-1/2 text-left"
           >
             <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase mb-6 font-medium px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 shadow-[0_0_20px_rgba(212,175,55,0.1)] inline-block">
               Our Heritage
@@ -94,7 +95,7 @@ export default function About() {
           </motion.div>
 
           {/* Column 2: Rich Stats Dashboard as an Interactive Gallery */}
-          <div className="relative flex flex-col justify-center w-full max-w-full overflow-hidden mt-12 lg:mt-0">
+          <div className="relative flex flex-col justify-center w-full lg:w-1/2 max-w-full overflow-hidden mt-12 lg:mt-0">
             {/* Center glow behind cards */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#D4AF37]/5 blur-[100px] pointer-events-none" />
 
@@ -119,7 +120,7 @@ export default function About() {
             {/* Horizontal Swiping Track */}
             <div 
               ref={statsContainerRef}
-              className="flex overflow-x-auto scrollbar-none gap-6 pb-6 snap-x snap-mandatory scroll-smooth -mx-6 px-6 relative z-10 w-[calc(100%+3rem)]"
+              className="flex overflow-x-auto scrollbar-none gap-6 pb-6 snap-x snap-mandatory scroll-smooth touch-pan-x relative z-10 w-full px-2"
             >
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
@@ -131,7 +132,7 @@ export default function About() {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
                     whileHover={{ y: -6, scale: 1.02 }}
-                    className="w-[240px] sm:w-[265px] flex-shrink-0 snap-center relative p-6 sm:p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
+                    className="w-[240px] sm:w-[265px] flex-shrink-0 snap-center relative p-5 sm:p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
                   >
                     {/* Ambient internal card glow */}
                     <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
@@ -165,7 +166,7 @@ export default function About() {
                         </span>
                         <span className="text-[#D4AF37] ml-1">{stat.suffix}</span>
                       </h3>
-                      <p className="font-sans text-[9px] md:text-[10px] tracking-[0.2em] text-neutral-400 font-medium uppercase group-hover:text-[#D4AF37] transition-colors duration-500">
+                      <p className="font-sans text-[9px] sm:text-[10px] tracking-[0.12em] sm:tracking-[0.2em] text-neutral-400 font-medium uppercase break-words whitespace-normal leading-normal group-hover:text-[#D4AF37] transition-colors duration-500">
                         {stat.label}
                       </p>
                     </div>
