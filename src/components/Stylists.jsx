@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Instagram, Calendar, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Instagram, Calendar, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const stylists = [
   {
@@ -32,6 +32,8 @@ const stylists = [
 export default function Stylists() {
   const scrollContainerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -43,6 +45,17 @@ export default function Stylists() {
       } else {
         setScrollProgress(0);
       }
+
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth * 0.75 : clientWidth * 0.75;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
@@ -76,83 +89,117 @@ export default function Stylists() {
           <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
         </div>
 
-        {/* Stylists Grid (Swiper Carousel on Mobile) */}
-        <div 
-          ref={scrollContainerRef}
-          onScroll={handleScroll}
-          className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-8 md:pb-0 px-2 md:px-0"
-        >
-          {stylists.map((stylist, index) => (
-            <motion.div
-              key={stylist.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-              className="snap-start shrink-0 w-[290px] md:w-full group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:border-neonOrange/50 flex flex-col justify-end transition-all duration-500 backdrop-blur-md"
-              whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.4, ease: 'easeOut' } }}
-            >
-              {/* Animated Shimmer Overlay */}
-              <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
-              {/* Profile Background Image */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                style={{ backgroundImage: `url('${stylist.image}')` }}
-              />
-              
-              {/* Gradient Overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              <div className="absolute inset-0 bg-[#030303]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Stylists Swiper Carousel */}
+        <div className="relative min-h-[400px] group/carousel">
+          {/* Previous Button */}
+          <AnimatePresence>
+            {canScrollLeft && (
+              <motion.button
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onClick={() => scroll('left')}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Previous stylist"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
 
-              {/* Card Footer Detail */}
-              <div className="relative p-6 z-10 transition-transform duration-500 md:translate-y-24 md:group-hover:translate-y-0 translate-y-0">
+          {/* Next Button */}
+          <AnimatePresence>
+            {canScrollRight && (
+              <motion.button
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                onClick={() => scroll('right')}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Next stylist"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          <div 
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2"
+          >
+            {stylists.map((stylist, index) => (
+              <motion.div
+                key={stylist.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
+                className="snap-start shrink-0 w-[280px] md:w-[320px] group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:border-neonOrange/50 flex flex-col justify-end transition-all duration-500 backdrop-blur-md"
+                whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.4, ease: 'easeOut' } }}
+              >
+                {/* Animated Shimmer Overlay */}
+                <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
+                {/* Profile Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  style={{ backgroundImage: `url('${stylist.image}')` }}
+                />
                 
-                {/* Meta details */}
-                <div className="flex items-center space-x-2 text-neonOrange text-[9px] tracking-widest font-cyber uppercase mb-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{stylist.experience}</span>
-                </div>
+                {/* Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-[#030303]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Name & Role */}
-                <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white mb-1">
-                  {stylist.name}
-                </h3>
-                <p className="font-sans text-[11px] text-neutral-300 font-light mb-4">
-                  {stylist.role}
-                </p>
+                {/* Card Footer Detail */}
+                <div className="relative p-6 z-10 transition-transform duration-500 md:translate-y-24 md:group-hover:translate-y-0 translate-y-0">
+                  
+                  {/* Meta details */}
+                  <div className="flex items-center space-x-2 text-neonOrange text-[9px] tracking-widest font-cyber uppercase mb-2">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{stylist.experience}</span>
+                  </div>
 
-                {/* Hidden content that reveals on hover on desktop, but always visible on mobile */}
-                <div className="md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-500 delay-100">
-                  <p className="font-sans text-neutral-400 text-xs leading-relaxed mb-6 font-light">
-                    {stylist.bio}
+                  {/* Name & Role */}
+                  <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white mb-1">
+                    {stylist.name}
+                  </h3>
+                  <p className="font-sans text-[11px] text-neutral-300 font-light mb-4">
+                    {stylist.role}
                   </p>
 
-                  <div className="flex items-center justify-between border-t border-white/5 pt-4">
-                    <a 
-                      href={stylist.instagram}
-                      className="flex items-center space-x-1.5 text-neutral-400 hover:text-neonOrange text-xs transition-colors"
-                    >
-                      <Instagram className="w-4 h-4" />
-                      <span className="font-sans text-[11px] font-light">{stylist.instagram}</span>
-                    </a>
-                    
-                    <a
-                      href="#contact"
-                      className="flex items-center space-x-1.5 text-white hover:text-neonOrange text-xs font-cyber tracking-wider uppercase transition-colors"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Book</span>
-                    </a>
-                  </div>
-                </div>
+                  {/* Hidden content that reveals on hover on desktop, but always visible on mobile */}
+                  <div className="md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-500 delay-100">
+                    <p className="font-sans text-neutral-400 text-xs leading-relaxed mb-6 font-light">
+                      {stylist.bio}
+                    </p>
 
-              </div>
-            </motion.div>
-          ))}
+                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                      <a 
+                        href={stylist.instagram}
+                        className="flex items-center space-x-1.5 text-neutral-400 hover:text-neonOrange text-xs transition-colors"
+                      >
+                        <Instagram className="w-4 h-4" />
+                        <span className="font-sans text-[11px] font-light">{stylist.instagram}</span>
+                      </a>
+                      
+                      <a
+                        href="#contact"
+                        className="flex items-center space-x-1.5 text-white hover:text-neonOrange text-xs font-cyber tracking-wider uppercase transition-colors"
+                      >
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>Book</span>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Scroll Progress Bar Indicator & Swipe Hint */}
-        <div className="max-w-md mx-auto mt-8 px-6 md:hidden">
+        <div className="max-w-md mx-auto mt-8 px-6">
           <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
             <motion.div 
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
@@ -161,7 +208,7 @@ export default function Stylists() {
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
             />
           </div>
-          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest">
+          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
             <span>← Swipe Left</span>
             <span>Swipe Right →</span>
           </div>
