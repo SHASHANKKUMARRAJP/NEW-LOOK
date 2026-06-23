@@ -94,7 +94,7 @@ export default function About() {
           </motion.div>
 
           {/* Column 2: Rich Stats Dashboard as an Interactive Gallery */}
-          <div className="relative flex flex-col justify-center">
+          <div className="relative flex flex-col justify-center w-full max-w-full overflow-hidden mt-12 lg:mt-0">
             {/* Center glow behind cards */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#D4AF37]/5 blur-[100px] pointer-events-none" />
 
@@ -119,7 +119,7 @@ export default function About() {
             {/* Horizontal Swiping Track */}
             <div 
               ref={statsContainerRef}
-              className="flex overflow-x-auto scrollbar-none gap-6 pb-6 snap-x snap-mandatory scroll-smooth -mx-6 px-6 md:mx-0 md:px-0 relative z-10"
+              className="flex overflow-x-auto scrollbar-none gap-6 pb-6 snap-x snap-mandatory scroll-smooth -mx-6 px-6 relative z-10 w-[calc(100%+3rem)]"
             >
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
