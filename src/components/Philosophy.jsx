@@ -6,16 +6,19 @@ const pillars = [
   {
     icon: Sparkles,
     title: 'Personalized Styling',
+    image: '/service_hair.png',
     description: 'We customize every haircut, style, and facial treatment to match your unique face shape, skin type, and personal preferences.'
   },
   {
     icon: Shield,
     title: 'Premium Products',
+    image: '/service_gold_facial.png',
     description: 'We only use top-quality, safe, and skin-friendly products that are organic and cruelty-free to protect and care for your skin and hair.'
   },
   {
     icon: Heart,
     title: 'Relaxing Environment',
+    image: '/luxury_parlour_bg.png',
     description: 'Our salon is designed for your comfort. Sit back, relax, and enjoy a peaceful experience with soothing music and a stress-free atmosphere.'
   }
 ];
@@ -88,39 +91,52 @@ export default function Philosophy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
-                  className="w-[290px] sm:w-[330px] md:w-[380px] flex-shrink-0 snap-center relative px-8 py-12 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 to-[#050505] shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:md:border-[#D4AF37]/50 hover:md:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden cursor-pointer"
+                  className="w-[290px] sm:w-[330px] md:w-[380px] flex-shrink-0 snap-center relative rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 to-[#050505] shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:md:border-[#D4AF37]/50 hover:md:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden cursor-pointer"
                 >
-                  {/* Ambient internal card glow */}
-                  <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
-
-                  {/* Elegant decorative background pattern */}
-                  <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-500 z-0 pointer-events-none" />
-
-                  {/* Corner bracket decorations */}
-                  <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-xl z-10" />
-                  <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-xl z-10" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-xl z-10" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-xl z-10" />
-
-                  {/* Rich Layered Icon */}
-                  <div className="mb-8 relative inline-flex">
-                    <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-                    <div className="relative w-14 h-14 rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-br from-[#111] to-[#000] flex items-center justify-center shadow-lg group-hover:border-[#D4AF37] transition-all duration-500">
-                      <Icon className="w-6 h-6 text-[#D4AF37] group-hover:scale-110 transition-transform duration-500" />
-                    </div>
+                  {/* Card Image at Top */}
+                  <div className="w-full h-44 relative overflow-hidden border-b border-white/5">
+                    <img 
+                      src={pillar.image} 
+                      alt={pillar.title} 
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
                   </div>
 
-                  <h3 className="font-serif text-2xl text-white mb-4 group-hover:text-[#D4AF37] transition-colors duration-500">
-                    {pillar.title}
-                  </h3>
-                  
-                  <p className="font-sans text-neutral-400 text-sm leading-[1.8] font-light">
-                    {pillar.description}
-                  </p>
-                  
-                  {/* Decorative Bottom Corner Accent */}
-                  <div className="absolute bottom-6 right-6 w-8 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Card Content Padding Wrapper */}
+                  <div className="p-6 sm:p-8 flex-grow flex flex-col justify-between relative z-10">
+                    {/* Ambient internal card glow */}
+                    <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
 
+                    {/* Elegant decorative background pattern */}
+                    <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-500 z-0 pointer-events-none" />
+
+                    {/* Corner bracket decorations */}
+                    <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-xl z-10" />
+                    <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-xl z-10" />
+                    <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-xl z-10" />
+                    <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-xl z-10" />
+
+                    <div>
+                      {/* Icon & Title Row */}
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-10 h-10 rounded-xl border border-[#D4AF37]/25 bg-black/60 flex items-center justify-center text-[#D4AF37] group-hover:border-[#D4AF37] transition-all duration-500 shadow-md">
+                          <Icon className="w-5 h-5 text-[#D4AF37]" />
+                        </div>
+                        <h3 className="font-serif text-xl sm:text-2xl text-white group-hover:text-[#D4AF37] transition-colors duration-500">
+                          {pillar.title}
+                        </h3>
+                      </div>
+                      
+                      <p className="font-sans text-neutral-400 text-sm leading-[1.8] font-light">
+                        {pillar.description}
+                      </p>
+                    </div>
+                    
+                    {/* Decorative Bottom Corner Accent */}
+                    <div className="absolute bottom-6 right-6 w-8 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
                 </motion.div>
               );
             })}
