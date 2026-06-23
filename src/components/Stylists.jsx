@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Calendar, Sparkles } from 'lucide-react';
 
@@ -29,6 +30,33 @@ const stylists = [
 ];
 
 export default function Stylists() {
+  const scrollContainerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const totalScrollable = scrollWidth - clientWidth;
+      
+      if (totalScrollable > 0) {
+        setScrollProgress((scrollLeft / totalScrollable) * 100);
+      } else {
+        setScrollProgress(0);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setScrollProgress(0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+    const timer = setTimeout(() => {
+      handleScroll();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="stylists" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
       {/* Background Glow */}
@@ -49,7 +77,11 @@ export default function Stylists() {
         </div>
 
         {/* Stylists Grid (Swiper Carousel on Mobile) */}
-        <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-8 md:pb-0 px-2 md:px-0">
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-8 md:pb-0 px-2 md:px-0"
+        >
           {stylists.map((stylist, index) => (
             <motion.div
               key={stylist.name}
@@ -117,6 +149,22 @@ export default function Stylists() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Scroll Progress Bar Indicator & Swipe Hint */}
+        <div className="max-w-md mx-auto mt-8 px-6 md:hidden">
+          <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
+            <motion.div 
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+              style={{ width: `${scrollProgress}%` }}
+              layoutId="stylists-progress"
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            />
+          </div>
+          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest">
+            <span>← Swipe Left</span>
+            <span>Swipe Right →</span>
+          </div>
         </div>
 
       </div>
