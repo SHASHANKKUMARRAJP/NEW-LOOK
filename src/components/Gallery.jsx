@@ -194,10 +194,11 @@ const mapFirestoreDocsToCategories = (docs) => {
 // ==========================================
 // CUSTOM GALLERY VIDEO ITEM PLAYER
 // ==========================================
-function GalleryVideoItem({ item, index }) {
+function GalleryVideoItem({ item, index, activeVideoId, setActiveVideoId }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
+  const videoId = item.id || item.image || item.title;
 
   useEffect(() => {
     if (videoRef.current) {
@@ -215,13 +216,38 @@ function GalleryVideoItem({ item, index }) {
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (activeVideoId && activeVideoId !== videoId) {
+      setIsMuted(true);
+      setIsPlaying(false);
+    }
+  }, [activeVideoId, videoId]);
+
   const handleCardClick = () => {
-    setIsPlaying(!isPlaying);
+    const nextPlaying = !isPlaying;
+    setIsPlaying(nextPlaying);
+    if (nextPlaying) {
+      setIsMuted(false);
+      setActiveVideoId(videoId);
+    } else {
+      if (activeVideoId === videoId) {
+        setActiveVideoId(null);
+      }
+    }
   };
 
   const handleMuteToggle = (e) => {
     e.stopPropagation(); // Prevent card play/pause toggle
-    setIsMuted(!isMuted);
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (!nextMuted) {
+      setIsPlaying(true);
+      setActiveVideoId(videoId);
+    } else {
+      if (activeVideoId === videoId) {
+        setActiveVideoId(null);
+      }
+    }
   };
 
   return (
@@ -329,6 +355,11 @@ function GalleryVideoItem({ item, index }) {
 export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeTab, setActiveTab] = useState('work');
   const [categories, setCategories] = useState(initialGalleryCategories);
+  const [activeVideoId, setActiveVideoId] = useState(null);
+
+  useEffect(() => {
+    setActiveVideoId(null);
+  }, [activeTab]);
 
   const scrollContainerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -589,6 +620,8 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                         key={item.id || item.title + index}
                         item={item}
                         index={index}
+                        activeVideoId={activeVideoId}
+                        setActiveVideoId={setActiveVideoId}
                       />
                     );
                   }
@@ -602,48 +635,10 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                       className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
                       whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
                     >
-                      {/* Animated Shimmer Overlay */}
-                      <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
-                      
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
                         style={{ backgroundImage: `url('${item.image || ''}')` }}
                       />
-
-                      {/* Default Subtle Vignette */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-
-                      {/* Hover Luxury Gold Overlay on desktop, semi-transparent and always visible on mobile */}
-                      <div className="absolute inset-0 bg-black/60 md:bg-black/75 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 border border-neonOrange/20 rounded-2xl pointer-events-none">
-                        
-                        {/* Header info */}
-                        <div className="flex justify-between items-start">
-                          <span className="font-cyber tracking-[0.2em] text-[9px] text-neonOrange uppercase">
-                            {item.category}
-                          </span>
-                          <Sparkles className="w-3.5 h-3.5 text-neonOrange/60" />
-                        </div>
-
-                        {/* Bottom detail and micro-stats */}
-                        <div>
-                          <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
-                            {item.title}
-                          </h3>
-
-                          <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
-                            <div className="flex items-center space-x-1.5 text-neutral-400">
-                              <Heart className="w-4 h-4" />
-                              <span className="font-sans text-xs font-light">{item.likes}</span>
-                            </div>
-
-                            <div className="flex items-center space-x-1.5 text-neutral-400">
-                              <MessageCircle className="w-4 h-4" />
-                              <span className="font-sans text-xs font-light">{item.comments}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
                     </motion.div>
                   );
                 })

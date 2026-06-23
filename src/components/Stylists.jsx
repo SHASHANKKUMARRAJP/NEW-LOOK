@@ -48,8 +48,8 @@ export default function Stylists() {
           <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
         </div>
 
-        {/* Stylists Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Stylists Grid (Swiper Carousel on Mobile) */}
+        <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-8 md:pb-0 px-2 md:px-0">
           {stylists.map((stylist, index) => (
             <motion.div
               key={stylist.name}
@@ -57,7 +57,7 @@ export default function Stylists() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-              className="group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:border-neonOrange/50 flex flex-col justify-end transition-all duration-500 backdrop-blur-md"
+              className="snap-start shrink-0 w-[290px] md:w-full group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:border-neonOrange/50 flex flex-col justify-end transition-all duration-500 backdrop-blur-md"
               whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.4, ease: 'easeOut' } }}
             >
               {/* Animated Shimmer Overlay */}
