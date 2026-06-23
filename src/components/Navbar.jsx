@@ -46,13 +46,17 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 px-4 md:px-6 w-full ${
           isScrolled 
-            ? 'bg-black/70 backdrop-blur-xl border-b border-[#D4AF37]/30 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]' 
-            : 'bg-black/45 backdrop-blur-xl border-b border-white/10 py-4 md:py-5'
+            ? 'top-4 max-w-5xl mx-auto' 
+            : 'top-0 max-w-7xl mx-auto md:top-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className={`w-full flex items-center justify-between transition-all duration-500 ${
+          isScrolled
+            ? 'rounded-full border border-[#D4AF37]/35 bg-black/85 backdrop-blur-xl px-8 py-2.5 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.95),0_0_20px_rgba(212,175,55,0.1)]'
+            : 'rounded-full border border-white/10 bg-black/40 backdrop-blur-xl px-8 py-3.5 shadow-lg'
+        }`}>
           {/* Logo / Monogram */}
           <a href="#home" className="flex items-center space-x-3 group">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-neonOrange to-[#F3E5AB] flex items-center justify-center p-[1px] transition-transform duration-500 group-hover:rotate-180">

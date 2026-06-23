@@ -14,7 +14,7 @@ export default function Hero() {
         {/* Full Color Background Image - Premium luxury styling salon interior */}
         <div 
           className="absolute inset-0 bg-cover bg-[center_top] md:bg-center opacity-90 brightness-[0.95] contrast-[1.05] saturate-[1.05]"
-          style={{ backgroundImage: "url('/luxury_parlour_bg.png')" }}
+          style={{ backgroundImage: "url('/premium_spa_hero.png')" }}
         />
         
         {/* Balanced Gradients for text contrast */}
@@ -102,3 +102,4 @@ export default function Hero() {
     </section>
   );
 }
+

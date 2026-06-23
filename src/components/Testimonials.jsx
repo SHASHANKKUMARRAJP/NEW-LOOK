@@ -4,68 +4,131 @@ import { Quote, Star, ExternalLink } from 'lucide-react';
 const MAPS_LINK = "https://www.google.com/maps/place/New+Look+ladies+beauty+Parlour/@13.0114012,77.4726155,12z/data=!4m12!1m2!2m1!1snew+look+salon+bangalore+lingarajapuram!3m8!1s0x3bae178985ac7289:0xf74808b806c215!8m2!3d13.0114012!4d77.6250508!9m1!1b1!15sCiduZXcgbG9vayBzYWxvbiBiYW5nYWxvcmUgbGluZ2FyYWphcHVyYW1aKSInbmV3IGxvb2sgc2Fsb24gYmFuZ2Fsb3JlIGxpbmdhcmFqYXB1cmFtkgEMYmVhdXR5X3NhbG9umgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJ0S2RWSXdTbXBXYkU0eFlsUldkMUZZUmpCTVdHUnhXbXhzU21Fell4QULgAQD6AQQIRBAp!16s%2Fg%2F11gtz9p47g?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D";
 
 export default function Testimonials() {
+  // Variants for staggered star entry
+  const starVariants = {
+    hidden: { scale: 0, opacity: 0, rotate: -20 },
+    visible: (i) => ({
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      transition: {
+        delay: i * 0.12,
+        type: "spring",
+        stiffness: 180,
+        damping: 12
+      }
+    })
+  };
+
   return (
-    <section id="testimonials" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
-      {/* Background glow orb */}
-      <div className="glow-orb w-[400px] h-[400px] bg-neonOrange/5 top-1/4 left-1/4" />
+    <section id="testimonials" className="relative py-24 bg-[#030303] overflow-hidden border-t border-white/5">
+      {/* Background glow orbs */}
+      <div className="glow-orb w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-cyberOrange/5 top-1/4 left-1/4" />
+      <div className="glow-orb w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-[#D4AF37]/5 bottom-10 right-10" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
         
         {/* Section Header */}
         <div className="mb-16">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-neonOrange uppercase block mb-3">Prestige Reviews</span>
-          <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
-            GUEST EXPERIENCES
+          <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase block mb-3 font-medium">
+            Prestige Reviews
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight">
+            Guest <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Experiences</span>
           </h2>
-          <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
+          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-6" />
         </div>
 
         {/* Testimonial Link Card */}
         <div className="relative flex flex-col justify-center items-center">
-          <div className="absolute top-0 text-neonOrange/15">
-            <Quote className="w-20 h-20 rotate-180" />
-          </div>
+          
+          {/* Animated Background Quote Icon */}
+          <motion.div 
+            animate={{ 
+              y: [0, -6, 0],
+              rotate: [180, 182, 180]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-0 text-[#D4AF37]/5 pointer-events-none select-none"
+          >
+            <Quote className="w-24 h-24 rotate-180" />
+          </motion.div>
 
+          {/* Interactive Card */}
           <motion.a
             href={MAPS_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.03, y: -8 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mt-12 relative w-full max-w-2xl mx-auto p-12 rounded-2xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 flex flex-col items-center cursor-pointer group transition-all duration-500 backdrop-blur-md overflow-hidden"
+            whileHover={{ scale: 1.02, y: -10 }}
+            whileTap={{ scale: 0.98 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 relative w-full max-w-2xl mx-auto p-10 md:p-14 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 via-[#0a0907]/98 to-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_20px_rgba(212,175,55,0.02)] hover:shadow-[0_25px_60px_-10px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 flex flex-col items-center cursor-pointer group transition-all duration-500 backdrop-blur-md overflow-hidden"
           >
             {/* Ambient internal card glow */}
             <div className="absolute -right-12 -bottom-12 w-32 h-32 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
 
-            {/* Elegant decorative background pattern */}
-            <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-500 z-0 pointer-events-none" />
+            {/* Elegant decorative background noise grid */}
+            <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
 
             {/* Animated Shimmer Overlay */}
-            <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/5 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
+            <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/8 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
 
             {/* Corner bracket decorations */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-xl z-10" />
-            <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-xl z-10" />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-xl z-10" />
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-xl z-10" />
+            <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
+            <div className="absolute top-0 right-0 w-4.5 h-4.5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
+            <div className="absolute bottom-0 left-0 w-4.5 h-4.5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
+            <div className="absolute bottom-0 right-0 w-4.5 h-4.5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
 
-            {/* Stars */}
-            <div className="flex items-center space-x-1.5 mb-8 relative z-10">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-neonOrange text-neonOrange text-glow" />
-              ))}
+            {/* Stars Entry showing 4.1 rating (4 filled stars + 1 outline star + a numeric rating badge) */}
+            <div className="flex items-center gap-3 mb-8 relative z-10">
+              <div className="flex items-center space-x-1.5">
+                {[...Array(4)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={starVariants}
+                  >
+                    <Star className="w-6 h-6 fill-[#D4AF37] text-[#D4AF37] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]" />
+                  </motion.div>
+                ))}
+                {/* 5th Star: Outline to reflect 4.1 score */}
+                <motion.div
+                  custom={4}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={starVariants}
+                >
+                  <Star className="w-6 h-6 text-[#D4AF37]/45" />
+                </motion.div>
+              </div>
+
+              {/* Numeric 4.1 badge */}
+              <span className="font-serif text-[#D4AF37] text-sm font-semibold tracking-wider bg-[#D4AF37]/10 px-2.5 py-0.5 rounded border border-[#D4AF37]/25 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+                4.1 / 5
+              </span>
             </div>
 
-            {/* Review Text */}
-            <h3 className="font-cyber font-bold tracking-widest text-lg md:text-xl uppercase text-white mb-4 flex items-center gap-3 relative z-10">
-              Press this card to view reviews
-              <ExternalLink className="w-6 h-6 text-neonOrange group-hover:translate-x-1 transition-transform duration-300" />
+            {/* Review Title with Arrow animation */}
+            <h3 className="font-serif tracking-wide text-lg md:text-2xl text-white mb-4 flex items-center gap-3 relative z-10 font-normal">
+              <span className="group-hover:text-[#FFF1C5] transition-colors duration-300">
+                Press this card to view reviews
+              </span>
+              <ExternalLink className="w-5 h-5 text-[#D4AF37] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
             </h3>
             
-            <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 text-sm md:text-base tracking-[0.03em] font-light max-w-md relative z-10">
+            {/* Description */}
+            <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 text-xs md:text-sm tracking-[0.03em] font-light max-w-md relative z-10 leading-relaxed">
               Read what our lovely guests have to say about their luxury experiences at New Look Beauty Parlour on Google.
             </p>
           </motion.a>

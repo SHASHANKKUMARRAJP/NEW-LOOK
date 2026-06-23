@@ -8,10 +8,38 @@ const serviceCategories = [
     name: 'Hair Couture',
     icon: Scissors,
     services: [
-      { name: 'Signature Haute Haircut', price: '$120+', desc: 'Precision cut tailored to facial structure, includes luxurious wash and blowout.' },
-      { name: 'Balayage Artisan Color', price: '$260+', desc: 'Bespoke hand-painted highlights for natural, sun-kissed dimensions.' },
-      { name: 'Royal Keratin Therapy', price: '$350+', desc: 'Premium smoothing treatment to eliminate frizz and infuse high-gloss shine.' },
-      { name: 'Elixir Hair & Scalp Ritual', price: '$95+', desc: 'Deep botanical conditioning treatment paired with active micro-circulation massage.' }
+      { 
+        name: 'Hair Styling', 
+        price: '$70', 
+        desc: 'Stylish hair for confidence',
+        duration: '60 MNS',
+        provider: 'Nusrat Jahan',
+        image: '/service_hair.png'
+      },
+      { 
+        name: 'Signature Haute Haircut', 
+        price: '$120', 
+        desc: 'Precision cut tailored to facial structure, wash and blowout.',
+        duration: '60 MNS',
+        provider: 'Nusrat Jahan',
+        image: '/gallery_hair.png'
+      },
+      { 
+        name: 'Balayage Artisan Color', 
+        price: '$260', 
+        desc: 'Bespoke hand-painted highlights for natural, sun-kissed dimensions.',
+        duration: '120 MNS',
+        provider: 'Marcus Cole',
+        image: '/service_balayage.png'
+      },
+      { 
+        name: 'Royal Keratin Therapy', 
+        price: '$350', 
+        desc: 'Premium smoothing treatment to eliminate frizz and infuse high-gloss shine.',
+        duration: '90 MNS',
+        provider: 'Nusrat Jahan',
+        image: '/service_keratin.png'
+      }
     ]
   },
   {
@@ -19,10 +47,38 @@ const serviceCategories = [
     name: 'Skin Rituals',
     icon: Sun,
     services: [
-      { name: 'Ocular Glow Hydrafacial', price: '$180+', desc: 'Multi-step skin resurfacing treatment combining vacuum extraction and peptide infusion.' },
-      { name: 'Bio-Organic Lift Facial', price: '$220+', desc: 'Advanced contouring massage using natural enzymes and marine collagen masks.' },
-      { name: 'Gold Leaf Rejuvenation', price: '$320+', desc: 'Pure 24k gold leaf skin facial designed for cellular renewal and luxury radiance.' },
-      { name: 'Micro-Dermabrasion Glow', price: '$150+', desc: 'Intense mechanical exfoliation to eliminate dead skin cells and reveal fresh tone.' }
+      { 
+        name: 'Facial Treatment', 
+        price: '$65', 
+        desc: 'Deep Skin Hydration Therapy',
+        duration: '60 MNS',
+        provider: 'Nabila Karim',
+        image: '/service_facial.png'
+      },
+      { 
+        name: 'Ocular Glow Hydrafacial', 
+        price: '$180', 
+        desc: 'Multi-step skin resurfacing treatment combining vacuum extraction and peptide infusion.',
+        duration: '75 MNS',
+        provider: 'Nabila Karim',
+        image: '/service_hydrafacial.png'
+      },
+      { 
+        name: 'Bio-Organic Lift Facial', 
+        price: '$220', 
+        desc: 'Advanced contouring massage using natural enzymes and marine collagen masks.',
+        duration: '90 MNS',
+        provider: 'Samantha Vance',
+        image: '/service_lift_facial.png'
+      },
+      { 
+        name: 'Gold Leaf Rejuvenation', 
+        price: '$320', 
+        desc: 'Pure 24k gold leaf skin facial designed for cellular renewal and luxury radiance.',
+        duration: '90 MNS',
+        provider: 'Samantha Vance',
+        image: '/service_gold_facial.png'
+      }
     ]
   },
   {
@@ -30,10 +86,38 @@ const serviceCategories = [
     name: 'Bridal Artistry',
     icon: Sparkles,
     services: [
-      { name: 'Empress Bridal Makeup', price: '$450+', desc: 'HD and Airbrush bridal application including trial, contour, and false lashes.' },
-      { name: 'Imperial Bridal Hairstyle', price: '$250+', desc: 'Prestige hairdressing, veil draping, and placement of bridal hair accessories.' },
-      { name: 'Pre-Bridal Glow Package', price: '$600+', desc: 'Multi-session full body massage, customized facial, and deep conditioning salon hair spa.' },
-      { name: 'Royal Bridal Companion', price: '$950+', desc: 'Full-day stylist assistance for touch-ups, outfit changes, and hair transitions.' }
+      { 
+        name: 'Empress Bridal Makeup', 
+        price: '$450', 
+        desc: 'HD and Airbrush bridal application including trial, contour, and false lashes.',
+        duration: '150 MNS',
+        provider: 'Victoria Sterling',
+        image: '/service_bridal_makeup.png'
+      },
+      { 
+        name: 'Imperial Bridal Hairstyle', 
+        price: '$250', 
+        desc: 'Prestige hairdressing, veil draping, and placement of bridal hair accessories.',
+        duration: '90 MNS',
+        provider: 'Nusrat Jahan',
+        image: '/service_bridal_hair.png'
+      },
+      { 
+        name: 'Pre-Bridal Glow Package', 
+        price: '$600', 
+        desc: 'Multi-session full body massage, customized facial, and deep conditioning salon hair spa.',
+        duration: '240 MNS',
+        provider: 'Victoria & Samantha',
+        image: '/service_bridal_spa.png'
+      },
+      { 
+        name: 'Royal Bridal Companion', 
+        price: '$950', 
+        desc: 'Full-day stylist assistance for touch-ups, outfit changes, and hair transitions.',
+        duration: 'ALL DAY',
+        provider: 'Victoria Sterling',
+        image: '/service_bridal_companion.png'
+      }
     ]
   },
   {
@@ -41,10 +125,38 @@ const serviceCategories = [
     name: 'Glamour Makeup',
     icon: Wand2,
     services: [
-      { name: 'Red Carpet Glamour', price: '$160+', desc: 'High-contrast fashion makeup for special galas, proms, and upscale photography.' },
-      { name: 'Airbrush Perfection', price: '$190+', desc: 'Flawless, water-resistant base makeup with ultra-thin weightless coverage.' },
-      { name: 'Editorial Fashion Look', price: '$220+', desc: 'Creative, thematic face design tailored to fashion runways and magazines.' },
-      { name: 'Prestige Lash & Brow Tint', price: '$85+', desc: 'Semi-permanent styling, shaping, and premium tinting for fuller eyes.' }
+      { 
+        name: 'Makeup', 
+        price: '$55', 
+        desc: 'Deep Skin Hydration Therapy',
+        duration: '60 MNS',
+        provider: 'Tanvir Hasan',
+        image: '/service_makeup.png'
+      },
+      { 
+        name: 'Eyelash', 
+        price: '$82', 
+        desc: 'Deep Skin Hydration Therapy',
+        duration: '60 MNS',
+        provider: 'Sophia Blake',
+        image: '/service_eyelash.png'
+      },
+      { 
+        name: 'Red Carpet Glamour', 
+        price: '$160', 
+        desc: 'High-contrast fashion makeup for special galas, proms, and upscale photography.',
+        duration: '90 MNS',
+        provider: 'Tanvir Hasan',
+        image: '/service_glamour_makeup.png'
+      },
+      { 
+        name: 'Airbrush Perfection', 
+        price: '$190', 
+        desc: 'Flawless, water-resistant base makeup with ultra-thin weightless coverage.',
+        duration: '75 MNS',
+        provider: 'Sophia Blake',
+        image: '/service_airbrush.png'
+      }
     ]
   }
 ];
@@ -96,14 +208,14 @@ export default function Services() {
   return (
     <section id="services" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
       {/* Ambient background light */}
-      <div className="glow-orb w-[500px] h-[500px] bg-neonOrange/5 bottom-0 left-0" />
-      <div className="glow-orb w-[400px] h-[400px] bg-cyberOrange/[0.02] top-12 right-12" />
+      <div className="glow-orb w-[500px] h-[500px] bg-neonOrange/5 bottom-0 left-0 pointer-events-none" />
+      <div className="glow-orb w-[400px] h-[400px] bg-cyberOrange/[0.02] top-12 right-12 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase block mb-3">Our Services</span>
+          <span className="font-cyber tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase block mb-3">Our Menu</span>
           <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
             THE <span className="text-gradient">PLATINUM</span> SERVICES MENU
           </h2>
@@ -113,8 +225,8 @@ export default function Services() {
           <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
         </div>
 
-        {/* Tab Buttons with sliding indicator */}
-        <div className="flex flex-wrap justify-center gap-4 mb-20">
+        {/* Tab Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
           {serviceCategories.map((category) => {
             const Icon = category.icon;
             const isActive = activeCategory === category.id;
@@ -122,21 +234,13 @@ export default function Services() {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center space-x-3 px-6 py-3.5 rounded-full text-xs font-cyber tracking-widest uppercase transition-all duration-500 relative z-10 ${
-                  isActive ? 'text-white' : 'text-neutral-400 hover:text-white'
+                className={`flex items-center space-x-3 px-6 py-3 rounded-full text-xs font-cyber tracking-widest uppercase transition-all duration-300 relative z-10 ${
+                  isActive 
+                    ? 'text-white bg-gradient-to-r from-[#D4AF37]/20 to-[#FF4500]/15 border border-[#D4AF37]/45 shadow-[0_0_20px_rgba(212,175,55,0.25)]' 
+                    : 'text-neutral-400 border border-white/5 bg-white/[0.01] hover:text-white hover:border-[#D4AF37]/20'
                 }`}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="activeServiceTab"
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D4AF37]/20 to-[#FF4500]/15 border border-[#D4AF37]/40 shadow-[0_0_25px_rgba(212,175,55,0.25)] -z-10"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                {!isActive && (
-                  <span className="absolute inset-0 rounded-full border border-white/5 bg-white/[0.01] -z-10 hover:border-white/10 transition-colors duration-300" />
-                )}
-                <Icon className={`w-4.5 h-4.5 transition-transform duration-300 ${isActive ? 'text-neonOrange scale-110' : 'text-neutral-400'}`} />
+                <Icon className={`w-4.5 h-4.5 transition-transform duration-300 ${isActive ? 'text-[#D4AF37] scale-110' : ''}`} />
                 <span>{category.name}</span>
               </button>
             );
@@ -153,7 +257,7 @@ export default function Services() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 onClick={() => scroll('left')}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] backdrop-blur-md flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
                 aria-label="Previous service"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -169,7 +273,7 @@ export default function Services() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
                 onClick={() => scroll('right')}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] backdrop-blur-md flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
                 aria-label="Next service"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -187,87 +291,60 @@ export default function Services() {
                 hidden: { opacity: 0 },
                 visible: {
                   opacity: 1,
-                  transition: {
-                    staggerChildren: 0.08
-                  }
+                  transition: { staggerChildren: 0.05 }
                 },
                 exit: {
                   opacity: 0,
-                  transition: {
-                    duration: 0.2
-                  }
+                  transition: { duration: 0.15 }
                 }
               }}
               ref={scrollContainerRef}
               onScroll={handleScroll}
               className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2"
             >
-              {activeData.services.map((service, idx) => (
+              {activeData.services.map((service) => (
                 <motion.div
                   key={service.name}
                   variants={{
                     hidden: { opacity: 0, y: 15 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
                   }}
-                  whileHover="hover"
-                  className="snap-start shrink-0 w-[280px] md:w-[340px] min-h-[380px] p-8 rounded-2xl flex flex-col justify-between group relative overflow-hidden border border-white/5 hover:border-[#D4AF37]/35 bg-gradient-to-br from-[#12100c]/40 via-[#0a0907]/50 to-[#050505]/60 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] backdrop-blur-md transition-all duration-500 cursor-pointer"
+                  className="snap-start shrink-0 w-[290px] md:w-[350px] min-h-[440px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/40 via-[#0a0907]/50 to-[#050505]/60 border border-white/5 hover:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1.5 group"
                 >
-                  {/* Ambient internal card glow */}
-                  <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/3 blur-2xl group-hover:bg-[#D4AF37]/10 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
+                  {/* Top: Image Section */}
+                  <div className="w-full h-48 relative overflow-hidden border-b border-white/5">
+                    <img 
+                      src={service.image} 
+                      alt={service.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
 
-                  {/* Elegant decorative background pattern */}
-                  <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.01] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
-
-                  {/* Animated Shimmer Overlay */}
-                  <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
-
-                  {/* Corner bracket decorations */}
-                  <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/10 group-hover:border-[#D4AF37]/50 transition-all duration-500 rounded-tl-xl z-10" />
-                  <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/10 group-hover:border-[#D4AF37]/50 transition-all duration-500 rounded-tr-xl z-10" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/10 group-hover:border-[#D4AF37]/50 transition-all duration-500 rounded-bl-xl z-10" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/10 group-hover:border-[#D4AF37]/50 transition-all duration-500 rounded-br-xl z-10" />
-
-                  <div className="relative z-10 flex flex-col h-full pl-6 border-l border-white/5 group-hover:border-[#D4AF37]/20 transition-all duration-500">
-                    {/* Top Accent, Numbering & Price */}
-                    <div className="flex justify-between items-center mb-5">
-                      <div className="flex items-center space-x-2">
-                        <span className="font-cyber text-[9px] tracking-[0.2em] text-[#D4AF37]/40 group-hover:text-[#D4AF37]/80 transition-all duration-500 uppercase">
-                          Experience
-                        </span>
-                        <span className="text-[#D4AF37]/20 group-hover:text-[#D4AF37]/40">•</span>
-                        <span className="font-serif italic text-xs text-neutral-500 group-hover:text-[#D4AF37] transition-all duration-500">
-                          {(idx + 1).toString().padStart(2, '0')}
+                  {/* Bottom: Content Details */}
+                  <div className="flex-grow p-6 flex flex-col justify-between">
+                    <div>
+                      {/* Name & Price */}
+                      <div className="flex justify-between items-start gap-4 mb-2">
+                        <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300">
+                          {service.name}
+                        </h3>
+                        <span className="font-cyber text-[12px] md:text-[13px] tracking-widest text-[#D4AF37] bg-white/[0.02] border border-white/5 px-2.5 py-1 rounded-md shrink-0">
+                          {service.price}
                         </span>
                       </div>
-                      
-                      {/* Metallic Luxury Price Tag */}
-                      <span className="font-cyber text-[10px] tracking-widest text-[#D4AF37] bg-white/[0.02] border border-white/5 px-3 py-1.5 rounded-lg group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 transition-all duration-500 shadow-sm">
-                        {service.price}
-                      </span>
+
+                      {/* Description */}
+                      <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-500 text-xs md:text-sm leading-relaxed mt-2 font-light">
+                        {service.desc}
+                      </p>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="font-serif text-lg md:text-xl text-white group-hover:text-[#D4AF37] transition-all duration-500 mb-3 tracking-wide font-normal">
-                      {service.name}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-500 text-xs md:text-sm leading-relaxed font-light mt-1 flex-grow">
-                      {service.desc}
-                    </p>
-
-                    {/* Subtle Discover Experience CTA */}
-                    <div className="mt-8 flex items-center space-x-2 text-[10px] font-cyber tracking-[0.2em] text-neutral-500 group-hover:text-[#D4AF37] transition-colors duration-500 pt-4 border-t border-white/[0.03]">
-                      <span>EXPLORE EXPERIENCE</span>
-                      <motion.span 
-                        className="inline-block text-xs"
-                        variants={{
-                          hover: { x: 4 }
-                        }}
-                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                      >
-                        →
-                      </motion.span>
+                    {/* Duration / Provider Badge */}
+                    <div className="mt-6">
+                      <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#D4AF37] text-black text-[10px] font-cyber font-bold tracking-widest uppercase leading-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                        {service.duration} | {service.provider}
+                      </span>
                     </div>
                   </div>
                 </motion.div>
@@ -276,7 +353,7 @@ export default function Services() {
           </AnimatePresence>
         </div>
 
-        {/* Scroll Progress Bar Indicator & Swipe Hint */}
+        {/* Scroll Progress Bar Indicator & Swipe Instruction */}
         <div className="max-w-md mx-auto mt-8 px-6">
           <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
             <motion.div 
@@ -286,16 +363,15 @@ export default function Services() {
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
             />
           </div>
-          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
-            <span>← Swipe Left</span>
-            <span>Swipe Right →</span>
+          <div className="text-center mt-4 text-[10px] font-cyber text-[#D4AF37]/80 uppercase tracking-widest animate-pulse">
+            ← Swipe right and left to see more →
           </div>
         </div>
 
-        {/* Note subtext */}
-        <div className="text-center mt-16">
-          <p className="font-sans text-[9px] md:text-[10px] tracking-[0.3em] text-[#D4AF37]/60 uppercase max-w-xl mx-auto leading-relaxed">
-            * All experiences are bespoke. Complimentary private styling and consultations are provided to curate your personalized wellness journey.
+        {/* Notes bottom text */}
+        <div className="text-center mt-20">
+          <p className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/60 uppercase max-w-xl mx-auto leading-relaxed">
+            * All treatments are tailored to individual needs. Consultation is included with every session.
           </p>
         </div>
 
@@ -303,4 +379,5 @@ export default function Services() {
     </section>
   );
 }
+
 
