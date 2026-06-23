@@ -324,14 +324,11 @@ export default function Services() {
                   {/* Bottom: Content Details */}
                   <div className="flex-grow p-6 flex flex-col justify-between">
                     <div>
-                      {/* Name & Price */}
-                      <div className="flex justify-between items-start gap-4 mb-2">
+                      {/* Name */}
+                      <div className="mb-2">
                         <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300">
                           {service.name}
                         </h3>
-                        <span className="font-cyber text-[12px] md:text-[13px] tracking-widest text-[#D4AF37] bg-white/[0.02] border border-white/5 px-2.5 py-1 rounded-md shrink-0">
-                          {service.price}
-                        </span>
                       </div>
 
                       {/* Description */}
