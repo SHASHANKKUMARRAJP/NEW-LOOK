@@ -353,7 +353,7 @@ function GalleryVideoItem({ item, index, activeVideoId, setActiveVideoId }) {
 }
 
 export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
-  const [activeTab, setActiveTab] = useState('work');
+  const [activeTab, setActiveTab] = useState('parlour');
   const [categories, setCategories] = useState(initialGalleryCategories);
   const [activeVideoId, setActiveVideoId] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
