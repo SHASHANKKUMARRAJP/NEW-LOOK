@@ -27,7 +27,32 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none md:hidden" />
 
         {/* Animated Glowing Orbs for Depth */}
-        <div className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] rounded-full bg-[#D4AF37]/10 blur-[100px] animate-pulse-slow" />
+        <motion.div 
+          animate={{
+            x: [0, 30, -20, 0],
+            y: [0, -40, 20, 0],
+            scale: [1, 1.1, 0.9, 1]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] rounded-full bg-[#D4AF37]/10 blur-[120px] pointer-events-none" 
+        />
+        <motion.div 
+          animate={{
+            x: [0, -40, 30, 0],
+            y: [0, 30, -30, 0],
+            scale: [0.9, 1.05, 0.95, 0.9]
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-[#FF4500]/[0.03] blur-[100px] pointer-events-none" 
+        />
       </div>
 
       {/* 
@@ -86,7 +111,7 @@ export default function Hero() {
           >
             <a 
               href="#contact"
-              className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden rounded-full border border-[#D4AF37]/50 bg-[#111] text-[#D4AF37] font-sans tracking-[0.2em] text-[11px] uppercase transition-all duration-500 hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105"
+              className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden rounded-full border border-[#D4AF37]/40 bg-gradient-to-r from-[#D4AF37]/10 to-[#FF4500]/5 text-[#D4AF37] font-sans tracking-[0.2em] text-[11px] uppercase transition-all duration-500 hover:border-[#D4AF37] hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] hover:scale-105"
             >
               {/* Animated Light Sweep */}
               <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:animate-shimmer" />

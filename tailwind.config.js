@@ -19,6 +19,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'], // For modern, clean body text
         cyber: ['Montserrat', 'sans-serif'], // For high-impact bold headings
+        serif: ['Cormorant Garamond', 'serif'], // Luxury editorial serif
       },
       keyframes: {
         glow: {
