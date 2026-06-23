@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Scissors, Sun, Sparkles, Wand2 } from 'lucide-react';
+import { Scissors, Sun, Sparkles, Wand2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const serviceCategories = [
   {
@@ -51,6 +51,45 @@ const serviceCategories = [
 
 export default function Services() {
   const [activeCategory, setActiveCategory] = useState('hair');
+  const scrollContainerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const totalScrollable = scrollWidth - clientWidth;
+      
+      if (totalScrollable > 0) {
+        setScrollProgress((scrollLeft / totalScrollable) * 100);
+      } else {
+        setScrollProgress(0);
+      }
+
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth * 0.75 : clientWidth * 0.75;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    setScrollProgress(0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+    const timer = setTimeout(() => {
+      handleScroll();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
 
   const activeData = serviceCategories.find((cat) => cat.id === activeCategory);
 
@@ -104,8 +143,40 @@ export default function Services() {
           })}
         </div>
 
-        {/* Services List Panel */}
-        <div className="relative min-h-[400px]">
+        {/* Services List Panel with Swiper Carousel */}
+        <div className="relative min-h-[400px] group/carousel">
+          {/* Previous Button */}
+          <AnimatePresence>
+            {canScrollLeft && (
+              <motion.button
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onClick={() => scroll('left')}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Previous service"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Next Button */}
+          <AnimatePresence>
+            {canScrollRight && (
+              <motion.button
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                onClick={() => scroll('right')}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+                aria-label="Next service"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
@@ -127,7 +198,9 @@ export default function Services() {
                   }
                 }
               }}
-              className="grid md:grid-cols-2 gap-8"
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2"
             >
               {activeData.services.map((service, idx) => (
                 <motion.div
@@ -137,7 +210,7 @@ export default function Services() {
                     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
                   }}
                   whileHover="hover"
-                  className="p-8 rounded-2xl flex flex-col justify-between group relative overflow-hidden border border-white/5 hover:border-[#D4AF37]/35 bg-gradient-to-br from-[#12100c]/40 via-[#0a0907]/50 to-[#050505]/60 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] backdrop-blur-md transition-all duration-500 cursor-pointer"
+                  className="snap-start shrink-0 w-[280px] md:w-[340px] min-h-[380px] p-8 rounded-2xl flex flex-col justify-between group relative overflow-hidden border border-white/5 hover:border-[#D4AF37]/35 bg-gradient-to-br from-[#12100c]/40 via-[#0a0907]/50 to-[#050505]/60 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] backdrop-blur-md transition-all duration-500 cursor-pointer"
                 >
                   {/* Ambient internal card glow */}
                   <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/3 blur-2xl group-hover:bg-[#D4AF37]/10 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
@@ -201,6 +274,22 @@ export default function Services() {
               ))}
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Scroll Progress Bar Indicator & Swipe Hint */}
+        <div className="max-w-md mx-auto mt-8 px-6">
+          <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
+            <motion.div 
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+              style={{ width: `${scrollProgress}%` }}
+              layoutId="services-progress"
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            />
+          </div>
+          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
+            <span>← Swipe Left</span>
+            <span>Swipe Right →</span>
+          </div>
         </div>
 
         {/* Note subtext */}
