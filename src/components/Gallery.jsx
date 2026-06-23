@@ -356,10 +356,11 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeTab, setActiveTab] = useState('work');
   const [categories, setCategories] = useState(initialGalleryCategories);
   const [activeVideoId, setActiveVideoId] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   useEffect(() => {
     setActiveVideoId(null);
+    setSelectedImageIndex(null);
   }, [activeTab]);
 
   const scrollContainerRef = useRef(null);
@@ -494,6 +495,24 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
 
   const activeCategoryIndex = categories.findIndex((cat) => cat.id === activeTab);
   const activeData = categories[activeCategoryIndex] || { items: [] };
+
+  const photoItems = activeData.items.filter(item => !item.isVideo);
+  const selectedImage = selectedImageIndex !== null ? photoItems[selectedImageIndex] : null;
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'ArrowRight') {
+        setSelectedImageIndex((prev) => (prev === photoItems.length - 1 ? 0 : prev + 1));
+      } else if (e.key === 'ArrowLeft') {
+        setSelectedImageIndex((prev) => (prev === 0 ? photoItems.length - 1 : prev - 1));
+      } else if (e.key === 'Escape') {
+        setSelectedImageIndex(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, photoItems.length]);
 
   return (
     <section id="gallery" className="relative py-24 bg-deepSpace overflow-hidden border-t border-white/5">
@@ -635,7 +654,10 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                       transition={{ duration: 0.6, delay: index * 0.05 }}
                       className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
                       whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
-                      onClick={() => setSelectedImage(item)}
+                      onClick={() => {
+                        const idx = photoItems.findIndex(p => (p.id && p.id === item.id) || p.image === item.image);
+                        setSelectedImageIndex(idx !== -1 ? idx : 0);
+                      }}
                     >
                       {/* Blurred background backup to fill portrait space elegantly */}
                       <div
@@ -682,18 +704,47 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedImageIndex(null)}
               className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 cursor-zoom-out"
             >
               {/* Close Button in top right */}
               <button
-                onClick={() => setSelectedImage(null)}
+                onClick={() => setSelectedImageIndex(null)}
                 className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 border border-white/10 text-white hover:text-neonOrange hover:border-neonOrange/50 flex items-center justify-center transition-all cursor-pointer z-50 text-xl"
               >
                 ✕
               </button>
 
+              {/* Left Navigation Chevron */}
+              {photoItems.length > 1 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex((prev) => (prev === 0 ? photoItems.length - 1 : prev - 1));
+                  }}
+                  className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg"
+                  aria-label="Previous photo"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+              )}
+
+              {/* Right Navigation Chevron */}
+              {photoItems.length > 1 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex((prev) => (prev === photoItems.length - 1 ? 0 : prev + 1));
+                  }}
+                  className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:border-neonOrange/50 text-white hover:text-neonOrange flex items-center justify-center transition-all cursor-pointer z-50 shadow-lg"
+                  aria-label="Next photo"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              )}
+
               <motion.div
+                key={selectedImageIndex} // Key on index to trigger nice transition between photos
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
