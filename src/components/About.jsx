@@ -12,32 +12,6 @@ const stats = [
 
 export default function About() {
   const statsContainerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  const handleScroll = () => {
-    if (statsContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = statsContainerRef.current;
-      const totalScroll = scrollWidth - clientWidth;
-      if (totalScroll > 0) {
-        setScrollProgress((scrollLeft / totalScroll) * 100);
-      } else {
-        setScrollProgress(0);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const el = statsContainerRef.current;
-    if (el) {
-      el.addEventListener('scroll', handleScroll);
-      handleScroll();
-    }
-    return () => {
-      if (el) {
-        el.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
 
   const scrollStats = (direction) => {
     if (statsContainerRef.current) {
@@ -131,8 +105,7 @@ export default function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    className="w-[240px] sm:w-[265px] flex-shrink-0 snap-center relative p-5 sm:p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
+                    className="w-[240px] sm:w-[265px] flex-shrink-0 snap-center relative p-5 sm:p-8 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 to-[#050505] shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:md:border-[#D4AF37]/50 hover:md:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden cursor-pointer"
                   >
                     {/* Ambient internal card glow */}
                     <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
@@ -173,19 +146,6 @@ export default function About() {
                   </motion.div>
                 );
               })}
-            </div>
-
-            {/* Scroll Progress Bar & Helper text */}
-            <div className="mt-4 flex flex-col items-center justify-center gap-3 relative z-20">
-              <span className="font-sans text-[9px] uppercase tracking-[0.2em] text-neutral-500 animate-pulse select-none">
-                ← Swipe left and right to see stats →
-              </span>
-              <div className="w-24 h-[2px] bg-white/5 rounded-full overflow-hidden relative">
-                <div 
-                  className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] rounded-full transition-all duration-150"
-                  style={{ width: `${scrollProgress}%` }}
-                />
-              </div>
             </div>
 
           </div>

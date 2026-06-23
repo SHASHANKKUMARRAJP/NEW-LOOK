@@ -22,33 +22,6 @@ const pillars = [
 
 export default function Philosophy() {
   const containerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  const handleScroll = () => {
-    if (containerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      const totalScroll = scrollWidth - clientWidth;
-      if (totalScroll > 0) {
-        setScrollProgress((scrollLeft / totalScroll) * 100);
-      } else {
-        setScrollProgress(0);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (el) {
-      el.addEventListener('scroll', handleScroll);
-      // Run once initially to set starting state
-      handleScroll();
-    }
-    return () => {
-      if (el) {
-        el.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
 
   const scroll = (direction) => {
     if (containerRef.current) {
@@ -115,8 +88,7 @@ export default function Philosophy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="w-[290px] sm:w-[330px] md:w-[380px] flex-shrink-0 snap-center relative px-8 py-12 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/90 via-[#0a0907]/95 to-[#050505]/98 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(212,175,55,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 backdrop-blur-xl transition-all duration-500 flex flex-col justify-between group overflow-hidden cursor-pointer"
+                  className="w-[290px] sm:w-[330px] md:w-[380px] flex-shrink-0 snap-center relative px-8 py-12 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 to-[#050505] shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.15)] hover:md:border-[#D4AF37]/50 hover:md:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden cursor-pointer"
                 >
                   {/* Ambient internal card glow */}
                   <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
@@ -152,19 +124,6 @@ export default function Philosophy() {
                 </motion.div>
               );
             })}
-          </div>
-        </div>
-
-        {/* Scroll Progress Bar & Helper text */}
-        <div className="mt-8 flex flex-col items-center justify-center gap-4">
-          <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-neutral-500 animate-pulse select-none">
-            ← Swipe right and left to see more →
-          </span>
-          <div className="w-32 h-[2.5px] bg-white/5 rounded-full overflow-hidden relative">
-            <div 
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] rounded-full transition-all duration-150"
-              style={{ width: `${scrollProgress}%` }}
-            />
           </div>
         </div>
 

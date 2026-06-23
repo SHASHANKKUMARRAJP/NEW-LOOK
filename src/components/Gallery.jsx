@@ -256,8 +256,7 @@ function GalleryVideoItem({ item, index, activeVideoId, setActiveVideoId }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.05 }}
-      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
-      whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:md:shadow-[0_0_50px_rgba(212,175,55,0.2)] hover:md:border-neonOrange/60 cursor-pointer transition-all duration-300 hover:md:-translate-y-1 hover:md:scale-[1.02]"
       onClick={handleCardClick}
     >
       {/* Animated Shimmer Overlay */}
@@ -652,8 +651,7 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.6, delay: index * 0.05 }}
-                      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
-                      whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+                      className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:md:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:md:border-neonOrange/60 cursor-pointer transition-all duration-300 hover:md:-translate-y-1 hover:md:scale-[1.02]"
                       onClick={() => {
                         const idx = photoItems.findIndex(p => (p.id && p.id === item.id) || p.image === item.image);
                         setSelectedImageIndex(idx !== -1 ? idx : 0);

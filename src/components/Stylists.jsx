@@ -31,25 +31,6 @@ const stylists = [
 
 export default function Stylists() {
   const scrollContainerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const totalScrollable = scrollWidth - clientWidth;
-      
-      if (totalScrollable > 0) {
-        setScrollProgress((scrollLeft / totalScrollable) * 100);
-      } else {
-        setScrollProgress(0);
-      }
-
-      setCanScrollLeft(scrollLeft > 5);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-    }
-  };
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -60,14 +41,9 @@ export default function Stylists() {
   };
 
   useEffect(() => {
-    setScrollProgress(0);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft = 0;
     }
-    const timer = setTimeout(() => {
-      handleScroll();
-    }, 100);
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -92,40 +68,26 @@ export default function Stylists() {
         {/* Stylists Swiper Carousel */}
         <div className="relative min-h-[400px] group/carousel">
           {/* Previous Button */}
-          <AnimatePresence>
-            {canScrollLeft && (
-              <motion.button
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                onClick={() => scroll('left')}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
-                aria-label="Previous stylist"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          {/* Previous Button */}
+          <button
+            onClick={() => scroll('left')}
+            className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+            aria-label="Previous stylist"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
           {/* Next Button */}
-          <AnimatePresence>
-            {canScrollRight && (
-              <motion.button
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                onClick={() => scroll('right')}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white backdrop-blur-md flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
-                aria-label="Next stylist"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <button
+            onClick={() => scroll('right')}
+            className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
+            aria-label="Next stylist"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
           <div 
             ref={scrollContainerRef}
-            onScroll={handleScroll}
             className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
           >
             {stylists.map((stylist, index) => (
@@ -135,8 +97,7 @@ export default function Stylists() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-                className="snap-start shrink-0 w-[280px] md:w-[320px] group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:border-neonOrange/50 flex flex-col justify-end transition-all duration-500 backdrop-blur-md"
-                whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.4, ease: 'easeOut' } }}
+                className="snap-start shrink-0 w-[280px] md:w-[320px] group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:md:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:md:border-neonOrange/50 flex flex-col justify-end transition-all duration-300 hover:md:-translate-y-1.5"
               >
                 {/* Animated Shimmer Overlay */}
                 <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
@@ -198,20 +159,9 @@ export default function Stylists() {
           </div>
         </div>
 
-        {/* Scroll Progress Bar Indicator & Swipe Hint */}
-        <div className="max-w-md mx-auto mt-8 px-6">
-          <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
-            <motion.div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
-              style={{ width: `${scrollProgress}%` }}
-              layoutId="stylists-progress"
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            />
-          </div>
-          <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
-            <span>← Swipe Left</span>
-            <span>Swipe Right →</span>
-          </div>
+        {/* Swipe Hint */}
+        <div className="flex justify-center items-center mt-6 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
+          <span>← Swipe Left &amp; Right →</span>
         </div>
 
       </div>

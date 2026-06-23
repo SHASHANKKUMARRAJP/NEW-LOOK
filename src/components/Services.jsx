@@ -164,25 +164,6 @@ const serviceCategories = [
 export default function Services() {
   const [activeCategory, setActiveCategory] = useState('hair');
   const scrollContainerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const totalScrollable = scrollWidth - clientWidth;
-      
-      if (totalScrollable > 0) {
-        setScrollProgress((scrollLeft / totalScrollable) * 100);
-      } else {
-        setScrollProgress(0);
-      }
-
-      setCanScrollLeft(scrollLeft > 5);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-    }
-  };
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -193,14 +174,9 @@ export default function Services() {
   };
 
   useEffect(() => {
-    setScrollProgress(0);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft = 0;
     }
-    const timer = setTimeout(() => {
-      handleScroll();
-    }, 150);
-    return () => clearTimeout(timer);
   }, [activeCategory]);
 
   const activeData = serviceCategories.find((cat) => cat.id === activeCategory);
@@ -250,36 +226,22 @@ export default function Services() {
         {/* Services List Panel with Swiper Carousel */}
         <div className="relative min-h-[400px] group/carousel">
           {/* Previous Button */}
-          <AnimatePresence>
-            {canScrollLeft && (
-              <motion.button
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                onClick={() => scroll('left')}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] backdrop-blur-md flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
-                aria-label="Previous service"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <button
+            onClick={() => scroll('left')}
+            className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hidden md:flex"
+            aria-label="Previous service"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
           {/* Next Button */}
-          <AnimatePresence>
-            {canScrollRight && (
-              <motion.button
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                onClick={() => scroll('right')}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] backdrop-blur-md flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
-                aria-label="Next service"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <button
+            onClick={() => scroll('right')}
+            className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/85 text-[#D4AF37] flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hidden md:flex"
+            aria-label="Next service"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -299,7 +261,6 @@ export default function Services() {
                 }
               }}
               ref={scrollContainerRef}
-              onScroll={handleScroll}
               className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
             >
               {activeData.services.map((service) => (
@@ -309,7 +270,7 @@ export default function Services() {
                     hidden: { opacity: 0, y: 15 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
                   }}
-                  className="snap-start shrink-0 w-[290px] md:w-[350px] min-h-[440px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/40 via-[#0a0907]/50 to-[#050505]/60 border border-white/5 hover:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1.5 group"
+                  className="snap-start shrink-0 w-[290px] md:w-[350px] min-h-[440px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 border border-white/5 hover:md:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] transition-all duration-300 hover:md:-translate-y-1.5 group"
                 >
                   {/* Top: Image Section */}
                   <div className="w-full h-48 relative overflow-hidden border-b border-white/5">
@@ -348,21 +309,6 @@ export default function Services() {
               ))}
             </motion.div>
           </AnimatePresence>
-        </div>
-
-        {/* Scroll Progress Bar Indicator & Swipe Instruction */}
-        <div className="max-w-md mx-auto mt-8 px-6">
-          <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
-            <motion.div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
-              style={{ width: `${scrollProgress}%` }}
-              layoutId="services-progress"
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            />
-          </div>
-          <div className="text-center mt-4 text-[10px] font-cyber text-[#D4AF37]/80 uppercase tracking-widest animate-pulse">
-            ← Swipe right and left to see more →
-          </div>
         </div>
 
         {/* Notes bottom text */}
