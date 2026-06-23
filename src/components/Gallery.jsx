@@ -327,23 +327,11 @@ function GalleryVideoItem({ item, index, activeVideoId, setActiveVideoId }) {
           <Play className="w-3.5 h-3.5 text-neonOrange/60" />
         </div>
 
-        {/* Bottom detail and micro-stats */}
+        {/* Bottom detail */}
         <div>
-          <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-4">
+          <h3 className="font-cyber font-semibold tracking-wider text-xs md:text-sm text-white uppercase mb-0">
             {item.title}
           </h3>
-
-          <div className="flex items-center space-x-6 border-t border-white/5 pt-4">
-            <div className="flex items-center space-x-1.5 text-neutral-400">
-              <Heart className="w-4 h-4" />
-              <span className="font-sans text-xs font-light">{item.likes}</span>
-            </div>
-
-            <div className="flex items-center space-x-1.5 text-neutral-400">
-              <MessageCircle className="w-4 h-4" />
-              <span className="font-sans text-xs font-light">{item.comments}</span>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -778,14 +766,6 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                   <h3 className="font-serif text-lg md:text-2xl text-white font-normal tracking-wide">
                     {selectedImage.title}
                   </h3>
-                  <div className="flex justify-center items-center gap-6 mt-2 md:mt-3 text-neutral-400 font-sans text-xs">
-                    <span className="flex items-center gap-1.5">
-                      <Heart className="w-3.5 h-3.5 text-neonOrange/85" /> {selectedImage.likes}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <MessageCircle className="w-3.5 h-3.5" /> {selectedImage.comments}
-                    </span>
-                  </div>
                 </div>
               </motion.div>
             </motion.div>
