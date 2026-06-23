@@ -16,7 +16,7 @@ const initialGalleryCategories = [
         category: 'Interior Design',
         likes: '3.1k',
         comments: '112',
-        image: 'luxury_parlour_bg.png'
+        image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800'
       },
       {
         title: 'VIP Styling Suite',
@@ -51,7 +51,7 @@ const initialGalleryCategories = [
         category: 'Hair Couture',
         likes: '1.2k',
         comments: '48',
-        image: 'gallery_hair.png'
+        image: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&q=80&w=800'
       },
       {
         title: 'Flawless Editorial Glow',

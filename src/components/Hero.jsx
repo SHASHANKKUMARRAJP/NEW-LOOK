@@ -14,7 +14,7 @@ export default function Hero() {
         {/* Full Color Background Image - Enhanced brightness and contrast for visibility */}
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-100 brightness-[1.3] contrast-[1.05] saturate-[1.1]"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&q=80&w=2069')" }}
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=2069')" }}
         />
         
         {/* Balanced Left-to-Right Gradient Fade for Text Contrast */}
