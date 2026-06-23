@@ -356,6 +356,7 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeTab, setActiveTab] = useState('work');
   const [categories, setCategories] = useState(initialGalleryCategories);
   const [activeVideoId, setActiveVideoId] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     setActiveVideoId(null);
@@ -634,10 +635,19 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
                       transition={{ duration: 0.6, delay: index * 0.05 }}
                       className="snap-start shrink-0 w-[280px] md:w-[320px] h-[460px] md:h-[520px] group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_5px_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)] hover:border-neonOrange/60 cursor-pointer transition-all duration-500 backdrop-blur-md"
                       whileHover={{ scale: 1.03, y: -5, transition: { duration: 0.4, ease: 'easeOut' } }}
+                      onClick={() => setSelectedImage(item)}
                     >
+                      {/* Blurred background backup to fill portrait space elegantly */}
                       <div
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                        className="absolute inset-0 bg-cover bg-center filter blur-xl opacity-40 scale-105 pointer-events-none"
                         style={{ backgroundImage: `url('${item.image || ''}')` }}
+                      />
+                      
+                      {/* Uncropped main image in foreground */}
+                      <img
+                        src={item.image || ''}
+                        alt={item.title}
+                        className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 z-10 pointer-events-none"
                       />
                     </motion.div>
                   );
@@ -664,6 +674,60 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
             </div>
           </div>
         )}
+
+        {/* Premium Lightbox Modal */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImage(null)}
+              className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 cursor-zoom-out"
+            >
+              {/* Close Button in top right */}
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 border border-white/10 text-white hover:text-neonOrange hover:border-neonOrange/50 flex items-center justify-center transition-all cursor-pointer z-50 text-xl"
+              >
+                ✕
+              </button>
+
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="relative max-w-4xl max-h-[85vh] flex flex-col items-center cursor-default"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={selectedImage.image}
+                  alt={selectedImage.title}
+                  className="max-h-[70vh] w-auto object-contain rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+                />
+                
+                {/* Caption Details */}
+                <div className="text-center mt-6 max-w-xl px-4">
+                  <span className="font-cyber tracking-[0.2em] text-[10px] text-neonOrange uppercase block mb-1">
+                    {selectedImage.category}
+                  </span>
+                  <h3 className="font-serif text-xl md:text-2xl text-white font-normal tracking-wide">
+                    {selectedImage.title}
+                  </h3>
+                  <div className="flex justify-center items-center gap-6 mt-3 text-neutral-400 font-sans text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <Heart className="w-4 h-4 text-neonOrange/85" /> {selectedImage.likes}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MessageCircle className="w-4 h-4" /> {selectedImage.comments}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div>
     </section>
