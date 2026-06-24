@@ -1,6 +1,20 @@
 import { motion } from 'framer-motion';
 
 export default function About() {
+  const wordVariants = {
+    hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        delay: i * 0.12,
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    })
+  };
+
   return (
     <section id="about" className="relative py-24 md:py-32 bg-[#020202] overflow-hidden border-t border-white/5">
       {/* Background ambient light */}
@@ -54,7 +68,7 @@ export default function About() {
             />
             
             {/* Animated Quote */}
-            <motion.span 
+            <motion.div 
               animate={{
                 y: [0, -6, 0],
                 scale: [1, 1.03, 1],
@@ -69,13 +83,39 @@ export default function About() {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed"
+              className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed flex flex-col items-center select-none"
             >
-              "Beauty is an art, and <br /> 
-              <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] text-glow-subtle">
-                you are the canvas.
-              </span>"
-            </motion.span>
+              <div className="flex flex-wrap justify-center gap-x-2.5">
+                {`"Beauty is an art, and`.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={wordVariants}
+                    className="inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </div>
+              <div className="flex flex-wrap justify-center gap-x-2.5 mt-2">
+                {`you are the canvas."`.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i + 5}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={wordVariants}
+                    className="inline-block italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
             
             {/* Bottom Divider: Breathing/Expanding Gold Line */}
             <motion.div 
