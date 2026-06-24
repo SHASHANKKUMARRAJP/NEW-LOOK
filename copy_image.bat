@@ -12,6 +12,10 @@ copy "C:\Users\sshas\.gemini\antigravity-ide\brain\4f2052f4-ef77-4b7e-8ab8-9fc53
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\gallery_traditional_bride_1782300488912.png" "%~dp0public\gallery_traditional_bride.png"
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\bridal_glow_spa_1782301040651.png" "%~dp0public\service_pre_bridal_glow.png"
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\bridal_companion_traditional_1782301300780.png" "%~dp0public\service_bridal_companion.png"
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\bridal_makeup_traditional_1782301395922.png" "%~dp0public\service_bridal_makeup.png"
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\journey_transformation_1782301414563.png" "%~dp0public\journey_transformation.png"
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\philosophy_styling_1782301433053.png" "%~dp0public\philosophy_styling.png"
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\philosophy_products_1782301450357.png" "%~dp0public\philosophy_products.png"
 echo.
 echo Checking copied files...
 if exist "%~dp0public\premium_spa_hero.png" echo [SUCCESS] premium_spa_hero.png copied!
@@ -25,6 +29,10 @@ if exist "%~dp0public\gallery_nails.png" echo [SUCCESS] gallery_nails.png copied
 if exist "%~dp0public\gallery_traditional_bride.png" echo [SUCCESS] gallery_traditional_bride.png copied!
 if exist "%~dp0public\service_pre_bridal_glow.png" echo [SUCCESS] service_pre_bridal_glow.png copied!
 if exist "%~dp0public\service_bridal_companion.png" echo [SUCCESS] service_bridal_companion.png copied!
+if exist "%~dp0public\service_bridal_makeup.png" echo [SUCCESS] service_bridal_makeup.png copied!
+if exist "%~dp0public\journey_transformation.png" echo [SUCCESS] journey_transformation.png copied!
+if exist "%~dp0public\philosophy_styling.png" echo [SUCCESS] philosophy_styling.png copied!
+if exist "%~dp0public\philosophy_products.png" echo [SUCCESS] philosophy_products.png copied!
 echo.
 pause
 

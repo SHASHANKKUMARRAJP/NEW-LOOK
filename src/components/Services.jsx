@@ -92,7 +92,7 @@ const serviceCategories = [
         desc: 'HD and Airbrush bridal application including trial, contour, and false lashes.',
         duration: '150 MNS',
         provider: 'Victoria Sterling',
-        image: '/gallery_traditional_bride.png'
+        image: '/service_bridal_makeup.png'
       },
       { 
         name: 'Imperial Bridal Hairstyle', 

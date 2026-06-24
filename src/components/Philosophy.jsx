@@ -6,13 +6,13 @@ const pillars = [
   {
     icon: Sparkles,
     title: 'Personalized Styling',
-    image: '/service_hair.png',
+    image: '/philosophy_styling.png',
     description: 'We customize every haircut, style, and facial treatment to match your unique face shape, skin type, and personal preferences.'
   },
   {
     icon: Shield,
     title: 'Premium Products',
-    image: '/service_gold_facial.png',
+    image: '/philosophy_products.png',
     description: 'We only use top-quality, safe, and skin-friendly products that are organic and cruelty-free to protect and care for your skin and hair.'
   },
   {
