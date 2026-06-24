@@ -516,7 +516,7 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
             The Glamour <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Visual Feed</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
+          <p className="font-sans text-neutral-200 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
             Browse our real-time social gallery showcasing the finest hair, makeup, and skin transformations.
           </p>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />

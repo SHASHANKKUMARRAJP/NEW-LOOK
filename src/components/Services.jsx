@@ -197,7 +197,7 @@ export default function Services() {
           <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight mt-3">
             The Platinum <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Services Menu</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto leading-relaxed font-light">
+          <p className="font-sans text-neutral-200 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto leading-relaxed font-light">
             Indulge in a curated selection of premium salon offerings. Select a category below to explore our signature treatments.
           </p>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
@@ -295,7 +295,7 @@ export default function Services() {
                       </div>
 
                       {/* Description */}
-                      <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-500 text-xs md:text-sm leading-relaxed mt-2 font-light">
+                      <p className="font-sans text-neutral-300 group-hover:text-white transition-colors duration-500 text-xs md:text-sm leading-relaxed mt-2 font-light">
                         {service.desc}
                       </p>
                     </div>
@@ -315,7 +315,7 @@ export default function Services() {
 
         {/* Notes bottom text */}
         <div className="text-center mt-20">
-          <p className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/60 uppercase max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/90 uppercase max-w-xl mx-auto leading-relaxed">
             * All treatments are tailored to individual needs. Consultation is included with every session.
           </p>
         </div>

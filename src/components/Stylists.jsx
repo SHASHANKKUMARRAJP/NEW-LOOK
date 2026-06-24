@@ -61,7 +61,7 @@ export default function Stylists() {
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
             Master Stylists &amp; <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Artists</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
+          <p className="font-sans text-neutral-200 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
             Meet the award-winning professionals dedicated to sculpting your signature look with precision and care.
           </p>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />

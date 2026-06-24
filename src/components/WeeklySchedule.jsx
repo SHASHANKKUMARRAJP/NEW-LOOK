@@ -99,7 +99,7 @@ export default function WeeklySchedule() {
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
             Weekly <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Operating Hours</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-sm mx-auto font-light">
+          <p className="font-sans text-neutral-200 text-xs md:text-sm tracking-wide mt-6 max-w-sm mx-auto font-light">
             Walk in or book in advance — we're open all week to serve you.
           </p>
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />

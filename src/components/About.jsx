@@ -24,11 +24,11 @@ export default function About() {
             Legacy of <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Glamour & Prestige</span>
           </h2>
           
-          <p className="font-sans text-neutral-400 text-sm md:text-base leading-[1.8] font-light mb-6 max-w-2xl">
+          <p className="font-sans text-neutral-200 text-sm md:text-base leading-[1.8] font-light mb-6 max-w-2xl">
             For over a decade and a half, <strong>NEW LOOK Beauty Parlour</strong> has been synonymous with high-end beauty transformations and unmatched luxury. Situated at the crossroads of fashion and indulgence, we offer a sanctuary where style meets relaxation.
           </p>
           
-          <p className="font-sans text-neutral-400 text-sm md:text-base leading-[1.8] font-light mb-10 max-w-2xl">
+          <p className="font-sans text-neutral-200 text-sm md:text-base leading-[1.8] font-light mb-10 max-w-2xl">
             Our vision is simple: to make every client feel like royalty. Through continuous training in global hair and cosmetic trends, our artisans create looks that are not just beautiful, but deeply personal and empowering.
           </p>
           

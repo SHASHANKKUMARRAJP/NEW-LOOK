@@ -129,7 +129,7 @@ export default function Philosophy() {
                         </h3>
                       </div>
                       
-                      <p className="font-sans text-neutral-400 text-sm leading-[1.8] font-light">
+                      <p className="font-sans text-neutral-200 text-sm leading-[1.8] font-light">
                         {pillar.description}
                       </p>
                     </div>
