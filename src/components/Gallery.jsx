@@ -65,7 +65,7 @@ const initialGalleryCategories = [
         category: 'Bridal Artistry',
         likes: '3.8k',
         comments: '124',
-        image: 'https://images.unsplash.com/photo-1595085608756-744033230b42?auto=format&fit=crop&q=80&w=800'
+        image: '/gallery_traditional_bride.png'
       },
       {
         title: 'Designer Gold-Leaf Manicure',
