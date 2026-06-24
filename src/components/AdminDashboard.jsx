@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Image as ImageIcon, Camera, Play, Link as LinkIcon, Upload, Trash2, CheckCircle } from 'lucide-react';
+import { Lock, Image as ImageIcon, Camera, Play, Link as LinkIcon, Upload, Trash2, CheckCircle, Sparkles } from 'lucide-react';
 import { db, storage } from '../firebase';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { collection, addDoc, doc, deleteDoc } from 'firebase/firestore';
@@ -269,6 +269,7 @@ export default function AdminDashboard({ categories, saveToStorage, onLockPortal
                 {[
                   { id: 'parlour', icon: ImageIcon, label: 'Parlour' },
                   { id: 'work', icon: Camera, label: 'Work' },
+                  { id: 'bridal', icon: Sparkles, label: 'Bridal' },
                   { id: 'video', icon: Play, label: 'Video' }
                 ].map(tab => {
                   const Icon = tab.icon;
