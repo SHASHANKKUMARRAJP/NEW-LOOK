@@ -37,20 +37,39 @@ export default function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center text-center mt-6 relative max-w-lg mx-auto"
+            className="flex flex-col items-center justify-center text-center mt-8 relative max-w-lg mx-auto"
           >
-            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-6" />
+            {/* Top Divider: Breathing/Expanding Gold Line */}
+            <motion.div 
+              animate={{ 
+                width: [60, 110, 60],
+                opacity: [0.3, 0.8, 0.3]
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-6" 
+            />
             
+            {/* Animated Quote */}
             <motion.span 
               animate={{
-                y: [0, -8, 0],
+                y: [0, -6, 0],
+                scale: [1, 1.03, 1],
+                textShadow: [
+                  "0 0 10px rgba(212,175,55,0)",
+                  "0 0 20px rgba(212,175,55,0.25)",
+                  "0 0 10px rgba(212,175,55,0)"
+                ]
               }}
               transition={{
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed drop-shadow-[0_2px_10px_rgba(212,175,55,0.1)]"
+              className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed"
             >
               "Beauty is an art, and <br /> 
               <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] text-glow-subtle">
@@ -58,7 +77,19 @@ export default function About() {
               </span>"
             </motion.span>
             
-            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mt-6" />
+            {/* Bottom Divider: Breathing/Expanding Gold Line */}
+            <motion.div 
+              animate={{ 
+                width: [60, 110, 60],
+                opacity: [0.3, 0.8, 0.3]
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mt-6" 
+            />
           </motion.div>
         </motion.div>
 
