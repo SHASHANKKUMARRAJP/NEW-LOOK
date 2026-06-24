@@ -30,6 +30,8 @@ copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-62124
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_bridal_makeup_*.png" "%~dp0public\service_bridal_makeup.png" >nul 2>nul
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_bridal_hair_*.png" "%~dp0public\service_bridal_hair.png" >nul 2>nul
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_bridal_spa_*.png" "%~dp0public\service_bridal_spa.png" >nul 2>nul
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\gallery_traditional_bride_1782300488912.png" "%~dp0public\gallery_traditional_bride.png" >nul 2>nul
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\bridal_glow_spa_1782301040651.png" "%~dp0public\service_pre_bridal_glow.png" >nul 2>nul
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_bridal_companion_*.png" "%~dp0public\service_bridal_companion.png" >nul 2>nul
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_glamour_makeup_*.png" "%~dp0public\service_glamour_makeup.png" >nul 2>nul
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\f1460816-ac8a-453c-a6d9-621245bc1adf\service_airbrush_*.png" "%~dp0public\service_airbrush.png" >nul 2>nul

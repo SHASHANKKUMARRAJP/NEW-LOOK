@@ -108,7 +108,7 @@ const serviceCategories = [
         desc: 'Multi-session full body massage, customized facial, and deep conditioning salon hair spa.',
         duration: '240 MNS',
         provider: 'Victoria & Samantha',
-        image: '/service_bridal_spa.png'
+        image: '/service_pre_bridal_glow.png'
       },
       { 
         name: 'Royal Bridal Companion', 

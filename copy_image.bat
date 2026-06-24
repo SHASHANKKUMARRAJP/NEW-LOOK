@@ -10,6 +10,7 @@ copy "C:\Users\sshas\.gemini\antigravity-ide\brain\4f2052f4-ef77-4b7e-8ab8-9fc53
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\4f2052f4-ef77-4b7e-8ab8-9fc536328b17\gallery_makeup_1782019849512.png" "%~dp0public\gallery_makeup.png"
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\4f2052f4-ef77-4b7e-8ab8-9fc536328b17\gallery_nails_1782019877566.png" "%~dp0public\gallery_nails.png"
 copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\gallery_traditional_bride_1782300488912.png" "%~dp0public\gallery_traditional_bride.png"
+copy "C:\Users\sshas\.gemini\antigravity-ide\brain\0b83d3f9-0d42-4fd2-8f18-238bae16c9b9\bridal_glow_spa_1782301040651.png" "%~dp0public\service_pre_bridal_glow.png"
 echo.
 echo Checking copied files...
 if exist "%~dp0public\premium_spa_hero.png" echo [SUCCESS] premium_spa_hero.png copied!
@@ -21,5 +22,7 @@ if exist "%~dp0public\gallery_bridal.png" echo [SUCCESS] gallery_bridal.png copi
 if exist "%~dp0public\gallery_makeup.png" echo [SUCCESS] gallery_makeup.png copied!
 if exist "%~dp0public\gallery_nails.png" echo [SUCCESS] gallery_nails.png copied!
 if exist "%~dp0public\gallery_traditional_bride.png" echo [SUCCESS] gallery_traditional_bride.png copied!
+if exist "%~dp0public\service_pre_bridal_glow.png" echo [SUCCESS] service_pre_bridal_glow.png copied!
 echo.
 pause
+
