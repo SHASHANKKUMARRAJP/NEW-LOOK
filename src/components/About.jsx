@@ -32,13 +32,34 @@ export default function About() {
             Our vision is simple: to make every client feel like royalty. Through continuous training in global hair and cosmetic trends, our artisans create looks that are not just beautiful, but deeply personal and empowering.
           </p>
           
-          <div className="flex flex-col items-center justify-center text-center mt-6 relative max-w-lg mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="flex flex-col items-center justify-center text-center mt-6 relative max-w-lg mx-auto"
+          >
             <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-6" />
-            <span className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed">
-              "Beauty is an art, and <br /> <span className="text-[#D4AF37] font-normal">you are the canvas.</span>"
-            </span>
+            
+            <motion.span 
+              animate={{
+                y: [0, -8, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="font-serif italic text-xl md:text-2xl text-white font-light tracking-wide leading-relaxed drop-shadow-[0_2px_10px_rgba(212,175,55,0.1)]"
+            >
+              "Beauty is an art, and <br /> 
+              <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] text-glow-subtle">
+                you are the canvas.
+              </span>"
+            </motion.span>
+            
             <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mt-6" />
-          </div>
+          </motion.div>
         </motion.div>
 
       </div>
