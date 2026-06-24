@@ -13,13 +13,14 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Full Color Background Image - Premium luxury styling salon interior */}
         <div 
-          className="absolute inset-0 bg-cover bg-[center_top] md:bg-center opacity-90 brightness-[0.95] contrast-[1.05] saturate-[1.05]"
-          style={{ backgroundImage: "url('/premium_spa_hero.png')" }}
+          className="absolute inset-0 bg-cover bg-[center_top] md:bg-center opacity-100 brightness-[1.35] contrast-[1.05] saturate-[1.12]"
+          style={{ backgroundImage: "url('/premium_spa_hero.png?v=5')" }}
         />
         
         {/* Balanced Gradients for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent w-full md:w-[65%]" />
-        <div className="absolute inset-0 bg-black/35 md:bg-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent w-full md:w-[60%]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15" />
+        <div className="absolute inset-0 bg-black/20 md:bg-transparent" />
         
         {/* Ambient Warm Glow Orbs */}
         <motion.div 
@@ -63,27 +64,28 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="w-full md:w-[600px] text-left mb-12 md:mb-0"
         >
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase block mb-4 font-semibold">
+          <span className="font-sans tracking-[0.5em] text-[11px] text-[#D4AF37] uppercase block mb-4 font-semibold text-glow-subtle">
             PURE BEAUTY, REAL RESULTS
           </span>
           
-          <h1 className="font-cyber font-extrabold text-5xl md:text-7xl lg:text-[85px] leading-[1.05] text-white tracking-tight uppercase mb-8">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-[85px] leading-[1.1] text-white tracking-wide mb-8">
             New Look, <br/>
-            <span className="text-[#D4AF37] italic font-light font-serif lowercase tracking-normal">Expert Care</span>
+            <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] capitalize">
+              Expert Care
+            </span>
           </h1>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <a 
               href="#contact"
-              className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden rounded-full border border-[#D4AF37]/40 bg-gradient-to-r from-[#D4AF37]/10 to-[#FF4500]/5 text-[#D4AF37] font-sans tracking-[0.2em] text-[11px] uppercase transition-all duration-500 hover:border-[#D4AF37] hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] hover:scale-105 cursor-pointer"
+              className="group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden rounded-full border border-[#D4AF37] bg-[#D4AF37] text-black font-sans tracking-[0.2em] text-[11px] uppercase font-bold transition-all duration-500 hover:bg-white hover:border-white hover:text-black hover:shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:scale-105 cursor-pointer"
             >
-              <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:animate-shimmer" />
-              <span className="relative z-10 font-semibold">Book The Experience</span>
+              <span className="relative z-10">Book The Experience</span>
             </a>
             
             <a 
               href="#services" 
-              className="text-neutral-400 hover:text-white font-cyber tracking-widest text-[10px] uppercase transition-colors py-3 px-4 border border-white/5 hover:border-white/10 rounded-full bg-white/[0.01]"
+              className="text-white hover:text-[#D4AF37] font-sans tracking-[0.2em] text-[11px] uppercase transition-all duration-300 py-4 px-8 border border-white/20 hover:border-[#D4AF37]/50 rounded-full bg-white/[0.03] hover:bg-[#D4AF37]/5"
             >
               Explore Services
             </a>
