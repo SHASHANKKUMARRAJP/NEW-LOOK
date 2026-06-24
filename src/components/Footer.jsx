@@ -23,8 +23,8 @@ export default function Footer({ onAdminClick, isAdmin }) {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-12 border-b border-white/5">
           
-          {/* Brand Signature Column (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Brand Signature Column (7 cols) */}
+          <div className="lg:col-span-7 space-y-6">
             <a href="#home" className="flex items-center space-x-3 group">
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-neonOrange to-[#F3E5AB] flex items-center justify-center p-[1px] transition-transform duration-500 group-hover:rotate-180">
                 <div className="w-full h-full rounded-full bg-darkBg flex items-center justify-center">
@@ -46,8 +46,8 @@ export default function Footer({ onAdminClick, isAdmin }) {
             </p>
           </div>
 
-          {/* Navigation Links (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Navigation Links (5 cols) */}
+          <div className="lg:col-span-5 space-y-4">
             <h4 className="font-cyber font-bold tracking-widest text-[11px] uppercase text-white">
               Quick Navigation
             </h4>
@@ -63,31 +63,6 @@ export default function Footer({ onAdminClick, isAdmin }) {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Join Club (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
-            <h4 className="font-cyber font-bold tracking-widest text-[11px] uppercase text-white">
-              The Prestige Club
-            </h4>
-            <p className="font-sans text-neutral-500 text-xs font-light">
-              Subscribe to receive VIP access to styling tutorials, product updates, and priority scheduling.
-            </p>
-            
-            <form onSubmit={(e) => e.preventDefault()} className="flex space-x-2">
-              <input
-                type="email"
-                required
-                placeholder="vip@youraddress.com"
-                className="glass-card px-4 py-2.5 rounded-xl border border-white/5 text-base md:text-xs text-white placeholder-neutral-600 focus:border-neonOrange/85 focus:ring-1 focus:ring-neonOrange/30 transition-all duration-300 w-full"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2.5 rounded-xl bg-neonOrange text-black font-cyber font-bold tracking-widest text-[9px] uppercase hover:bg-white transition-colors duration-300 shrink-0"
-              >
-                Join
-              </button>
-            </form>
           </div>
 
         </div>
