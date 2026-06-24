@@ -83,7 +83,7 @@ export default function Timeline() {
               <div className="absolute top-0 left-0 w-3 h-3 border-l border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-tl-lg" />
               <div className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-br-lg" />
 
-              <span className="font-serif italic text-5xl text-[#D4AF37]/5 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/10 transition-colors duration-500 font-bold">
+              <span className="font-serif italic text-5xl text-[#D4AF37]/20 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/35 transition-colors duration-500 font-bold">
                 01
               </span>
 
@@ -116,7 +116,7 @@ export default function Timeline() {
               <div className="absolute top-0 left-0 w-3 h-3 border-l border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-tl-lg" />
               <div className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-br-lg" />
 
-              <span className="font-serif italic text-5xl text-[#D4AF37]/5 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/10 transition-colors duration-500 font-bold">
+              <span className="font-serif italic text-5xl text-[#D4AF37]/20 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/35 transition-colors duration-500 font-bold">
                 03
               </span>
 
@@ -184,7 +184,7 @@ export default function Timeline() {
               <div className="absolute top-0 right-0 w-3 h-3 border-r border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-tr-lg" />
               <div className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-bl-lg" />
 
-              <span className="font-serif italic text-5xl text-[#D4AF37]/5 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/10 transition-colors duration-500 font-bold">
+              <span className="font-serif italic text-5xl text-[#D4AF37]/20 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/35 transition-colors duration-500 font-bold">
                 02
               </span>
 
@@ -217,7 +217,7 @@ export default function Timeline() {
               <div className="absolute top-0 right-0 w-3 h-3 border-r border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-tr-lg" />
               <div className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 transition-colors duration-500 rounded-bl-lg" />
 
-              <span className="font-serif italic text-5xl text-[#D4AF37]/5 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/10 transition-colors duration-500 font-bold">
+              <span className="font-serif italic text-5xl text-[#D4AF37]/20 absolute top-2 right-4 select-none group-hover:text-[#D4AF37]/35 transition-colors duration-500 font-bold">
                 04
               </span>
 
@@ -279,7 +279,7 @@ export default function Timeline() {
                 <div className="absolute top-0 left-0 w-2.5 h-2.5 border-l border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/50 rounded-tl" />
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-r border-b border-[#D4AF37]/20 group-hover:border-[#D4AF37]/50 rounded-br" />
 
-                <span className="font-serif italic text-4xl text-[#D4AF37]/5 absolute top-2 right-4 select-none font-bold">
+                <span className="font-serif italic text-4xl text-[#D4AF37]/20 absolute top-2 right-4 select-none font-bold">
                   {step.step}
                 </span>
 
