@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
@@ -25,6 +26,30 @@ const steps = [
 ];
 
 export default function Timeline() {
+  const [activeStep, setActiveStep] = useState(0);
+  const scrollRef = useRef(null);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const scrollLeft = scrollRef.current.scrollLeft;
+    const width = scrollRef.current.offsetWidth;
+    const childWidth = scrollRef.current.children[0]?.offsetWidth || width;
+    const index = Math.round(scrollLeft / childWidth);
+    setActiveStep(Math.min(Math.max(0, index), steps.length - 1));
+  };
+
+  const scrollToStep = (index) => {
+    if (!scrollRef.current) return;
+    const child = scrollRef.current.children[index];
+    if (child) {
+      child.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+      setActiveStep(index);
+    }
+  };
   return (
     <section id="journey" className="relative py-16 md:py-24 bg-deepSpace overflow-hidden border-t border-white/5">
       {/* Background orbs */}
@@ -245,16 +270,20 @@ export default function Timeline() {
             </div>
           </div>
 
-          {/* Steps List */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4">
+          {/* Swipeable Carousel Steps List */}
+          <div 
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="w-full flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-none px-4 pb-6 -mx-4 sm:px-6 sm:-mx-6 scroll-smooth"
+          >
             {steps.map((step, index) => (
               <motion.div
                 key={step.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
-                className="p-5 md:p-6 rounded-xl border border-[#D4AF37]/15 bg-gradient-to-br from-[#12100c]/95 via-[#0a0907]/98 to-[#050505] shadow-[0_15px_30px_rgba(0,0,0,0.8)] hover:border-[#D4AF37]/45 transition-all duration-300 relative overflow-hidden group"
+                className="snap-center shrink-0 w-[85vw] max-w-[340px] md:max-w-[420px] p-5 md:p-6 rounded-xl border border-[#D4AF37]/15 bg-gradient-to-br from-[#12100c]/95 via-[#0a0907]/98 to-[#050505] shadow-[0_15px_30px_rgba(0,0,0,0.8)] hover:border-[#D4AF37]/45 transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Corner brackets */}
                 <div className="absolute top-0 left-0 w-2.5 h-2.5 border-l border-t border-[#D4AF37]/20 group-hover:border-[#D4AF37]/50 rounded-tl" />
@@ -279,6 +308,34 @@ export default function Timeline() {
                   </div>
                 </div>
               </motion.div>
+            ))}
+          </div>
+
+          {/* Swipe Indicator Dots */}
+          <div className="flex items-center gap-3.5 mt-2">
+            {steps.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToStep(index)}
+                className="focus:outline-none relative h-3 flex items-center justify-center"
+                aria-label={`Go to phase ${index + 1}`}
+              >
+                {activeStep === index && (
+                  <motion.span
+                    layoutId="activeDotGlow"
+                    className="absolute w-6 h-6 rounded-full bg-[#D4AF37]/20 blur-[3px]"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <motion.span
+                  animate={{
+                    width: activeStep === index ? 24 : 8,
+                    backgroundColor: activeStep === index ? "#D4AF37" : "rgba(212, 175, 55, 0.2)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="h-2 rounded-full block border border-[#D4AF37]/10"
+                />
+              </button>
             ))}
           </div>
 
