@@ -59,37 +59,34 @@ export default function Contact() {
           {/* Column 1: Contact Details & Hours (5 cols) - Appears second on mobile viewports */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8 order-2 lg:order-1">
             <div className="space-y-6">
-              <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white mb-6">
-                SALON ATELIER
+              <h3 className="font-serif text-2xl text-[#D4AF37] font-normal tracking-wide mb-6">
+                Salon Atelier
               </h3>
 
               {/* Detail cards */}
               <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-center text-neonOrange shrink-0">
+                <div className="w-11 h-11 rounded-full bg-[#D4AF37]/5 border border-[#D4AF37]/15 flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.05)]">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-cyber text-[10px] tracking-wider text-neutral-400 uppercase">Address</span>
-                  <p className="font-sans text-neutral-200 text-xs md:text-sm mt-1 leading-relaxed">
+                  <span className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37] uppercase font-semibold">Address</span>
+                  <p className="font-sans text-neutral-300 text-sm mt-1 leading-relaxed font-light">
                     1st floor, balaji complex, 36, Hennur Main Rd, St Thomas Town, Kariyannapalya, Lingarajapuram, Bengaluru, Karnataka 560084
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-center text-neonOrange shrink-0">
+                <div className="w-11 h-11 rounded-full bg-[#D4AF37]/5 border border-[#D4AF37]/15 flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.05)]">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-cyber text-[10px] tracking-wider text-neutral-400 uppercase">Phone</span>
-                  <p className="font-sans text-neutral-200 text-xs md:text-sm mt-1">
+                  <span className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37] uppercase font-semibold">Phone</span>
+                  <p className="font-sans text-neutral-300 text-sm mt-1 font-light">
                     +91 83103 11290
                   </p>
                 </div>
               </div>
-
-
-
             </div>
 
             {/* Dark Filtered Google Map Iframe */}
@@ -97,10 +94,10 @@ export default function Contact() {
               href="https://www.google.com/maps/place/New+Look+ladies+beauty+Parlour/@13.0101431,77.6248029,16z/data=!4m10!1m2!2m1!1s1st+floor,+balaji+complex,+36,+Hennur+Main+Rd,+St+Thomas+Town,+Kariyannapalya,+Lingarajapuram,+Bengaluru,+Karnataka+560084!3m6!1s0x3bae178985ac7289:0xf74808b806c215!8m2!3d13.0114012!4d77.6250508!15sCnoxc3QgZmxvb3IsIGJhbGFqaSBjb21wbGV4LCAzNiwgSGVubnVyIE1haW4gUmQsIFN0IFRob21hcyBUb3duLCBLYXJpeWFubmFwYWx5YSwgTGluZ2FyYWphcHVyYW0sIEJlbmdhbHVydSwgS2FybmF0YWthIDU2MDA4NFp0InIxc3QgZmxvb3IgYmFsYWppIGNvbXBsZXggMzYgaGVubnVyIG1haW4gcmQgc3QgdGhvbWFzIHRvd24ga2FyaXlhbm5hcGFseWEgbGluZ2FyYWphcHVyYW0gYmVuZ2FsdXJ1IGthcm5hdGFrYSA1NjAwODSSAQxiZWF1dHlfc2Fsb26aAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMnRLZFZJd1NtcFdiRTR4WWxSV2QxRllSakJNV0dSeFdteHNTbUV6WXhBQuABAPoBBAhEECk!16s%2Fg%2F11gtz9p47g?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full h-56 rounded-2xl overflow-hidden border border-white/5 shadow-2xl relative group cursor-pointer"
+              className="block w-full h-56 rounded-2xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/35 shadow-2xl relative group cursor-pointer transition-all duration-500"
             >
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 backdrop-blur-sm duration-300">
-                <span className="bg-neonOrange text-black px-6 py-2 rounded-full font-cyber text-xs tracking-widest uppercase flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                <span className="bg-[#D4AF37] text-black px-6 py-2.5 rounded-full font-sans text-xs tracking-widest uppercase font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
                   Open in Maps <ExternalLink className="w-4 h-4" />
                 </span>
               </div>
@@ -135,10 +132,10 @@ export default function Contact() {
                     className="space-y-6"
                   >
                     <div className="border-b border-white/5 pb-4 mb-6">
-                      <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white">
-                        RESERVE SESSION
+                      <h3 className="font-serif text-2xl text-white font-normal tracking-wide">
+                        Reserve Session
                       </h3>
-                      <p className="font-sans text-[11px] text-neutral-400 font-light mt-1">
+                      <p className="font-sans text-xs text-neutral-400 font-light mt-1.5 leading-relaxed">
                         Please fill in the coordinates below. Our booking manager will verify your session.
                       </p>
                     </div>
@@ -146,26 +143,26 @@ export default function Contact() {
                     <div className="grid md:grid-cols-2 gap-6 w-full">
                       {/* Name */}
                       <div className="flex flex-col w-full">
-                        <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Full Name</label>
+                        <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Full Name</label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
+                          className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white placeholder-neutral-600 transition-all duration-300 font-sans font-light"
                           placeholder="Elizabeth Windsor"
                         />
                       </div>
 
                       {/* Phone */}
                       <div className="flex flex-col w-full">
-                        <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Phone Number</label>
+                        <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Phone Number</label>
                         <input
                           type="tel"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300"
+                          className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white placeholder-neutral-600 transition-all duration-300 font-sans font-light"
                           placeholder="+91 83103 11290"
                         />
                       </div>
@@ -174,12 +171,12 @@ export default function Contact() {
                     <div className="grid md:grid-cols-2 gap-6 w-full">
                       {/* Service Select */}
                       <div className="flex flex-col w-full">
-                        <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Selected Treatment</label>
+                        <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Selected Treatment</label>
                         <select
                           required
                           value={formData.service}
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-neutral-300 transition-all duration-300 bg-[#0c0a06]"
+                          className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-neutral-300 transition-all duration-300 bg-[#0c0a06] font-sans font-light"
                         >
                           <option value="" disabled className="bg-[#0c0a06] text-neutral-500">Select a specialty...</option>
                           <option value="hair" className="bg-[#0c0a06] text-neutral-200">Hair Couture (Cuts, Styling, Color)</option>
@@ -191,25 +188,25 @@ export default function Contact() {
 
                       {/* Date Picker */}
                       <div className="flex flex-col w-full">
-                        <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Preferred Session Date</label>
+                        <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Preferred Session Date</label>
                         <input
                           type="date"
                           required
                           value={formData.date}
                           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                          className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white transition-all duration-300 bg-[#0c0a06]"
+                          className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white transition-all duration-300 bg-[#0c0a06] font-sans font-light"
                         />
                       </div>
                     </div>
 
                     {/* Message */}
                     <div className="flex flex-col w-full">
-                      <label className="font-cyber text-[9px] tracking-widest text-neutral-400 uppercase mb-2">Special Stylist Directives</label>
+                      <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Special Stylist Directives</label>
                       <textarea
                         rows="4"
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full glass-card px-4 py-3 rounded-xl border border-white/10 hover:border-neonOrange/40 focus:border-neonOrange focus:ring-1 focus:ring-neonOrange/30 text-base md:text-xs text-white placeholder-neutral-600 transition-all duration-300 resize-none"
+                        className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white placeholder-neutral-600 transition-all duration-300 resize-none font-sans font-light"
                         placeholder="Please note any skin sensitivities, specific styling ideas, or preferred artist..."
                       />
                     </div>
@@ -217,9 +214,9 @@ export default function Contact() {
                     {/* Submit Button with Shimmer */}
                     <button
                       type="submit"
-                      className="w-full relative overflow-hidden group flex items-center justify-center space-x-2 px-8 py-4 rounded-full bg-gradient-to-r from-neonOrange to-[#F3E5AB] text-black font-cyber font-bold tracking-widest text-[11px] uppercase shadow-[0_4px_20px_rgba(212,175,55,0.35)] hover:shadow-[0_4px_30px_rgba(212,175,55,0.6)] hover:scale-[1.01] transition-all duration-300"
+                      className="w-full relative overflow-hidden group flex items-center justify-center space-x-3 px-10 py-5 rounded-full bg-[#D4AF37] text-black font-sans font-bold tracking-[0.25em] text-sm uppercase shadow-[0_4px_25px_rgba(212,175,55,0.25)] hover:bg-white hover:text-black hover:shadow-[0_4px_35px_rgba(212,175,55,0.45)] hover:scale-[1.01] transition-all duration-500 cursor-pointer"
                     >
-                      <Sparkles className="w-3.5 h-3.5" />
+                      <Sparkles className="w-4.5 h-4.5" />
                       <span>Request Reservation</span>
                       {/* Button sweep reflection */}
                       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
@@ -233,12 +230,12 @@ export default function Contact() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     className="flex flex-col items-center justify-center text-center py-12"
                   >
-                    <div className="w-16 h-16 rounded-full bg-neonOrange/10 border border-neonOrange flex items-center justify-center text-neonOrange mb-6 animate-glow">
+                    <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-6 animate-glow">
                       <Sparkles className="w-6 h-6" />
                     </div>
 
-                    <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white mb-3">
-                      RESERVATION REQUEST RECEIVED
+                    <h3 className="font-serif text-2xl text-white font-normal tracking-wide mb-3">
+                      Reservation Received
                     </h3>
                     <p className="font-sans text-neutral-300 text-xs md:text-sm leading-relaxed max-w-sm font-light mb-8">
                       Thank you, <strong>{formData.name}</strong>. We have logged your request for a <strong>{formData.service.toUpperCase()}</strong> session on <strong>{formData.date}</strong>. Our luxury booking manager will call you shortly to confirm your VIP time slot.
