@@ -58,80 +58,99 @@ export default function Testimonials() {
             <Quote className="w-24 h-24 rotate-180" />
           </motion.div>
 
-          {/* Interactive Card */}
-          <motion.a
-            href={MAPS_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Interactive Card with premium animations */}
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02, y: -10 }}
-            whileTap={{ scale: 0.98 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 relative w-full max-w-2xl mx-auto p-10 md:p-14 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 via-[#0a0907]/98 to-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_20px_rgba(212,175,55,0.02)] hover:shadow-[0_25px_60px_-10px_rgba(212,175,55,0.15)] hover:border-[#D4AF37]/50 flex flex-col items-center cursor-pointer group transition-all duration-500 backdrop-blur-md overflow-hidden"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 relative w-full max-w-2xl mx-auto z-10"
           >
-            {/* Ambient internal card glow */}
-            <div className="absolute -right-12 -bottom-12 w-32 h-32 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
+            <motion.div
+              animate={{ 
+                y: [0, -8, 0] 
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <motion.a
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ 
+                  scale: 1.03,
+                  boxShadow: "0 30px 60px -15px rgba(212,175,55,0.18)"
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="relative w-full p-10 md:p-14 rounded-3xl border border-[#D4AF37]/20 bg-gradient-to-br from-[#12100c]/95 via-[#0a0907]/98 to-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_20px_rgba(212,175,55,0.02)] hover:border-[#D4AF37]/50 flex flex-col items-center cursor-pointer group backdrop-blur-md overflow-hidden"
+              >
+                {/* Ambient internal card glow */}
+                <div className="absolute -right-12 -bottom-12 w-32 h-32 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/15 group-hover:scale-125 transition-all duration-700 pointer-events-none z-0" />
 
-            {/* Elegant decorative background noise grid */}
-            <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
+                {/* Elegant decorative background noise grid */}
+                <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
 
-            {/* Animated Shimmer Overlay */}
-            <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/8 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
+                {/* Animated Shimmer Overlay */}
+                <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/8 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
 
-            {/* Corner bracket decorations */}
-            <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
-            <div className="absolute top-0 right-0 w-4.5 h-4.5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
-            <div className="absolute bottom-0 left-0 w-4.5 h-4.5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
-            <div className="absolute bottom-0 right-0 w-4.5 h-4.5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
+                {/* Corner bracket decorations */}
+                <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
+                <div className="absolute top-0 right-0 w-4.5 h-4.5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
+                <div className="absolute bottom-0 left-0 w-4.5 h-4.5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
+                <div className="absolute bottom-0 right-0 w-4.5 h-4.5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
 
-            {/* Stars Entry showing 4.1 rating (4 filled stars + 1 outline star + a numeric rating badge) */}
-            <div className="flex items-center gap-3 mb-8 relative z-10">
-              <div className="flex items-center space-x-1.5">
-                {[...Array(4)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    custom={i}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={starVariants}
-                  >
-                    <Star className="w-6 h-6 fill-[#D4AF37] text-[#D4AF37] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]" />
-                  </motion.div>
-                ))}
-                {/* 5th Star: Outline to reflect 4.1 score */}
-                <motion.div
-                  custom={4}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={starVariants}
-                >
-                  <Star className="w-6 h-6 text-[#D4AF37]/45" />
-                </motion.div>
-              </div>
+                {/* Stars Entry showing 4.1 rating (4 filled stars + 1 outline star + a numeric rating badge) */}
+                <div className="flex items-center gap-3 mb-8 relative z-10">
+                  <div className="flex items-center space-x-1.5">
+                    {[...Array(4)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        custom={i}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={starVariants}
+                      >
+                        <Star className="w-6 h-6 fill-[#D4AF37] text-[#D4AF37] drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]" />
+                      </motion.div>
+                    ))}
+                    {/* 5th Star: Outline to reflect 4.1 score */}
+                    <motion.div
+                      custom={4}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={starVariants}
+                    >
+                      <Star className="w-6 h-6 text-[#D4AF37]/45" />
+                    </motion.div>
+                  </div>
 
-              {/* Numeric 4.1 badge */}
-              <span className="font-serif text-[#D4AF37] text-sm font-semibold tracking-wider bg-[#D4AF37]/10 px-2.5 py-0.5 rounded border border-[#D4AF37]/25 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
-                4.1 / 5
-              </span>
-            </div>
+                  {/* Numeric 4.1 badge */}
+                  <span className="font-serif text-[#D4AF37] text-sm font-semibold tracking-wider bg-[#D4AF37]/10 px-2.5 py-0.5 rounded border border-[#D4AF37]/25 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+                    4.1 / 5
+                  </span>
+                </div>
 
-            {/* Review Title with Arrow animation */}
-            <h3 className="font-serif tracking-wide text-lg md:text-2xl text-white mb-4 flex items-center gap-3 relative z-10 font-normal">
-              <span className="group-hover:text-[#FFF1C5] transition-colors duration-300">
-                Press this card to view reviews
-              </span>
-              <ExternalLink className="w-5 h-5 text-[#D4AF37] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-            </h3>
-            
-            {/* Description */}
-            <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 text-xs md:text-sm tracking-[0.03em] font-light max-w-md relative z-10 leading-relaxed">
-              Read what our lovely guests have to say about their luxury experiences at New Look Beauty Parlour on Google.
-            </p>
-          </motion.a>
+                {/* Review Title with Arrow animation */}
+                <h3 className="font-serif tracking-wide text-lg md:text-2xl text-white mb-4 flex items-center gap-3 relative z-10 font-normal">
+                  <span className="group-hover:text-[#FFF1C5] transition-colors duration-300">
+                    Press this card to view reviews
+                  </span>
+                  <ExternalLink className="w-5 h-5 text-[#D4AF37] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </h3>
+                
+                {/* Description */}
+                <p className="font-sans text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 text-xs md:text-sm tracking-[0.03em] font-light max-w-md relative z-10 leading-relaxed">
+                  Read what our lovely guests have to say about their luxury experiences at New Look Beauty Parlour on Google.
+                </p>
+              </motion.a>
+            </motion.div>
+          </motion.div>
 
         </div>
 
