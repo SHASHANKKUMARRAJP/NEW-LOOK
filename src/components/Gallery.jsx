@@ -509,15 +509,17 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-neonOrange uppercase block mb-3">Portfolio Feed</span>
-          <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
-            THE GLAMOUR FEED
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase mb-4 font-medium px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 shadow-[0_0_20px_rgba(212,175,55,0.1)] inline-block">
+            Portfolio Feed
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
+            The Glamour <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Visual Feed</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto">
+          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
             Browse our real-time social gallery showcasing the finest hair, makeup, and skin transformations.
           </p>
-          <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
+          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
 
         {/* Tab Navigation */}

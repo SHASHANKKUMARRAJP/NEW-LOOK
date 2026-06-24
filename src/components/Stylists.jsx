@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Calendar, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Instagram, Calendar, Sparkles } from 'lucide-react';
 
 const stylists = [
   {
@@ -49,46 +49,29 @@ export default function Stylists() {
   return (
     <section id="stylists" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
       {/* Background Glow */}
-      <div className="glow-orb w-[450px] h-[450px] bg-neonOrange/5 top-1/3 right-1/4 animate-float" />
+      <div className="glow-orb w-[500px] h-[500px] bg-neonOrange/5 top-1/3 right-1/4 animate-float pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-neonOrange uppercase block mb-3">The Artisans</span>
-          <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
-            MASTER STYLISTS &amp; ARTISTS
+          <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase mb-4 font-medium px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 shadow-[0_0_20px_rgba(212,175,55,0.1)] inline-block">
+            The Artisans
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
+            Master Stylists &amp; <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Artists</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto">
+          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
             Meet the award-winning professionals dedicated to sculpting your signature look with precision and care.
           </p>
-          <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
+          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
 
-        {/* Stylists Swiper Carousel */}
-        <div className="relative min-h-[400px] group/carousel">
-          {/* Previous Button */}
-          {/* Previous Button */}
-          <button
-            onClick={() => scroll('left')}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
-            aria-label="Previous stylist"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
-          {/* Next Button */}
-          <button
-            onClick={() => scroll('right')}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-neonOrange/30 bg-black/80 text-white flex items-center justify-center hover:bg-neonOrange hover:text-black hover:border-neonOrange transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] hidden md:flex"
-            aria-label="Next stylist"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
+        {/* Stylists Swiper Carousel on Mobile, Responsive Grid on Desktop */}
+        <div className="relative min-h-[480px]">
           <div 
             ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
+            className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 md:pb-0 pt-4 px-2 md:px-0 touch-pan-x"
           >
             {stylists.map((stylist, index) => (
               <motion.div
@@ -97,62 +80,72 @@ export default function Stylists() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-                className="snap-start shrink-0 w-[280px] md:w-[320px] group relative h-[450px] rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:md:shadow-[0_0_80px_rgba(212,175,55,0.25)] hover:md:border-neonOrange/50 flex flex-col justify-end transition-all duration-300 hover:md:-translate-y-1.5"
+                className="snap-start shrink-0 w-[280px] md:w-full group relative h-[480px] rounded-2xl overflow-hidden premium-card flex flex-col justify-end"
               >
+                {/* Corner bracket decorations */}
+                <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/30 rounded-tl-2xl z-20 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/30 rounded-tr-2xl z-20 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/30 rounded-bl-2xl z-20 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/30 rounded-br-2xl z-20 pointer-events-none" />
+
                 {/* Animated Shimmer Overlay */}
                 <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer z-20 pointer-events-none" />
+                
                 {/* Profile Background Image */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-95 group-hover:contrast-[1.05]"
                   style={{ backgroundImage: `url('${stylist.image}')` }}
                 />
                 
                 {/* Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-[#030303]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                {/* Card Footer Detail */}
-                <div className="relative p-6 z-10 transition-transform duration-500 md:translate-y-24 md:group-hover:translate-y-0 translate-y-0">
-                  
-                  {/* Meta details */}
-                  <div className="flex items-center space-x-2 text-neonOrange text-[9px] tracking-widest font-cyber uppercase mb-2">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>{stylist.experience}</span>
-                  </div>
+                {/* Card Top Badges */}
+                <div className="absolute top-4 left-4 z-20">
+                  <span className="font-cyber text-[8px] tracking-[0.25em] text-[#D4AF37] border border-[#D4AF37]/30 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full uppercase">
+                    {stylist.experience}
+                  </span>
+                </div>
+                
+                <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md border border-[#D4AF37]/30 w-8 h-8 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                  <Sparkles className="w-4 h-4 text-[#D4AF37] animate-[pulse_3s_infinite]" />
+                </div>
 
+                {/* Card Info Panel */}
+                <div className="relative p-6 z-10 w-full flex flex-col justify-end min-h-[160px] bg-gradient-to-t from-black/95 via-black/70 to-transparent">
                   {/* Name & Role */}
-                  <h3 className="font-cyber font-bold tracking-widest text-sm uppercase text-white mb-1">
+                  <h3 className="font-cyber font-bold tracking-[0.15em] text-base uppercase text-white mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {stylist.name}
                   </h3>
-                  <p className="font-sans text-[11px] text-neutral-300 font-light mb-4">
+                  <p className="font-cyber text-[9px] text-[#D4AF37] tracking-[0.2em] uppercase font-semibold mb-3">
                     {stylist.role}
                   </p>
 
-                  {/* Hidden content that reveals on hover on desktop, but always visible on mobile */}
-                  <div className="md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-500 delay-100">
-                    <p className="font-sans text-neutral-400 text-xs leading-relaxed mb-6 font-light">
+                  {/* Bio & Links - expands on hover on desktop, always visible on mobile */}
+                  <div className="transition-all duration-500 ease-in-out overflow-hidden max-h-[200px] opacity-100 md:max-h-0 md:opacity-0 md:group-hover:max-h-[200px] md:group-hover:opacity-100 mt-0 md:group-hover:mt-2">
+                    <p className="font-sans text-neutral-300 text-xs leading-relaxed mb-4 font-light">
                       {stylist.bio}
                     </p>
 
-                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                    <div className="flex items-center justify-between border-t border-white/10 pt-3">
                       <a 
                         href={stylist.instagram}
-                        className="flex items-center space-x-1.5 text-neutral-400 hover:text-neonOrange text-xs transition-colors"
+                        className="flex items-center space-x-1.5 text-neutral-400 hover:text-[#D4AF37] text-xs transition-colors"
                       >
-                        <Instagram className="w-4 h-4" />
-                        <span className="font-sans text-[11px] font-light">{stylist.instagram}</span>
+                        <Instagram className="w-4 h-4 text-[#D4AF37]" />
+                        <span className="font-sans text-[11px] font-light tracking-wide">{stylist.instagram}</span>
                       </a>
                       
                       <a
                         href="#contact"
-                        className="flex items-center space-x-1.5 text-white hover:text-neonOrange text-xs font-cyber tracking-wider uppercase transition-colors"
+                        className="flex items-center space-x-1.5 text-white hover:text-[#D4AF37] text-xs font-cyber tracking-widest uppercase transition-colors"
                       >
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>Book</span>
+                        <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
+                        <span>Book Now</span>
                       </a>
                     </div>
                   </div>
-
                 </div>
               </motion.div>
             ))}

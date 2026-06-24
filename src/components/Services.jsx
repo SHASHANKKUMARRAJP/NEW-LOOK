@@ -184,21 +184,23 @@ export default function Services() {
   return (
     <section id="services" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
       {/* Ambient background light */}
-      <div className="glow-orb w-[500px] h-[500px] bg-neonOrange/5 bottom-0 left-0 pointer-events-none" />
-      <div className="glow-orb w-[400px] h-[400px] bg-cyberOrange/[0.02] top-12 right-12 pointer-events-none" />
+      <div className="glow-orb w-[500px] h-[500px] bg-[#D4AF37]/5 bottom-0 left-0 pointer-events-none" />
+      <div className="glow-orb w-[400px] h-[400px] bg-[#D4AF37]/2 top-12 right-12 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase block mb-3">Our Menu</span>
-          <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
-            THE <span className="text-gradient">PLATINUM</span> SERVICES MENU
+          <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase mb-4 font-medium px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 shadow-[0_0_20px_rgba(212,175,55,0.1)] inline-block">
+            Our Menu
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl text-white leading-tight mt-3">
+            The Platinum <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Services Menu</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-xl mx-auto leading-relaxed font-light">
             Indulge in a curated selection of premium salon offerings. Select a category below to explore our signature treatments.
           </p>
-          <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
+          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
 
         {/* Tab Buttons */}
@@ -210,9 +212,9 @@ export default function Services() {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center space-x-3 px-6 py-3 rounded-full text-xs font-cyber tracking-widest uppercase transition-all duration-300 relative z-10 ${
+                className={`flex items-center space-x-3 px-6 py-3 rounded-full text-xs font-sans font-medium tracking-widest uppercase transition-all duration-300 relative z-10 ${
                   isActive 
-                    ? 'text-white bg-gradient-to-r from-[#D4AF37]/20 to-[#FF4500]/15 border border-[#D4AF37]/45 shadow-[0_0_20px_rgba(212,175,55,0.25)]' 
+                    ? 'text-white bg-gradient-to-r from-[#D4AF37]/20 to-[#FFF1C5]/10 border border-[#D4AF37]/45 shadow-[0_0_20px_rgba(212,175,55,0.25)]' 
                     : 'text-neutral-400 border border-white/5 bg-white/[0.01] hover:text-white hover:border-[#D4AF37]/20'
                 }`}
               >

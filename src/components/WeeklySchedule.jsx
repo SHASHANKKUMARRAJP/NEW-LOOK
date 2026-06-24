@@ -19,6 +19,31 @@ const loadSchedule = () => {
   } catch { return defaultSchedule; }
 };
 
+// Converts 12-hour AM/PM string (e.g., "10:00 AM" or "8:00 PM") to 24-hour HH:MM format
+const to24h = (timeStr) => {
+  if (!timeStr) return '';
+  const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return '';
+  let [_, hours, minutes, ampm] = match;
+  hours = parseInt(hours, 10);
+  if (ampm.toUpperCase() === 'PM' && hours < 12) hours += 12;
+  if (ampm.toUpperCase() === 'AM' && hours === 12) hours = 0;
+  return `${String(hours).padStart(2, '0')}:${minutes}`;
+};
+
+// Converts 24-hour HH:MM format back to 12-hour AM/PM string
+const to12h = (time24) => {
+  if (!time24) return '';
+  const parts = time24.split(':');
+  if (parts.length !== 2) return '';
+  let hours = parseInt(parts[0], 10);
+  const minutes = parts[1];
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  if (hours === 0) hours = 12;
+  return `${hours}:${minutes} ${ampm}`;
+};
+
 export default function WeeklySchedule() {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
@@ -64,18 +89,20 @@ export default function WeeklySchedule() {
       {/* Background glow */}
       <div className="glow-orb w-[400px] h-[400px] bg-neonOrange/5 top-1/2 right-10 -translate-y-1/2" />
 
-      <div className="max-w-3xl mx-auto px-6 relative z-10">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <span className="font-cyber tracking-[0.4em] text-[10px] text-neonOrange uppercase block mb-3">Visit Us</span>
-          <h2 className="font-cyber font-black text-3xl md:text-5xl uppercase tracking-wider text-white">
-            WEEKLY SCHEDULE
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="font-sans tracking-[0.4em] text-[10px] text-[#D4AF37] uppercase mb-4 font-medium px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 shadow-[0_0_20px_rgba(212,175,55,0.1)] inline-block">
+            Visit Us
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mt-4">
+            Weekly <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37]">Operating Hours</span>
           </h2>
-          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-4 max-w-sm mx-auto">
+          <p className="font-sans text-neutral-500 text-xs md:text-sm tracking-wide mt-6 max-w-sm mx-auto font-light">
             Walk in or book in advance — we're open all week to serve you.
           </p>
-          <div className="w-16 h-[2px] bg-neonOrange mx-auto mt-6" />
+          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
 
         {/* Schedule Card */}
@@ -132,7 +159,11 @@ export default function WeeklySchedule() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: i * 0.06 }}
-                  className={`relative flex items-center justify-between px-5 py-4 rounded-xl mx-0 my-1 transition-all duration-300 ${
+                  className={`relative flex ${
+                    editMode
+                      ? 'flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 py-3.5 sm:py-4'
+                      : 'flex-row items-center justify-between py-4'
+                  } px-3 sm:px-5 justify-between rounded-xl mx-0 my-1 transition-all duration-300 ${
                     isToday
                       ? 'bg-gradient-to-r from-neonOrange/10 to-transparent border border-neonOrange/20 shadow-[0_0_20px_rgba(212,175,55,0.07)]'
                       : 'hover:bg-white/[0.02]'
@@ -158,20 +189,30 @@ export default function WeeklySchedule() {
 
                   {/* Right side: time or edit inputs */}
                   {editMode ? (
-                    <div className="flex items-center gap-3">
-                      <label className="flex items-center gap-2 cursor-pointer">
+                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                      <label className="flex items-center gap-2 cursor-pointer select-none">
                         <input type="checkbox" checked={row.closed}
                           onChange={(e) => updateRow(i, 'closed', e.target.checked)}
-                          className="accent-neonOrange w-3 h-3" />
-                        <span className="font-cyber text-[8px] tracking-widest uppercase text-neutral-500">Closed</span>
+                          className="accent-neonOrange w-3.5 h-3.5 rounded border-white/20 bg-black/40" />
+                        <span className="font-cyber text-[10px] tracking-widest uppercase text-neutral-400">Closed</span>
                       </label>
                       {!row.closed && (
                         <div className="flex items-center gap-2">
-                          <input type="text" value={row.open} onChange={(e) => updateRow(i, 'open', e.target.value)}
-                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-3 py-1.5 text-white text-xs w-24 focus:outline-none transition-colors text-center" />
+                          <input
+                            type="time"
+                            value={to24h(row.open)}
+                            onChange={(e) => updateRow(i, 'open', to12h(e.target.value))}
+                            style={{ colorScheme: 'dark' }}
+                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-28 focus:outline-none transition-colors text-center"
+                          />
                           <span className="text-neutral-600">—</span>
-                          <input type="text" value={row.close} onChange={(e) => updateRow(i, 'close', e.target.value)}
-                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-3 py-1.5 text-white text-xs w-24 focus:outline-none transition-colors text-center" />
+                          <input
+                            type="time"
+                            value={to24h(row.close)}
+                            onChange={(e) => updateRow(i, 'close', to12h(e.target.value))}
+                            style={{ colorScheme: 'dark' }}
+                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-28 focus:outline-none transition-colors text-center"
+                          />
                         </div>
                       )}
                     </div>
