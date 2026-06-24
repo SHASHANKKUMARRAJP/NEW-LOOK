@@ -143,7 +143,7 @@ export default function Timeline() {
               <div className="w-[280px] h-[380px] md:w-[320px] md:h-[440px] rounded-full p-2.5 border border-[#D4AF37]/25 bg-[#050505]/40 backdrop-blur-sm shadow-[0_0_50px_rgba(212,175,55,0.1)] transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-[0_0_60px_rgba(212,175,55,0.2)]">
                 <div className="w-full h-full rounded-full overflow-hidden border border-[#D4AF37]/20 relative">
                   <img 
-                    src="/journey_transformation.png" 
+                    src="/journey_transformation.png?v=2" 
                     alt="The Ritual of Transformation" 
                     className="w-full h-full object-cover filter brightness-[95%] contrast-[102%] hover:scale-105 transition-transform duration-[1200ms] ease-out"
                   />
@@ -237,7 +237,7 @@ export default function Timeline() {
             <div className="rounded-full p-2 border border-[#D4AF37]/20 bg-[#050505]/40 backdrop-blur-sm shadow-[0_0_35px_rgba(212,175,55,0.08)]">
               <div className="w-[180px] h-[250px] rounded-full overflow-hidden border border-[#D4AF37]/10">
                 <img 
-                  src="/journey_transformation.png" 
+                  src="/journey_transformation.png?v=2" 
                   alt="The Ritual of Transformation" 
                   className="w-full h-full object-cover"
                 />

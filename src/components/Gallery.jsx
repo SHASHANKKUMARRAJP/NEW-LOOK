@@ -61,25 +61,18 @@ const initialGalleryCategories = [
         image: 'https://images.unsplash.com/photo-1512496015851-a1dc8a473919?auto=format&fit=crop&q=80&w=800'
       },
       {
+        title: 'Royal Traditional Bride',
+        category: 'Bridal Artistry',
+        likes: '3.8k',
+        comments: '124',
+        image: '/gallery_traditional_bride.png?v=2'
+      },
+      {
         title: 'Designer Gold-Leaf Manicure',
         category: 'Nail Artistry',
         likes: '920',
         comments: '31',
         image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&q=80&w=800'
-      }
-    ]
-  },
-  {
-    id: 'bridal',
-    name: 'Bridal Artistry',
-    icon: Sparkles,
-    items: [
-      {
-        title: 'Royal Traditional Bride',
-        category: 'Bridal Artistry',
-        likes: '3.8k',
-        comments: '124',
-        image: '/gallery_traditional_bride.png'
       }
     ]
   },
@@ -179,7 +172,7 @@ const mapFirestoreDocsToCategories = (docs) => {
   }
 
   docs.forEach(doc => {
-    const catId = doc.category === 'Parlour Photo' ? 'parlour' : (doc.category === 'Video' ? 'video' : (doc.category === 'Bridal Artistry' ? 'bridal' : 'work'));
+    const catId = doc.category === 'Parlour Photo' ? 'parlour' : (doc.category === 'Video' ? 'video' : 'work');
     const targetCat = newCategories.find(c => c.id === catId);
     if (targetCat) {
       targetCat.items.push({

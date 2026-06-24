@@ -92,7 +92,7 @@ const serviceCategories = [
         desc: 'HD and Airbrush bridal application including trial, contour, and false lashes.',
         duration: '150 MNS',
         provider: 'Victoria Sterling',
-        image: '/service_bridal_makeup.png'
+        image: '/service_bridal_makeup.png?v=2'
       },
       { 
         name: 'Imperial Bridal Hairstyle', 
@@ -108,7 +108,7 @@ const serviceCategories = [
         desc: 'Multi-session full body massage, customized facial, and deep conditioning salon hair spa.',
         duration: '240 MNS',
         provider: 'Victoria & Samantha',
-        image: '/service_pre_bridal_glow.png'
+        image: '/service_pre_bridal_glow.png?v=2'
       },
       { 
         name: 'Royal Bridal Companion', 
@@ -116,7 +116,7 @@ const serviceCategories = [
         desc: 'Full-day stylist assistance for touch-ups, outfit changes, and hair transitions.',
         duration: 'ALL DAY',
         provider: 'Victoria Sterling',
-        image: '/service_bridal_companion.png'
+        image: '/service_bridal_companion.png?v=2'
       }
     ]
   },
