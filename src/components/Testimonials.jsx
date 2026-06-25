@@ -71,10 +71,11 @@ export default function Testimonials() {
             <motion.div
               className="w-[280px] sm:w-[320px] shrink-0 flex-none snap-start md:w-auto md:snap-align-none"
               animate={{ 
-                y: [0, -8, 0] 
+                y: [0, -12, 0],
+                scale: [1, 1.02, 1]
               }}
               transition={{
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -97,8 +98,12 @@ export default function Testimonials() {
                 {/* Elegant decorative background noise grid */}
                 <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
 
-                {/* Animated Shimmer Overlay */}
-                <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/8 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
+                {/* Continuous Animated Gold Shimmer Overlay */}
+                <motion.div 
+                  className="absolute inset-0 skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/15 to-transparent z-0 pointer-events-none" 
+                  animate={{ x: ["-150%", "250%"] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
+                />
 
                 {/* Corner bracket decorations */}
                 <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
@@ -157,10 +162,11 @@ export default function Testimonials() {
             <motion.div
               className="w-[280px] sm:w-[320px] shrink-0 flex-none snap-start md:w-auto md:snap-align-none"
               animate={{ 
-                y: [0, -8, 0] 
+                y: [0, -12, 0],
+                scale: [1, 1.02, 1]
               }}
               transition={{
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 0.5
@@ -184,8 +190,12 @@ export default function Testimonials() {
                 {/* Elegant decorative background noise grid */}
                 <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.03] transition-opacity duration-500 z-0 pointer-events-none" />
 
-                {/* Animated Shimmer Overlay */}
-                <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/8 to-transparent group-hover:animate-shimmer z-0 pointer-events-none" />
+                {/* Continuous Animated Gold Shimmer Overlay */}
+                <motion.div 
+                  className="absolute inset-0 skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/15 to-transparent z-0 pointer-events-none" 
+                  animate={{ x: ["-150%", "250%"] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 1.5, delay: 0.5 }}
+                />
 
                 {/* Corner bracket decorations */}
                 <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
