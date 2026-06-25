@@ -325,11 +325,11 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
                   className="snap-start shrink-0 w-[290px] md:w-[350px] min-h-[440px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 border border-white/5 hover:md:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] transition-all duration-300 hover:md:-translate-y-1.5 group"
                 >
                   {/* Top: Image Section */}
-                  <div className="w-full h-48 relative overflow-hidden border-b border-white/5">
+                  <div className="w-full h-56 relative overflow-hidden border-b border-white/5 bg-[#030303] flex items-center justify-center">
                     <img 
                       src={service.image} 
                       alt={service.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
                   </div>
@@ -337,15 +337,18 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
                   {/* Bottom: Content Details */}
                   <div className="flex-grow p-6 flex flex-col justify-between">
                     <div>
-                      {/* Name */}
-                      <div className="mb-2">
-                        <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300">
+                      {/* Header & Price */}
+                      <div className="flex justify-between items-start gap-3 mb-3">
+                        <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300 flex-1">
                           {service.name}
                         </h3>
+                        <span className="font-cyber font-bold text-neonOrange tracking-widest text-[14px]">
+                          {service.price}
+                        </span>
                       </div>
 
                       {/* Description */}
-                      <p className="font-sans text-neutral-300 group-hover:text-white transition-colors duration-500 text-xs md:text-sm leading-relaxed mt-2 font-light">
+                      <p className="font-sans text-neutral-300 group-hover:text-white transition-colors duration-500 text-xs md:text-sm leading-relaxed font-light">
                         {service.desc}
                       </p>
                     </div>
