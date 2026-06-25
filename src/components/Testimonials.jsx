@@ -69,7 +69,7 @@ export default function Testimonials() {
           >
             {/* Google Reviews Card */}
             <motion.div
-              className="w-[85vw] max-w-[340px] sm:w-[400px] flex-none snap-center md:w-auto"
+              className="w-[280px] sm:w-[320px] shrink-0 flex-none snap-start md:w-auto md:snap-align-none"
               animate={{ 
                 y: [0, -8, 0] 
               }}
@@ -155,7 +155,7 @@ export default function Testimonials() {
 
             {/* Instagram Card */}
             <motion.div
-              className="w-[85vw] max-w-[340px] sm:w-[400px] flex-none snap-center md:w-auto"
+              className="w-[280px] sm:w-[320px] shrink-0 flex-none snap-start md:w-auto md:snap-align-none"
               animate={{ 
                 y: [0, -8, 0] 
               }}
