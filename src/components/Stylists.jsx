@@ -33,10 +33,9 @@ export const defaultStylists = [
   }
 ];
 
-export default function Stylists() {
+export default function Stylists({ isAdmin, onAdminClick, onLockPortal }) {
   const scrollContainerRef = useRef(null);
   const [stylistsList, setStylistsList] = useState(defaultStylists);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const isFirebaseConnected = db && db.app && db.app.options && db.app.options.apiKey && db.app.options.apiKey !== 'YOUR_API_KEY';
 
@@ -59,15 +58,6 @@ export default function Stylists() {
       return () => unsubscribe();
     }
   }, [isFirebaseConnected]);
-
-  const onAdminClick = () => {
-    const pin = prompt("Enter Admin PIN:");
-    if (pin === "2026") {
-      setIsAdmin(true);
-    } else if (pin) {
-      alert("Incorrect PIN");
-    }
-  };
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -121,7 +111,7 @@ export default function Stylists() {
            <AdminStylistDashboard 
              stylists={stylistsList}
              setStylists={setStylistsList}
-             onLockPortal={() => setIsAdmin(false)}
+             onLockPortal={onLockPortal}
            />
         )}
 

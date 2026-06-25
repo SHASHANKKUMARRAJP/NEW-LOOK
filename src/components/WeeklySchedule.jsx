@@ -44,29 +44,13 @@ const to12h = (time24) => {
   return `${hours}:${minutes} ${ampm}`;
 };
 
-export default function WeeklySchedule() {
+export default function WeeklySchedule({ isAdmin, onAdminClick }) {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
   const [schedule, setSchedule]     = useState(loadSchedule);
   const [editMode, setEditMode]     = useState(false);
   const [editData, setEditData]     = useState([]);
-  const [showLogin, setShowLogin]   = useState(false);
-  const [loginId, setLoginId]       = useState('');
-  const [loginPass, setLoginPass]   = useState('');
-  const [loginError, setLoginError] = useState('');
   const [saveFlash, setSaveFlash]   = useState(false);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (loginId === 'admin' && loginPass === 'admin') {
-      setLoginError(''); setLoginId(''); setLoginPass('');
-      setShowLogin(false);
-      setEditData(JSON.parse(JSON.stringify(schedule)));
-      setEditMode(true);
-    } else {
-      setLoginError('Invalid ID or Password. Please try again.');
-    }
-  };
 
   const handleSave = () => {
     setSchedule(editData);
@@ -128,7 +112,14 @@ export default function WeeklySchedule() {
             {!editMode ? (
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                onClick={() => { setShowLogin(true); setLoginError(''); }}
+                onClick={() => {
+                  if (isAdmin) {
+                    setEditData(JSON.parse(JSON.stringify(schedule)));
+                    setEditMode(true);
+                  } else {
+                    onAdminClick();
+                  }
+                }}
                 className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 hover:border-neonOrange/50 hover:text-neonOrange text-neutral-500 transition-all duration-300 font-cyber text-[9px] tracking-widest uppercase"
               >
                 <Edit3 className="w-3 h-3" />
@@ -254,72 +245,6 @@ export default function WeeklySchedule() {
           </div>
         </motion.div>
       </div>
-
-      {/* Admin Login Modal */}
-      <AnimatePresence>
-        {showLogin && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowLogin(false)} />
-
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="relative bg-[#050505] border border-white/10 p-8 rounded-2xl w-full max-w-sm shadow-[0_0_50px_rgba(212,175,55,0.15)] overflow-hidden"
-            >
-              {/* Corner brackets */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[#D4AF37]/40 rounded-tl-2xl" />
-              <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[#D4AF37]/40 rounded-tr-2xl" />
-              <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[#D4AF37]/40 rounded-bl-2xl" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[#D4AF37]/40 rounded-br-2xl" />
-
-              <button onClick={() => setShowLogin(false)}
-                className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors">
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="text-center mb-8">
-                <div className="w-12 h-12 bg-neonOrange/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-neonOrange/20">
-                  <Lock className="w-5 h-5 text-neonOrange" />
-                </div>
-                <h2 className="font-cyber font-bold text-xl text-white uppercase tracking-widest">Admin Portal</h2>
-                <p className="font-sans text-xs text-neutral-500 mt-2">Enter credentials to edit the schedule.</p>
-              </div>
-
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div>
-                  <label className="block font-sans text-[10px] text-neutral-400 uppercase tracking-widest mb-1.5">Admin ID</label>
-                  <input type="text" value={loginId} onChange={(e) => setLoginId(e.target.value)} autoFocus
-                    className="w-full bg-black border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neonOrange focus:outline-none transition-colors placeholder-neutral-700"
-                    placeholder="Enter ID" />
-                </div>
-                <div>
-                  <label className="block font-sans text-[10px] text-neutral-400 uppercase tracking-widest mb-1.5">Password</label>
-                  <input type="password" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}
-                    className="w-full bg-black border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neonOrange focus:outline-none transition-colors placeholder-neutral-700"
-                    placeholder="Enter Password" />
-                </div>
-
-                <AnimatePresence>
-                  {loginError && (
-                    <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                      className="text-red-400 text-xs text-center font-sans">
-                      {loginError}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-
-                <motion.button type="submit" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                  className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-neonOrange to-cyberOrange text-black font-cyber font-bold text-xs uppercase tracking-widest shadow-[0_0_25px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all duration-300">
-                  Unlock Editor
-                </motion.button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

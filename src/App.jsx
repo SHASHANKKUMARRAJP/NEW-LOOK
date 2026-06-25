@@ -79,7 +79,11 @@ export default function App() {
             </div>
             
             <div id="stylists">
-              <Stylists />
+              <Stylists 
+                isAdmin={isAdmin} 
+                onAdminClick={() => setShowAdminLogin(true)} 
+                onLockPortal={() => setIsAdmin(false)} 
+              />
             </div>
             
             <div id="testimonials">
@@ -87,7 +91,10 @@ export default function App() {
             </div>
             
             <div id="schedule">
-              <WeeklySchedule />
+              <WeeklySchedule 
+                isAdmin={isAdmin} 
+                onAdminClick={() => setShowAdminLogin(true)} 
+              />
             </div>
             
             <div id="contact">
