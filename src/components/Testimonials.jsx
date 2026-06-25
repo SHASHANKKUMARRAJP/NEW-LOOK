@@ -65,7 +65,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pt-8 pb-10 px-4 md:px-0 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 md:pt-0 touch-pan-x"
+            className="mt-4 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 py-16 px-4 md:px-0 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:py-0 touch-pan-x"
           >
             {/* Google Reviews Card */}
             <motion.div
@@ -106,10 +106,10 @@ export default function Testimonials() {
                 />
 
                 {/* Corner bracket decorations */}
-                <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
-                <div className="absolute top-0 right-0 w-4.5 h-4.5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
-                <div className="absolute bottom-0 left-0 w-4.5 h-4.5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
-                <div className="absolute bottom-0 right-0 w-4.5 h-4.5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
+                <div className="absolute top-0 left-0 w-5 h-5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
+                <div className="absolute top-0 right-0 w-5 h-5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
+                <div className="absolute bottom-0 left-0 w-5 h-5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
 
                 {/* Stars Entry showing 4.1 rating */}
                 <div className="flex items-center gap-3 mb-8 relative z-10">
@@ -198,10 +198,10 @@ export default function Testimonials() {
                 />
 
                 {/* Corner bracket decorations */}
-                <div className="absolute top-0 left-0 w-4.5 h-4.5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
-                <div className="absolute top-0 right-0 w-4.5 h-4.5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
-                <div className="absolute bottom-0 left-0 w-4.5 h-4.5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
-                <div className="absolute bottom-0 right-0 w-4.5 h-4.5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
+                <div className="absolute top-0 left-0 w-5 h-5 border-l border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tl-2xl z-10" />
+                <div className="absolute top-0 right-0 w-5 h-5 border-r border-t border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-tr-2xl z-10" />
+                <div className="absolute bottom-0 left-0 w-5 h-5 border-l border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-bl-2xl z-10" />
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-r border-b border-[#D4AF37]/15 group-hover:border-[#D4AF37]/65 transition-all duration-500 rounded-br-2xl z-10" />
 
                 {/* Instagram Icon */}
                 <div className="flex items-center justify-center mb-8 relative z-10 bg-gradient-to-br from-[#D4AF37] to-[#8C7326] p-4 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.2)]">
