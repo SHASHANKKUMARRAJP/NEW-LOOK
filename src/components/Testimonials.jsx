@@ -65,11 +65,11 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-6 pb-8 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0"
+            className="mt-12 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pb-8 px-4 md:px-0 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 touch-pan-x"
           >
             {/* Google Reviews Card */}
             <motion.div
-              className="w-[85vw] sm:w-[400px] flex-none snap-center md:w-auto"
+              className="w-[85vw] max-w-[340px] sm:w-[400px] flex-none snap-center md:w-auto"
               animate={{ 
                 y: [0, -8, 0] 
               }}
@@ -155,7 +155,7 @@ export default function Testimonials() {
 
             {/* Instagram Card */}
             <motion.div
-              className="w-[85vw] sm:w-[400px] flex-none snap-center md:w-auto"
+              className="w-[85vw] max-w-[340px] sm:w-[400px] flex-none snap-center md:w-auto"
               animate={{ 
                 y: [0, -8, 0] 
               }}
