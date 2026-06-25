@@ -71,7 +71,11 @@ export default function App() {
             </div>
             
             <div id="services">
-              <Services />
+              <Services 
+                isAdmin={isAdmin} 
+                onAdminClick={() => setShowAdminLogin(true)} 
+                onLockPortal={() => setIsAdmin(false)} 
+              />
             </div>
             
             <div id="journey">
