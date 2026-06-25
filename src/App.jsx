@@ -19,7 +19,13 @@ import AdminLogin from './components/AdminLogin';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminStates, setAdminStates] = useState({
+    gallery: false,
+    stylists: false,
+    services: false,
+    schedule: false,
+    footer: false
+  });
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [loginSource, setLoginSource] = useState('');
 
@@ -44,7 +50,7 @@ export default function App() {
       <AdminLogin 
         isOpen={showAdminLogin} 
         onClose={() => setShowAdminLogin(false)} 
-        setIsAdmin={setIsAdmin} 
+        setAdminStates={setAdminStates} 
         loginSource={loginSource}
       />
 
@@ -66,17 +72,17 @@ export default function App() {
             
             <div id="gallery">
               <Gallery 
-                isAdmin={isAdmin} 
+                isAdmin={adminStates.gallery} 
                 onAdminClick={() => { setShowAdminLogin(true); setLoginSource('gallery'); }} 
-                onLockPortal={() => setIsAdmin(false)} 
+                onLockPortal={() => setAdminStates(prev => ({ ...prev, gallery: false }))} 
               />
             </div>
             
             <div id="services">
               <Services 
-                isAdmin={isAdmin} 
+                isAdmin={adminStates.services} 
                 onAdminClick={() => { setShowAdminLogin(true); setLoginSource('services'); }} 
-                onLockPortal={() => setIsAdmin(false)} 
+                onLockPortal={() => setAdminStates(prev => ({ ...prev, services: false }))} 
               />
             </div>
             
@@ -86,9 +92,9 @@ export default function App() {
             
             <div id="stylists">
               <Stylists 
-                isAdmin={isAdmin} 
+                isAdmin={adminStates.stylists} 
                 onAdminClick={() => { setShowAdminLogin(true); setLoginSource('stylists'); }} 
-                onLockPortal={() => setIsAdmin(false)} 
+                onLockPortal={() => setAdminStates(prev => ({ ...prev, stylists: false }))} 
               />
             </div>
             
@@ -98,7 +104,7 @@ export default function App() {
             
             <div id="schedule">
               <WeeklySchedule 
-                isAdmin={isAdmin} 
+                isAdmin={adminStates.schedule} 
                 onAdminClick={() => { setShowAdminLogin(true); setLoginSource('schedule'); }} 
               />
             </div>
@@ -108,7 +114,7 @@ export default function App() {
             </div>
           </main>
           
-          <Footer onAdminClick={() => { setShowAdminLogin(true); setLoginSource('footer'); }} isAdmin={isAdmin} />
+          <Footer onAdminClick={() => { setShowAdminLogin(true); setLoginSource('footer'); }} isAdmin={adminStates.footer} />
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Lock } from 'lucide-react';
 
-export default function AdminLogin({ isOpen, onClose, setIsAdmin, loginSource }) {
+export default function AdminLogin({ isOpen, onClose, setAdminStates, loginSource }) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -10,7 +10,9 @@ export default function AdminLogin({ isOpen, onClose, setIsAdmin, loginSource })
   const handleLogin = (e) => {
     e.preventDefault();
     if (id === 'admin' && password === 'admin') {
-      setIsAdmin(true);
+      if (loginSource) {
+        setAdminStates(prev => ({ ...prev, [loginSource]: true }));
+      }
       onClose();
       // Reset form
       setId('');
