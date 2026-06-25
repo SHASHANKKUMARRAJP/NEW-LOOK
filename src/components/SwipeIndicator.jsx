@@ -29,34 +29,24 @@ export default function SwipeIndicator() {
       {/* Text labels with bouncing arrows */}
       <div className="flex justify-between w-full text-neutral-400 font-sans text-[10px] tracking-[0.25em] uppercase font-medium">
         {/* Left Label */}
-        <motion.span 
-          className="flex items-center gap-2 group cursor-default"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        <motion.div 
+          className="flex items-center gap-2 group cursor-default text-[#D4AF37] opacity-80"
+          animate={{ x: [0, -8, 0], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <motion.div
-            animate={{ x: [0, -6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowLeft className="w-3.5 h-3.5 text-[#D4AF37]" />
-          </motion.div>
-          Swipe Left
-        </motion.span>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>SWIPE LEFT</span>
+        </motion.div>
 
         {/* Right Label */}
-        <motion.span 
-          className="flex items-center gap-2 group cursor-default"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1.25 }}
+        <motion.div 
+          className="flex items-center gap-2 group cursor-default text-[#D4AF37] opacity-80"
+          animate={{ x: [0, 8, 0], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
-          Swipe Right
-          <motion.div
-            animate={{ x: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 1.25 }}
-          >
-            <ArrowRight className="w-3.5 h-3.5 text-[#D4AF37]" />
-          </motion.div>
-        </motion.span>
+          <span>SWIPE RIGHT</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </motion.div>
       </div>
     </motion.div>
   );
