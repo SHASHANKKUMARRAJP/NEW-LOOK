@@ -325,11 +325,19 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
                   className="snap-start shrink-0 w-[290px] md:w-[350px] min-h-[440px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 border border-white/5 hover:md:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] transition-all duration-300 hover:md:-translate-y-1.5 group"
                 >
                   {/* Top: Image Section */}
-                  <div className="w-full h-56 relative overflow-hidden border-b border-white/5 bg-[#030303] flex items-center justify-center">
+                  <div className="w-full h-64 relative overflow-hidden border-b border-white/5 bg-[#030303] flex items-center justify-center">
+                    {/* Atmospheric Blurred Background */}
+                    <img 
+                      src={service.image} 
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-xl opacity-50 scale-110"
+                      aria-hidden="true"
+                    />
+                    {/* Actual Uncropped Image */}
                     <img 
                       src={service.image} 
                       alt={service.name}
-                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                      className="relative z-10 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl"
                       loading="lazy"
                     />
                   </div>
