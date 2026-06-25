@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SwipeIndicator from './SwipeIndicator';
 import { Quote, Star, ExternalLink, Instagram, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const MAPS_LINK = "https://www.google.com/maps/place/New+Look+ladies+beauty+Parlour/@13.0114012,77.4726155,12z/data=!4m12!1m2!2m1!1snew+look+salon+bangalore+lingarajapuram!3m8!1s0x3bae178985ac7289:0xf74808b806c215!8m2!3d13.0114012!4d77.6250508!9m1!1b1!15sCiduZXcgbG9vayBzYWxvbiBiYW5nYWxvcmUgbGluZ2FyYWphcHVyYW1aKSInbmV3IGxvb2sgc2Fsb24gYmFuZ2Fsb3JlIGxpbmdhcmFqYXB1cmFtkgEMYmVhdXR5X3NhbG9umgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJ0S2RWSXdTbXBXYkU0eFlsUldkMUZZUmpCTVdHUnhXbXhzU21Fell4QULgAQD6AQQIRBAp!16s%2Fg%2F11gtz9p47g?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D";
@@ -214,28 +215,7 @@ export default function Testimonials() {
           </motion.div>
 
           {/* Swipe Hint (Mobile Only) */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mt-10 flex flex-col md:hidden items-center justify-center gap-6 w-full max-w-[280px] mx-auto"
-          >
-            {/* Animated Progress Bar */}
-            <div className="w-full h-[2px] bg-white/10 rounded-full relative overflow-hidden">
-              <motion.div 
-                className="absolute left-0 top-0 h-full w-1/3 bg-gradient-to-r from-[#D4AF37] to-[#FFF1C5] rounded-full"
-                animate={{ x: ["0%", "200%", "0%"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </div>
-            
-            {/* Text labels */}
-            <div className="flex justify-between w-full text-neutral-500 font-sans text-[10px] tracking-[0.2em] uppercase font-light">
-              <span className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"><ArrowLeft className="w-3 h-3" /> SWIPE LEFT</span>
-              <span className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors">SWIPE RIGHT <ArrowRight className="w-3 h-3" /></span>
-            </div>
-          </motion.div>
+          <SwipeIndicator />
 
         </div>
 

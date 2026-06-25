@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import SwipeIndicator from './SwipeIndicator';
 import { Sparkles, Shield, Heart, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const pillars = [
@@ -144,28 +145,7 @@ export default function Philosophy() {
         </div>
 
         {/* Swipe Hint (Mobile Only) */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-6 flex flex-col md:hidden items-center justify-center gap-6 w-full max-w-[280px] mx-auto"
-        >
-          {/* Animated Progress Bar */}
-          <div className="w-full h-[2px] bg-white/10 rounded-full relative overflow-hidden">
-            <motion.div 
-              className="absolute left-0 top-0 h-full w-1/3 bg-gradient-to-r from-[#D4AF37] to-[#FFF1C5] rounded-full"
-              animate={{ x: ["0%", "200%", "0%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-          
-          {/* Text labels */}
-          <div className="flex justify-between w-full text-neutral-500 font-sans text-[10px] tracking-[0.2em] uppercase font-light">
-            <span className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"><ArrowLeft className="w-3 h-3" /> SWIPE LEFT</span>
-            <span className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors">SWIPE RIGHT <ArrowRight className="w-3 h-3" /></span>
-          </div>
-        </motion.div>
+        <SwipeIndicator />
 
       </div>
     </section>
