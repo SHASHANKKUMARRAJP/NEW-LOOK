@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SwipeIndicator from './SwipeIndicator';
-import { Instagram, Calendar, Sparkles } from 'lucide-react';
+import { Instagram, Calendar, Sparkles, Lock } from 'lucide-react';
+import AdminStylistDashboard from './AdminStylistDashboard';
+import { db } from '../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-const stylists = [
+const defaultStylists = [
   {
     name: 'Samantha Hayes',
     role: 'Master Hair Couturier',
@@ -32,6 +35,39 @@ const stylists = [
 
 export default function Stylists() {
   const scrollContainerRef = useRef(null);
+  const [stylistsList, setStylistsList] = useState(defaultStylists);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const isFirebaseConnected = db && db.app && db.app.options && db.app.options.apiKey && db.app.options.apiKey !== 'YOUR_API_KEY';
+
+  useEffect(() => {
+    if (isFirebaseConnected) {
+      const q = query(collection(db, 'stylists'), orderBy('createdAt', 'desc'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+          const fetchedStylists = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setStylistsList(fetchedStylists);
+        } else {
+          setStylistsList(defaultStylists);
+        }
+      }, (error) => {
+        console.error("Firebase fetch error:", error);
+      });
+      return () => unsubscribe();
+    }
+  }, [isFirebaseConnected]);
+
+  const onAdminClick = () => {
+    const pin = prompt("Enter Admin PIN:");
+    if (pin === "2026") {
+      setIsAdmin(true);
+    } else if (pin) {
+      alert("Incorrect PIN");
+    }
+  };
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -65,8 +101,29 @@ export default function Stylists() {
           <p className="font-sans text-neutral-200 text-xs md:text-sm tracking-wide mt-6 max-w-xl mx-auto font-light">
             Meet the award-winning professionals dedicated to sculpting your signature look with precision and care.
           </p>
+          
+          {!isAdmin && (
+            <motion.button
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              onClick={onAdminClick}
+              className="mt-6 mx-auto flex items-center justify-center gap-2 px-6 py-2.5 border border-white/10 text-neutral-400 font-cyber font-medium uppercase tracking-widest text-[10px] rounded-lg hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              Admin Access
+            </motion.button>
+          )}
+
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
+
+        {isAdmin && (
+           <AdminStylistDashboard 
+             stylists={stylistsList}
+             setStylists={setStylistsList}
+             onLockPortal={() => setIsAdmin(false)}
+           />
+        )}
 
         {/* Stylists Swiper Carousel on Mobile, Responsive Grid on Desktop */}
         <div className="relative min-h-[480px]">
@@ -74,9 +131,9 @@ export default function Stylists() {
             ref={scrollContainerRef}
             className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 md:pb-0 pt-4 px-2 md:px-0 touch-pan-x"
           >
-            {stylists.map((stylist, index) => (
+            {stylistsList.map((stylist, index) => (
               <motion.div
-                key={stylist.name}
+                key={stylist.id || stylist.name}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
