@@ -2,8 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SwipeIndicator from './SwipeIndicator';
 import { Scissors, Sun, Sparkles, Wand2, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { db } from '../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import AdminServiceDashboard from './AdminServiceDashboard';
 
-const serviceCategories = [
+export const defaultServiceCategories = [
   {
     id: 'hair',
     name: 'Hair Couture',
@@ -162,9 +165,35 @@ const serviceCategories = [
   }
 ];
 
-export default function Services() {
+export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
   const [activeCategory, setActiveCategory] = useState('hair');
   const scrollContainerRef = useRef(null);
+  const [categoriesData, setCategoriesData] = useState(defaultServiceCategories);
+
+  const isFirebaseConnected = db && db.app && db.app.options && db.app.options.apiKey && db.app.options.apiKey !== 'YOUR_API_KEY';
+
+  useEffect(() => {
+    if (isFirebaseConnected) {
+      const q = query(collection(db, 'services'), orderBy('createdAt', 'desc'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+          const fetchedServices = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          
+          const updatedCategories = defaultServiceCategories.map(cat => {
+            const catServices = fetchedServices.filter(s => s.categoryId === cat.id);
+            return { ...cat, services: catServices };
+          });
+          setCategoriesData(updatedCategories);
+        } else {
+          setCategoriesData(defaultServiceCategories);
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, [isFirebaseConnected]);
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
@@ -180,7 +209,7 @@ export default function Services() {
     }
   }, [activeCategory]);
 
-  const activeData = serviceCategories.find((cat) => cat.id === activeCategory);
+  const activeData = categoriesData.find((cat) => cat.id === activeCategory);
 
   return (
     <section id="services" className="relative py-24 bg-darkBg overflow-hidden border-t border-white/5">
@@ -204,9 +233,29 @@ export default function Services() {
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8" />
         </div>
 
+        {/* Admin Dashboard */}
+        {isAdmin && (
+           <AdminServiceDashboard 
+             servicesData={categoriesData}
+             onLockPortal={onLockPortal}
+           />
+        )}
+
+        {/* Admin Access Button (if not logged in) */}
+        {!isAdmin && (
+          <div className="flex justify-center mb-8">
+            <button 
+              onClick={onAdminClick}
+              className="flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 hover:border-[#D4AF37]/50 text-neutral-400 hover:text-[#D4AF37] bg-black/50 transition-all font-cyber text-[10px] tracking-widest uppercase shadow-[0_0_15px_rgba(212,175,55,0.05)]"
+            >
+              Admin Access
+            </button>
+          </div>
+        )}
+
         {/* Tab Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-16">
-          {serviceCategories.map((category) => {
+          {categoriesData.map((category) => {
             const Icon = category.icon;
             const isActive = activeCategory === category.id;
             return (
