@@ -21,6 +21,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [loginSource, setLoginSource] = useState('');
 
   useEffect(() => {
     // Check local storage for persistent admin state (optional, let's keep it simple and require login each time for security simulation)
@@ -44,6 +45,7 @@ export default function App() {
         isOpen={showAdminLogin} 
         onClose={() => setShowAdminLogin(false)} 
         setIsAdmin={setIsAdmin} 
+        loginSource={loginSource}
       />
 
       {/* Main Page Layout (visible only after loader finishes or loaded progressively) */}
@@ -65,7 +67,7 @@ export default function App() {
             <div id="gallery">
               <Gallery 
                 isAdmin={isAdmin} 
-                onAdminClick={() => setShowAdminLogin(true)} 
+                onAdminClick={() => { setShowAdminLogin(true); setLoginSource('gallery'); }} 
                 onLockPortal={() => setIsAdmin(false)} 
               />
             </div>
@@ -73,7 +75,7 @@ export default function App() {
             <div id="services">
               <Services 
                 isAdmin={isAdmin} 
-                onAdminClick={() => setShowAdminLogin(true)} 
+                onAdminClick={() => { setShowAdminLogin(true); setLoginSource('services'); }} 
                 onLockPortal={() => setIsAdmin(false)} 
               />
             </div>
@@ -85,7 +87,7 @@ export default function App() {
             <div id="stylists">
               <Stylists 
                 isAdmin={isAdmin} 
-                onAdminClick={() => setShowAdminLogin(true)} 
+                onAdminClick={() => { setShowAdminLogin(true); setLoginSource('stylists'); }} 
                 onLockPortal={() => setIsAdmin(false)} 
               />
             </div>
@@ -97,7 +99,7 @@ export default function App() {
             <div id="schedule">
               <WeeklySchedule 
                 isAdmin={isAdmin} 
-                onAdminClick={() => setShowAdminLogin(true)} 
+                onAdminClick={() => { setShowAdminLogin(true); setLoginSource('schedule'); }} 
               />
             </div>
             
@@ -106,7 +108,7 @@ export default function App() {
             </div>
           </main>
           
-          <Footer onAdminClick={() => setShowAdminLogin(true)} isAdmin={isAdmin} />
+          <Footer onAdminClick={() => { setShowAdminLogin(true); setLoginSource('footer'); }} isAdmin={isAdmin} />
         </div>
       )}
     </div>

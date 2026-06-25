@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Lock } from 'lucide-react';
 
-export default function AdminLogin({ isOpen, onClose, setIsAdmin }) {
+export default function AdminLogin({ isOpen, onClose, setIsAdmin, loginSource }) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -16,6 +16,19 @@ export default function AdminLogin({ isOpen, onClose, setIsAdmin }) {
       setId('');
       setPassword('');
       setError('');
+      
+      // Wait for dashboards to render, then scroll back to where we started
+      setTimeout(() => {
+        if (loginSource) {
+          const el = document.getElementById(loginSource);
+          if (el) {
+            // Give a little offset for the sticky nav
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
+      }, 150);
+      
     } else {
       setError('Invalid ID or Password');
     }
