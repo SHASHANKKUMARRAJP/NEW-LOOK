@@ -65,7 +65,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pb-8 px-4 md:px-0 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 touch-pan-x"
+            className="mt-12 relative w-full max-w-5xl mx-auto z-10 flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pt-8 pb-10 px-4 md:px-0 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 md:pt-0 touch-pan-x"
           >
             {/* Google Reviews Card */}
             <motion.div
