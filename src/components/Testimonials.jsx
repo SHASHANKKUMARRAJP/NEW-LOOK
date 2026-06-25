@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Quote, Star, ExternalLink, Instagram } from 'lucide-react';
+import { Quote, Star, ExternalLink, Instagram, ArrowLeftRight } from 'lucide-react';
 
 const MAPS_LINK = "https://www.google.com/maps/place/New+Look+ladies+beauty+Parlour/@13.0114012,77.4726155,12z/data=!4m12!1m2!2m1!1snew+look+salon+bangalore+lingarajapuram!3m8!1s0x3bae178985ac7289:0xf74808b806c215!8m2!3d13.0114012!4d77.6250508!9m1!1b1!15sCiduZXcgbG9vayBzYWxvbiBiYW5nYWxvcmUgbGluZ2FyYWphcHVyYW1aKSInbmV3IGxvb2sgc2Fsb24gYmFuZ2Fsb3JlIGxpbmdhcmFqYXB1cmFtkgEMYmVhdXR5X3NhbG9umgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJ0S2RWSXdTbXBXYkU0eFlsUldkMUZZUmpCTVdHUnhXbXhzU21Fell4QULgAQD6AQQIRBAp!16s%2Fg%2F11gtz9p47g?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D";
 
@@ -211,6 +211,18 @@ export default function Testimonials() {
                 </p>
               </motion.a>
             </motion.div>
+          </motion.div>
+
+          {/* Swipe Hint (Mobile Only) */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="mt-8 flex md:hidden items-center justify-center gap-2 text-[#D4AF37]/70 font-sans text-xs tracking-widest uppercase font-medium"
+          >
+            <ArrowLeftRight className="w-4 h-4" />
+            <span>Swipe left and right to explore</span>
           </motion.div>
 
         </div>
