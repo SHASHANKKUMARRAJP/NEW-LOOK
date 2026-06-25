@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SwipeIndicator from './SwipeIndicator';
 import { Heart, MessageCircle, Sparkles, Image as ImageIcon, Camera, Play, Lock, ChevronLeft, ChevronRight, Volume2, VolumeX, Pause } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
 import { db } from '../firebase';
@@ -669,20 +670,7 @@ export default function Gallery({ isAdmin, onAdminClick, onLockPortal }) {
 
         {/* Scroll Progress Bar Indicator & Swipe Hint */}
         {activeData.items.length > 1 && (
-          <div className="max-w-md mx-auto mt-8 px-6">
-            <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
-              <motion.div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-cyberOrange shadow-[0_0_10px_rgba(212,175,55,0.8)]"
-                style={{ width: `${scrollProgress}%` }}
-                layoutId="gallery-progress"
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              />
-            </div>
-            <div className="flex justify-between items-center mt-3 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
-              <span>← Swipe Left</span>
-              <span>Swipe Right →</span>
-            </div>
-          </div>
+          <SwipeIndicator />
         )}
 
         {/* Premium Lightbox Modal */}

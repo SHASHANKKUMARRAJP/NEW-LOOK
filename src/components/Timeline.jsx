@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import SwipeIndicator from './SwipeIndicator';
 import { Check } from 'lucide-react';
 
 const steps = [
@@ -302,20 +303,7 @@ export default function Timeline() {
           </div>
 
           {/* Scroll Progress Bar Indicator & Swipe Hint */}
-          <div className="w-full max-w-[240px] mx-auto mt-4">
-            <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden relative border border-white/5">
-              <motion.div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#D4AF37] to-[#FFF1C5] shadow-[0_0_10px_rgba(212,175,55,0.8)]"
-                style={{ width: `${scrollProgress}%` }}
-                layoutId="timeline-progress"
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              />
-            </div>
-            <div className="flex justify-between items-center mt-3 text-[9px] font-sans text-neutral-500 uppercase tracking-widest px-1">
-              <span>← Swipe Left</span>
-              <span>Swipe Right →</span>
-            </div>
-          </div>
+          <SwipeIndicator />
 
         </div>
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SwipeIndicator from './SwipeIndicator';
 import { Instagram, Calendar, Sparkles } from 'lucide-react';
 
 const stylists = [
@@ -153,9 +154,7 @@ export default function Stylists() {
         </div>
 
         {/* Swipe Hint */}
-        <div className="flex justify-center items-center mt-6 text-[10px] font-cyber text-neutral-500 uppercase tracking-widest md:hidden">
-          <span>← Swipe Left &amp; Right →</span>
-        </div>
+        <SwipeIndicator />
 
       </div>
     </section>
