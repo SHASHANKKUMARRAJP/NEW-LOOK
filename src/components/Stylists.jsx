@@ -6,7 +6,7 @@ import AdminStylistDashboard from './AdminStylistDashboard';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-const defaultStylists = [
+export const defaultStylists = [
   {
     name: 'Samantha Hayes',
     role: 'Master Hair Couturier',

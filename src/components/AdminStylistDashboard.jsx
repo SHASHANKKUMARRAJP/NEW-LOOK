@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Upload, Trash2, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, addDoc, doc, deleteDoc } from 'firebase/firestore';
+import { defaultStylists } from './Stylists';
 
 const CLOUDINARY_CLOUD_NAME = 'dtcpixf4a';
 const CLOUDINARY_UPLOAD_PRESET = 'my_video_preset'; 
@@ -135,6 +136,31 @@ export default function AdminStylistDashboard({ stylists, setStylists, onLockPor
         setTimeout(() => setIsSuccess(false), 3000);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRestoreDefaults = async () => {
+    if (!isFirebaseConnected) {
+      alert("Please connect Firebase to restore defaults permanently.");
+      return;
+    }
+    if (!window.confirm("Restore the 3 original template stylists to the database?")) return;
+    
+    setIsUploading(true);
+    try {
+      for (const stylist of defaultStylists) {
+        await addDoc(collection(db, 'stylists'), {
+          ...stylist,
+          createdAt: new Date().toISOString()
+        });
+      }
+      setIsSuccess(true);
+      setTimeout(() => setIsSuccess(false), 3000);
+    } catch (error) {
+      console.error("Firebase restore error:", error);
+      alert("Failed to restore templates.");
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -278,6 +304,13 @@ export default function AdminStylistDashboard({ stylists, setStylists, onLockPor
             <h4 className="font-cyber font-bold text-[10px] text-white uppercase tracking-widest">
               Current Stylists ({stylists.length})
             </h4>
+            <button 
+              onClick={handleRestoreDefaults}
+              disabled={isUploading}
+              className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-[9px] font-cyber text-neutral-400 hover:text-white uppercase tracking-widest transition-colors"
+            >
+              Restore Templates
+            </button>
           </div>
 
           <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
