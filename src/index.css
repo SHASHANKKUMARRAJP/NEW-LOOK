@@ -14,6 +14,16 @@
     pointer-events: none;
     z-index: 9999;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    /* Hardware acceleration to prevent repaint lag */
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Disable heavy SVG noise on mobile to instantly fix scroll lag */
+  @media (max-width: 768px) {
+    body::after {
+      display: none;
+    }
   }
 
   /* Gold-infused dark radial background */
@@ -62,6 +72,10 @@
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(212, 175, 55, 0.08);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+    /* Mobile performance optimization */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* Premium Gradient Cards with gold-to-orange borders and background glows */
@@ -86,6 +100,10 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Mobile performance optimization */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .glass-card:hover {
@@ -101,6 +119,10 @@
     border: 1px solid rgba(212, 175, 55, 0.25);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Mobile performance optimization */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .glass-neon:hover {
@@ -133,6 +155,15 @@
     opacity: 0.15;
     pointer-events: none;
     z-index: 0;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Reduce heavy blur on mobile */
+  @media (max-width: 768px) {
+    .glow-orb {
+      filter: blur(60px);
+    }
   }
 
   /* Hide scrollbars but keep functionality */
