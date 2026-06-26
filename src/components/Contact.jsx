@@ -194,7 +194,7 @@ export default function Contact() {
                           required
                           value={formData.date}
                           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                          className="w-full bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white transition-all duration-300 bg-[#0c0a06] font-sans font-light"
+                          className="w-full max-w-full min-w-0 appearance-none bg-white/[0.02] border border-white/10 hover:border-[#D4AF37]/45 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 px-4 py-3.5 rounded-xl text-sm text-white transition-all duration-300 bg-[#0c0a06] font-sans font-light"
                         />
                       </div>
                     </div>
