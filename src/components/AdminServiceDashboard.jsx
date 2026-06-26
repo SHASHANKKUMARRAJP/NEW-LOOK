@@ -15,7 +15,6 @@ const CLOUDINARY_UPLOAD_PRESET = 'my_video_preset';
 export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
   const [categoryId, setCategoryId] = useState('hair');
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
   const [desc, setDesc] = useState('');
   const [duration, setDuration] = useState('');
   const [provider, setProvider] = useState('');
@@ -76,8 +75,8 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
   };
 
   const handleSubmit = async () => {
-    if (!name.trim() || !price.trim() || !file) { 
-      alert("Please enter at least Name, Price, and upload an Image"); 
+    if (!name.trim() || !file) { 
+      alert("Please enter at least Name and upload an Image"); 
       return; 
     }
     
@@ -111,7 +110,6 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
         const docData = {
           categoryId,
           name,
-          price,
           desc,
           duration,
           provider,
@@ -122,7 +120,6 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
         
         // Reset form & show success
         setName('');
-        setPrice('');
         setDesc('');
         setDuration('');
         setProvider('');
@@ -285,21 +282,15 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
               <input 
                 type="text" 
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g., Royal Keratin Therapy"
-                className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors"
-              />
-            </div>
-            <div>
-              <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest mb-3">Price</label>
-              <input 
-                type="text" 
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="e.g., $350"
-                className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors"
-              />
-            </div>
+          <div className="mb-6">
+            <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest mb-3">Service Name</label>
+            <input 
+              type="text" 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g., Royal Keratin Therapy"
+              className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors"
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -421,11 +412,8 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
                         
                         {/* Info */}
                         <div className="flex-1 min-w-0">
-                          <h5 className="font-cyber font-bold text-[10px] text-white uppercase tracking-wider truncate mb-1">
-                            {service.name}
-                          </h5>
-                          <div className="flex flex-col gap-1">
-                            <span className="text-[9px] font-sans text-neutral-400 truncate">{service.price}</span>
+                          <div className="flex justify-between items-start">
+                            <span className="text-[11px] font-cyber text-white truncate max-w-[120px]">{service.name}</span>
                           </div>
                         </div>
 
