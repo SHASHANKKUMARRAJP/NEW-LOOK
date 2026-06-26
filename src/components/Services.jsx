@@ -360,14 +360,11 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
                     {/* Bottom: Content Details */}
                     <div className="flex-grow p-6 flex flex-col justify-between">
                       <div>
-                        {/* Header & Price */}
+                        {/* Header */}
                         <div className="flex justify-between items-start gap-3 mb-3">
                           <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300 flex-1">
                             {service.name}
                           </h3>
-                          <span className="font-cyber font-bold text-neonOrange tracking-widest text-[14px]">
-                            {service.price}
-                          </span>
                         </div>
 
                         {/* Description */}
