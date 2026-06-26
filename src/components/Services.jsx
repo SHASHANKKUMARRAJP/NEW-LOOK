@@ -276,7 +276,7 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
         )}
 
         {/* Tab Buttons */}
-        <div className="flex gap-3 md:gap-4 mb-16 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 px-2 touch-pan-x md:flex-wrap md:justify-center md:overflow-visible md:touch-auto">
+        <div className="flex flex-row flex-nowrap w-full gap-3 md:gap-4 mb-16 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 px-2 touch-pan-x md:flex-wrap md:justify-center md:overflow-visible md:touch-auto">
           {categoriesData.map((category) => {
             const Icon = category.icon;
             const isActive = activeCategory === category.id;
@@ -284,7 +284,7 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`snap-start shrink-0 flex items-center space-x-3 px-6 py-3 rounded-full text-xs font-sans font-medium tracking-widest uppercase transition-all duration-300 relative z-10 ${
+                className={`snap-start shrink-0 whitespace-nowrap flex items-center space-x-3 px-6 py-3 rounded-full text-xs font-sans font-medium tracking-widest uppercase transition-all duration-300 relative z-10 ${
                   isActive 
                     ? 'text-white bg-gradient-to-r from-[#D4AF37]/20 to-[#FFF1C5]/10 border border-[#D4AF37]/45 shadow-[0_0_20px_rgba(212,175,55,0.25)]' 
                     : 'text-neutral-400 border border-white/5 bg-white/[0.01] hover:text-white hover:border-[#D4AF37]/20'
