@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Upload, Trash2, CheckCircle, Image as ImageIcon, Plus, X, Star, Heart, Crown, Droplet, Flower, Sparkles, Scissors, Sun, Wand2, Moon } from 'lucide-react';
 import { db } from '../firebase';
-import { collection, addDoc, doc, deleteDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, doc, deleteDoc, query, where, getDocs, setDoc } from 'firebase/firestore';
 import { defaultServiceCategories } from './Services';
 
 const ICON_MAP = {
@@ -84,13 +84,17 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
       try {
         const q = query(collection(db, 'service_categories'), where('id', '==', categoryId));
         const querySnapshot = await getDocs(q);
-        if (querySnapshot.empty) {
-          alert("This category cannot be deleted (it might be a default category).");
-          return;
-        }
         
-        for (const document of querySnapshot.docs) {
-          await deleteDoc(doc(db, 'service_categories', document.id));
+        if (!querySnapshot.empty) {
+          for (const document of querySnapshot.docs) {
+            await setDoc(doc(db, 'service_categories', document.id), { deleted: true }, { merge: true });
+          }
+        } else {
+          await addDoc(collection(db, 'service_categories'), {
+            id: categoryId,
+            deleted: true,
+            createdAt: new Date().toISOString()
+          });
         }
         
         setCategoryId('hair');

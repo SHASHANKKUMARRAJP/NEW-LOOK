@@ -188,10 +188,14 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
           services: []
         }));
         
-        const combined = [...defaultServiceCategories, ...mappedCustom];
+        const catMap = new Map();
+        defaultServiceCategories.forEach(cat => catMap.set(cat.id, cat));
+        mappedCustom.forEach(cat => catMap.set(cat.id, { ...catMap.get(cat.id), ...cat }));
+        
+        const combined = Array.from(catMap.values()).filter(cat => !cat.deleted);
         
         if (currentServices.length === 0 && currentCustomCats.length === 0) {
-          setCategoriesData(defaultServiceCategories);
+          setCategoriesData(combined);
           return;
         }
 
