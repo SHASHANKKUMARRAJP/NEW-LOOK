@@ -276,12 +276,6 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest mb-3">Service Name</label>
-              <input 
-                type="text" 
-                value={name}
           <div className="mb-6">
             <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest mb-3">Service Name</label>
             <input 
