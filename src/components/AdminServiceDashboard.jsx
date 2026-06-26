@@ -1,9 +1,13 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Upload, Trash2, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { Lock, Upload, Trash2, CheckCircle, Image as ImageIcon, Plus, X, Star, Heart, Crown, Droplet, Flower, Sparkles, Scissors, Sun, Wand2, Moon } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, addDoc, doc, deleteDoc } from 'firebase/firestore';
 import { defaultServiceCategories } from './Services';
+
+const ICON_MAP = {
+  Star, Heart, Crown, Droplet, Flower, Sparkles, Scissors, Sun, Wand2, Moon
+};
 
 const CLOUDINARY_CLOUD_NAME = 'dtcpixf4a';
 const CLOUDINARY_UPLOAD_PRESET = 'my_video_preset'; 
@@ -20,6 +24,10 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
   const fileInputRef = useRef(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCatName, setNewCatName] = useState('');
+  const [newCatIcon, setNewCatIcon] = useState('Star');
 
   const isFirebaseConnected = db && db.app && db.app.options && db.app.options.apiKey && db.app.options.apiKey !== 'YOUR_API_KEY';
 
@@ -42,6 +50,28 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
       } else {
         alert("Please connect Firebase to permanently delete items.");
       }
+    }
+  };
+
+  const handleAddCategory = async () => {
+    if (!newCatName.trim()) return alert('Please enter a category name');
+    if (!isFirebaseConnected) return alert('Firebase not connected');
+    setIsUploading(true);
+    try {
+      const catId = newCatName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      await addDoc(collection(db, 'service_categories'), {
+        id: catId,
+        name: newCatName,
+        iconName: newCatIcon,
+        createdAt: new Date().toISOString()
+      });
+      setIsAddingCategory(false);
+      setNewCatName('');
+      alert('Category added! It will now appear in the menu.');
+    } catch (e) {
+      alert('Error adding category: ' + e.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -148,23 +178,24 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
     <div className="w-full max-w-6xl mx-auto mb-16 bg-[#030303] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(212,175,55,0.05)]">
       
       {/* Header */}
-      <div className="bg-[#050505] border-b border-white/10 px-8 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full border border-neonOrange/30 bg-neonOrange/5 flex items-center justify-center">
-            <Lock className="w-5 h-5 text-neonOrange" />
+      <div className="bg-[#050505] border-b border-white/10 px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-neonOrange/30 bg-neonOrange/5 flex items-center justify-center shrink-0">
+            <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-neonOrange" />
           </div>
-          <div>
-            <h3 className="font-cyber font-bold tracking-widest text-white text-sm uppercase">Admin Portal Unlocked</h3>
-            <p className="font-cyber text-[9px] text-neonOrange tracking-[0.2em] uppercase mt-0.5">Services Menu Editor</p>
+          <div className="min-w-0">
+            <h3 className="font-cyber font-bold tracking-widest text-white text-xs sm:text-sm uppercase truncate">Admin Portal</h3>
+            <p className="font-cyber text-[8px] sm:text-[9px] text-neonOrange tracking-[0.2em] uppercase mt-0.5 truncate">Services Menu Editor</p>
           </div>
         </div>
         
         <button 
           onClick={onLockPortal}
-          className="flex items-center gap-2 px-5 py-2.5 bg-black border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-colors rounded-lg font-cyber text-[10px] uppercase tracking-widest"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-black border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-colors rounded-lg font-cyber text-[9px] sm:text-[10px] uppercase tracking-widest shrink-0"
         >
           <Lock className="w-3.5 h-3.5" />
-          Lock Portal
+          <span className="hidden sm:inline">Lock Portal</span>
+          <span className="sm:hidden">Lock</span>
         </button>
       </div>
 
@@ -172,19 +203,80 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
         
         {/* Left Form Area (8 cols) */}
-        <div className="lg:col-span-8 p-8 border-r border-white/10 overflow-y-auto max-h-[700px] custom-scrollbar">
+        <div className="lg:col-span-8 p-5 sm:p-8 border-b lg:border-b-0 lg:border-r border-white/10 overflow-y-auto lg:max-h-[700px] custom-scrollbar">
           
-          <div className="mb-6">
-            <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest mb-3">Service Category</label>
-            <select 
-              value={categoryId} 
-              onChange={(e) => setCategoryId(e.target.value)}
-              className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors appearance-none"
-            >
-              {defaultServiceCategories.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
+          <div className="mb-6 flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <label className="block font-cyber text-[10px] text-neutral-500 uppercase tracking-widest">Service Category</label>
+              {!isAddingCategory && (
+                <button 
+                  onClick={() => setIsAddingCategory(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neonOrange/30 text-neonOrange hover:bg-neonOrange/10 transition-colors font-cyber text-[9px] uppercase tracking-widest"
+                >
+                  <Plus className="w-3 h-3" /> New Category
+                </button>
+              )}
+            </div>
+
+            {isAddingCategory ? (
+              <div className="bg-[#080808] border border-neonOrange/30 rounded-xl p-5 relative">
+                <button 
+                  onClick={() => setIsAddingCategory(false)}
+                  className="absolute top-4 right-4 text-neutral-500 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <h4 className="font-cyber text-[10px] text-white uppercase tracking-widest mb-4">Create New Category</h4>
+                <div className="space-y-4">
+                  <div>
+                    <input 
+                      type="text" 
+                      value={newCatName}
+                      onChange={(e) => setNewCatName(e.target.value)}
+                      placeholder="Category Name (e.g., Nail Care)"
+                      className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:border-neonOrange/50 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-cyber text-[9px] text-neutral-500 uppercase tracking-widest mb-2">Select Icon</label>
+                    <div className="flex flex-wrap gap-2">
+                      {Object.keys(ICON_MAP).map(iconName => {
+                        const IconComp = ICON_MAP[iconName];
+                        const isSelected = newCatIcon === iconName;
+                        return (
+                          <button
+                            key={iconName}
+                            onClick={() => setNewCatIcon(iconName)}
+                            className={`p-2.5 rounded-lg border transition-all ${
+                              isSelected ? 'border-neonOrange bg-neonOrange/10 text-neonOrange' : 'border-white/10 text-neutral-400 hover:text-white hover:border-white/30'
+                            }`}
+                          >
+                            <IconComp className="w-4 h-4" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleAddCategory}
+                    disabled={isUploading}
+                    className="w-full mt-2 py-3 bg-neonOrange text-black font-cyber font-bold uppercase tracking-widest text-[10px] rounded-lg hover:bg-white transition-all flex items-center justify-center gap-2"
+                  >
+                    {isUploading ? 'Creating...' : 'Save Category'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <select 
+                value={categoryId} 
+                onChange={(e) => setCategoryId(e.target.value)}
+                className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors appearance-none"
+              >
+                {servicesData.map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -292,8 +384,8 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
         </div>
 
         {/* Right Sidebar List Area (4 cols) */}
-        <div className="lg:col-span-4 bg-[#050505] flex flex-col h-full max-h-[700px]">
-          <div className="p-6 border-b border-white/10 flex items-center justify-between">
+        <div className="lg:col-span-4 bg-[#050505] flex flex-col h-full lg:max-h-[700px]">
+          <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between">
             <h4 className="font-cyber font-bold text-[10px] text-white uppercase tracking-widest">
               Current Menu ({allServicesCount})
             </h4>

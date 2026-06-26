@@ -86,10 +86,14 @@ export default function ParlourRadar({ isAdmin, onAdminClick, onLockPortal }) {
               <div className={`text-5xl md:text-6xl font-serif tracking-tight ${isFree ? 'text-emerald-400' : 'text-red-400'}`}>
                 {isFree ? 'Free' : 'Engaged'}
               </div>
-              <p className="text-neutral-300 font-light mt-4 max-w-[240px] text-sm leading-relaxed">
+              <p className={`mt-4 text-sm leading-relaxed transition-all duration-300 ${
+                isFree 
+                  ? 'text-neutral-300 font-light max-w-[240px]' 
+                  : 'text-white font-semibold bg-red-950/60 border border-red-500/50 p-4 rounded-xl shadow-[0_0_25px_rgba(239,68,68,0.25)] max-w-[280px]'
+              }`}>
                 {isFree 
                   ? 'Chairs are currently open. Walk in right now for premium service without the wait.' 
-                  : 'All our stylists are currently with clients. Please wait or book ahead for an appointment.'}
+                  : 'All our stylists are currently with clients. Please call or fill the reservation section below to book your appointment.'}
               </p>
             </div>
             

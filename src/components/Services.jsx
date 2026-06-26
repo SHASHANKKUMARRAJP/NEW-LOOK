@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SwipeIndicator from './SwipeIndicator';
-import { Scissors, Sun, Sparkles, Wand2, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Scissors, Sun, Sparkles, Wand2, ChevronLeft, ChevronRight, ArrowLeft, ArrowRight, Star, Heart, Crown, Droplet, Flower, Moon } from 'lucide-react';
+
+const ICON_MAP = {
+  Star, Heart, Crown, Droplet, Flower, Sparkles, Scissors, Sun, Wand2, Moon
+};
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import AdminServiceDashboard from './AdminServiceDashboard';
@@ -174,24 +178,42 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
 
   useEffect(() => {
     if (isFirebaseConnected) {
-      const q = query(collection(db, 'services'), orderBy('createdAt', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        if (!snapshot.empty) {
-          const fetchedServices = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-          
-          const updatedCategories = defaultServiceCategories.map(cat => {
-            const catServices = fetchedServices.filter(s => s.categoryId === cat.id);
-            return { ...cat, services: catServices };
-          });
-          setCategoriesData(updatedCategories);
-        } else {
+      let currentServices = [];
+      let currentCustomCats = [];
+
+      const updateData = () => {
+        const mappedCustom = currentCustomCats.map(cat => ({
+          ...cat,
+          icon: ICON_MAP[cat.iconName] || Star,
+          services: []
+        }));
+        
+        const combined = [...defaultServiceCategories, ...mappedCustom];
+        
+        if (currentServices.length === 0 && currentCustomCats.length === 0) {
           setCategoriesData(defaultServiceCategories);
+          return;
         }
+
+        const finalData = combined.map(cat => {
+          const catServices = currentServices.filter(s => s.categoryId === cat.id);
+          return { ...cat, services: currentServices.length > 0 ? catServices : (cat.services || []) };
+        });
+        
+        setCategoriesData(finalData);
+      };
+
+      const unServices = onSnapshot(query(collection(db, 'services'), orderBy('createdAt', 'desc')), (snapshot) => {
+        currentServices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        updateData();
       });
-      return () => unsubscribe();
+      
+      const unCats = onSnapshot(query(collection(db, 'service_categories'), orderBy('createdAt', 'asc')), (snapshot) => {
+        currentCustomCats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        updateData();
+      });
+
+      return () => { unServices(); unCats(); };
     }
   }, [isFirebaseConnected]);
 
@@ -296,73 +318,89 @@ export default function Services({ isAdmin, onAdminClick, onLockPortal }) {
           </button>
 
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.05 }
-                },
-                exit: {
-                  opacity: 0,
-                  transition: { duration: 0.15 }
-                }
-              }}
-              ref={scrollContainerRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
-            >
-              {activeData.services.map((service) => (
-                <motion.div
-                  key={service.name}
-                  variants={{
-                    hidden: { opacity: 0, y: 15 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
-                  }}
-                  className="snap-start shrink-0 w-[280px] md:w-[320px] min-h-[380px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 border border-white/5 hover:md:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] transition-all duration-300 hover:md:-translate-y-1.5 group"
-                >
-                  {/* Top: Image Section */}
-                  <div className="w-full aspect-[4/5] relative overflow-hidden border-b border-white/5 bg-[#030303] flex items-center justify-center">
-                    <img 
-                      src={service.image} 
-                      alt={service.name}
-                      className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-xl"
-                      loading="lazy"
-                    />
-                  </div>
+            {activeData && activeData.services && activeData.services.length > 0 ? (
+              <motion.div
+                key={activeCategory}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.05 }
+                  },
+                  exit: {
+                    opacity: 0,
+                    transition: { duration: 0.15 }
+                  }
+                }}
+                ref={scrollContainerRef}
+                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-8 pt-4 px-2 touch-pan-x"
+              >
+                {activeData.services.map((service, index) => (
+                  <motion.div
+                    key={service.id || index}
+                    variants={{
+                      hidden: { opacity: 0, y: 15 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+                    }}
+                    className="snap-start shrink-0 w-[280px] md:w-[320px] min-h-[380px] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br from-[#12100c]/90 to-[#050505]/95 border border-white/5 hover:md:border-[#D4AF37]/35 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.85)] hover:md:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(212,175,55,0.08)] transition-all duration-300 hover:md:-translate-y-1.5 group"
+                  >
+                    {/* Top: Image Section */}
+                    <div className="w-full aspect-[4/5] relative overflow-hidden border-b border-white/5 bg-[#030303] flex items-center justify-center">
+                      <img 
+                        src={service.image} 
+                        alt={service.name}
+                        className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-xl"
+                        loading="lazy"
+                      />
+                    </div>
 
-                  {/* Bottom: Content Details */}
-                  <div className="flex-grow p-6 flex flex-col justify-between">
-                    <div>
-                      {/* Header & Price */}
-                      <div className="flex justify-between items-start gap-3 mb-3">
-                        <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300 flex-1">
-                          {service.name}
-                        </h3>
-                        <span className="font-cyber font-bold text-neonOrange tracking-widest text-[14px]">
-                          {service.price}
-                        </span>
+                    {/* Bottom: Content Details */}
+                    <div className="flex-grow p-6 flex flex-col justify-between">
+                      <div>
+                        {/* Header & Price */}
+                        <div className="flex justify-between items-start gap-3 mb-3">
+                          <h3 className="font-serif text-[18px] md:text-[20px] text-white group-hover:text-[#D4AF37] leading-snug font-normal tracking-wide transition-colors duration-300 flex-1">
+                            {service.name}
+                          </h3>
+                          <span className="font-cyber font-bold text-neonOrange tracking-widest text-[14px]">
+                            {service.price}
+                          </span>
+                        </div>
+
+                        {/* Description */}
+                        <p className="font-sans text-neutral-300 group-hover:text-white transition-colors duration-500 text-xs md:text-sm leading-relaxed font-light">
+                          {service.desc}
+                        </p>
                       </div>
 
-                      {/* Description */}
-                      <p className="font-sans text-neutral-300 group-hover:text-white transition-colors duration-500 text-xs md:text-sm leading-relaxed font-light">
-                        {service.desc}
-                      </p>
+                      {/* Duration / Provider Badge */}
+                      <div className="mt-6">
+                        <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#D4AF37] text-black text-[10px] font-cyber font-bold tracking-widest uppercase leading-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                          {service.duration} | {service.provider}
+                        </span>
+                      </div>
                     </div>
-
-                    {/* Duration / Provider Badge */}
-                    <div className="mt-6">
-                      <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#D4AF37] text-black text-[10px] font-cyber font-bold tracking-widest uppercase leading-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-                        {service.duration} | {service.provider}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div 
+                key={`empty-${activeCategory}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="w-full flex flex-col items-center justify-center py-20 text-center"
+              >
+                <div className="w-16 h-16 mb-4 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
+                  <Star className="w-6 h-6 text-[#D4AF37]/50" />
+                </div>
+                <h4 className="font-cyber text-[#D4AF37] tracking-widest uppercase text-sm mb-2">No Services Yet</h4>
+                <p className="font-sans text-neutral-500 text-sm max-w-sm">Services for this category will appear here once they are added by the admin.</p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
 
