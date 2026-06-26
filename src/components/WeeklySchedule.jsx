@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Lock, Save, Edit3, ShieldCheck } from 'lucide-react';
+import { db } from '../firebase';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 
 const defaultSchedule = [
   { day: 'Monday',    open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
@@ -53,6 +55,7 @@ const to12h = (time24) => {
 
 export default function WeeklySchedule({ isAdmin, onAdminClick }) {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  const isFirebaseConnected = db && db.app && db.app.options && db.app.options.apiKey && db.app.options.apiKey !== 'YOUR_API_KEY';
 
   const [schedule, setSchedule]     = useState(loadSchedule);
   const [editMode, setEditMode]     = useState(false);
@@ -66,9 +69,29 @@ export default function WeeklySchedule({ isAdmin, onAdminClick }) {
     }
   }, [schedule]);
 
-  const handleSave = () => {
+  useEffect(() => {
+    if (isFirebaseConnected) {
+      const unsub = onSnapshot(doc(db, 'settings', 'schedule'), (docSnap) => {
+        if (docSnap.exists()) {
+          setSchedule(docSnap.data().schedule);
+        }
+      });
+      return () => unsub();
+    }
+  }, [isFirebaseConnected]);
+
+  const handleSave = async () => {
     setSchedule(editData);
     localStorage.setItem('newlook_schedule', JSON.stringify(editData));
+    
+    if (isFirebaseConnected) {
+      try {
+        await setDoc(doc(db, 'settings', 'schedule'), { schedule: editData });
+      } catch (err) {
+        console.error("Error saving schedule to Firebase:", err);
+      }
+    }
+    
     setEditMode(false);
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 3000);
