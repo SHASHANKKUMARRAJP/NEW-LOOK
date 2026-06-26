@@ -255,7 +255,7 @@ export default function WeeklySchedule({ isAdmin, onAdminClick }) {
                               {row.open} – {row.close}
                             </span>
                             {(row.lunchStart && row.lunchEnd) && (
-                              <span className={`font-cyber text-[9px] tracking-widest uppercase mt-0.5 ${isToday ? 'text-neonOrange/80' : 'text-neutral-500'}`}>
+                              <span className={`font-cyber text-[9px] tracking-widest uppercase mt-0.5 ${isToday ? 'text-neonOrange' : 'text-neutral-300'}`}>
                                 Lunch: {row.lunchStart} – {row.lunchEnd}
                               </span>
                             )}
