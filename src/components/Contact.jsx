@@ -140,9 +140,9 @@ export default function Contact() {
                       </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6 w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                       {/* Name */}
-                      <div className="flex flex-col w-full">
+                      <div className="flex flex-col w-full min-w-0">
                         <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Full Name</label>
                         <input
                           type="text"
@@ -155,7 +155,7 @@ export default function Contact() {
                       </div>
 
                       {/* Phone */}
-                      <div className="flex flex-col w-full">
+                      <div className="flex flex-col w-full min-w-0">
                         <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Phone Number</label>
                         <input
                           type="tel"
@@ -168,9 +168,9 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6 w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                       {/* Service Select */}
-                      <div className="flex flex-col w-full">
+                      <div className="flex flex-col w-full min-w-0">
                         <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Selected Treatment</label>
                         <select
                           required
@@ -187,7 +187,7 @@ export default function Contact() {
                       </div>
 
                       {/* Date Picker */}
-                      <div className="flex flex-col w-full">
+                      <div className="flex flex-col w-full min-w-0">
                         <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Preferred Session Date</label>
                         <input
                           type="date"
@@ -200,7 +200,7 @@ export default function Contact() {
                     </div>
 
                     {/* Message */}
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full min-w-0">
                       <label className="font-sans text-[10px] tracking-[0.25em] text-[#D4AF37]/80 uppercase font-semibold mb-2">Special Stylist Directives</label>
                       <textarea
                         rows="4"
