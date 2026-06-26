@@ -13,6 +13,7 @@ import Stylists from './components/Stylists';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import WeeklySchedule from './components/WeeklySchedule';
+import ParlourRadar from './components/ParlourRadar';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminLogin from './components/AdminLogin';
@@ -24,6 +25,7 @@ export default function App() {
     stylists: false,
     services: false,
     schedule: false,
+    radar: false,
     footer: false
   });
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -106,6 +108,14 @@ export default function App() {
               <WeeklySchedule 
                 isAdmin={adminStates.schedule} 
                 onAdminClick={() => { setShowAdminLogin(true); setLoginSource('schedule'); }} 
+              />
+            </div>
+            
+            <div id="radar-section">
+              <ParlourRadar 
+                isAdmin={adminStates.radar}
+                onAdminClick={() => { setShowAdminLogin(true); setLoginSource('radar'); }}
+                onLockPortal={() => setAdminStates(prev => ({ ...prev, radar: false }))}
               />
             </div>
             
