@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Upload, Trash2, CheckCircle, Image as ImageIcon, Plus, X, Star, Heart, Crown, Droplet, Flower, Sparkles, Scissors, Sun, Wand2, Moon } from 'lucide-react';
 import { db } from '../firebase';
-import { collection, addDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, deleteDoc, query, where, getDocs } from 'firebase/firestore';
 import { defaultServiceCategories } from './Services';
 
 const ICON_MAP = {
@@ -71,6 +71,34 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
       alert('Error adding category: ' + e.message);
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleDeleteCategory = async () => {
+    if (!isFirebaseConnected) {
+      alert("Please connect Firebase to delete items.");
+      return;
+    }
+    
+    if (window.confirm("Are you sure you want to delete this category?")) {
+      try {
+        const q = query(collection(db, 'service_categories'), where('id', '==', categoryId));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+          alert("This category cannot be deleted (it might be a default category).");
+          return;
+        }
+        
+        for (const document of querySnapshot.docs) {
+          await deleteDoc(doc(db, 'service_categories', document.id));
+        }
+        
+        setCategoryId('hair');
+        alert("Category deleted successfully.");
+      } catch (error) {
+        console.error("Firebase Deletion Error:", error);
+        alert("Error deleting category: " + error.message);
+      }
     }
   };
 
@@ -264,15 +292,24 @@ export default function AdminServiceDashboard({ servicesData, onLockPortal }) {
                 </div>
               </div>
             ) : (
-              <select 
-                value={categoryId} 
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors appearance-none"
-              >
-                {servicesData.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
+              <div className="flex gap-3">
+                <select 
+                  value={categoryId} 
+                  onChange={(e) => setCategoryId(e.target.value)}
+                  className="flex-1 bg-[#080808] border border-white/10 rounded-xl px-5 py-4 text-white text-sm focus:border-neonOrange/50 focus:outline-none transition-colors appearance-none"
+                >
+                  {servicesData.map(cat => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={handleDeleteCategory}
+                  className="px-5 border border-white/10 rounded-xl text-neutral-500 hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-colors flex items-center justify-center shrink-0"
+                  title="Delete Category"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
             )}
           </div>
 
