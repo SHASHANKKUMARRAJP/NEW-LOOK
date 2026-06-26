@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Lock, Save, Edit3, ShieldCheck } from 'lucide-react';
 
 const defaultSchedule = [
-  { day: 'Monday',    open: '10:00 AM', close: '8:00 PM',  closed: false },
-  { day: 'Tuesday',   open: '10:00 AM', close: '8:00 PM',  closed: false },
-  { day: 'Wednesday', open: '10:00 AM', close: '8:00 PM',  closed: false },
-  { day: 'Thursday',  open: '10:00 AM', close: '8:00 PM',  closed: false },
-  { day: 'Friday',    open: '10:00 AM', close: '8:00 PM',  closed: false },
-  { day: 'Saturday',  open: '09:00 AM', close: '9:00 PM',  closed: false },
-  { day: 'Sunday',    open: '11:00 AM', close: '6:00 PM',  closed: false },
+  { day: 'Monday',    open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Tuesday',   open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Wednesday', open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Thursday',  open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Friday',    open: '10:00 AM', close: '8:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Saturday',  open: '09:00 AM', close: '9:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
+  { day: 'Sunday',    open: '11:00 AM', close: '6:00 PM', lunchStart: '01:00 PM', lunchEnd: '02:00 PM', closed: false },
 ];
 
 const loadSchedule = () => {
   try {
     const saved = localStorage.getItem('newlook_schedule');
-    return saved ? JSON.parse(saved) : defaultSchedule;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.map((item, index) => ({
+        ...defaultSchedule[index],
+        ...item
+      }));
+    }
+    return defaultSchedule;
   } catch { return defaultSchedule; }
 };
 
@@ -51,6 +58,13 @@ export default function WeeklySchedule({ isAdmin, onAdminClick }) {
   const [editMode, setEditMode]     = useState(false);
   const [editData, setEditData]     = useState([]);
   const [saveFlash, setSaveFlash]   = useState(false);
+
+  // Auto-patch state during hot reloads if lunchStart is missing
+  useEffect(() => {
+    if (schedule.some(row => row.lunchStart === undefined)) {
+      setSchedule(loadSchedule());
+    }
+  }, [schedule]);
 
   const handleSave = () => {
     setSchedule(editData);
@@ -188,22 +202,43 @@ export default function WeeklySchedule({ isAdmin, onAdminClick }) {
                         <span className="font-cyber text-[10px] tracking-widest uppercase text-neutral-400">Closed</span>
                       </label>
                       {!row.closed && (
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="time"
-                            value={to24h(row.open)}
-                            onChange={(e) => updateRow(i, 'open', to12h(e.target.value))}
-                            style={{ colorScheme: 'dark' }}
-                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-28 focus:outline-none transition-colors text-center"
-                          />
-                          <span className="text-neutral-600">—</span>
-                          <input
-                            type="time"
-                            value={to24h(row.close)}
-                            onChange={(e) => updateRow(i, 'close', to12h(e.target.value))}
-                            style={{ colorScheme: 'dark' }}
-                            className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-28 focus:outline-none transition-colors text-center"
-                          />
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center justify-end gap-2">
+                            <span className="font-cyber text-[9px] tracking-widest uppercase text-neutral-500 w-10 text-right hidden sm:block">Open</span>
+                            <input
+                              type="time"
+                              value={to24h(row.open)}
+                              onChange={(e) => updateRow(i, 'open', to12h(e.target.value))}
+                              style={{ colorScheme: 'dark' }}
+                              className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-24 sm:w-28 focus:outline-none transition-colors text-center"
+                            />
+                            <span className="text-neutral-600">—</span>
+                            <input
+                              type="time"
+                              value={to24h(row.close)}
+                              onChange={(e) => updateRow(i, 'close', to12h(e.target.value))}
+                              style={{ colorScheme: 'dark' }}
+                              className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-24 sm:w-28 focus:outline-none transition-colors text-center"
+                            />
+                          </div>
+                          <div className="flex items-center justify-end gap-2">
+                            <span className="font-cyber text-[9px] tracking-widest uppercase text-neutral-500 w-10 text-right hidden sm:block">Lunch</span>
+                            <input
+                              type="time"
+                              value={to24h(row.lunchStart)}
+                              onChange={(e) => updateRow(i, 'lunchStart', to12h(e.target.value))}
+                              style={{ colorScheme: 'dark' }}
+                              className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-24 sm:w-28 focus:outline-none transition-colors text-center"
+                            />
+                            <span className="text-neutral-600">—</span>
+                            <input
+                              type="time"
+                              value={to24h(row.lunchEnd)}
+                              onChange={(e) => updateRow(i, 'lunchEnd', to12h(e.target.value))}
+                              style={{ colorScheme: 'dark' }}
+                              className="bg-black/50 border border-white/10 focus:border-neonOrange rounded-lg px-2 py-1.5 text-white text-xs w-24 sm:w-28 focus:outline-none transition-colors text-center"
+                            />
+                          </div>
                         </div>
                       )}
                     </div>
@@ -215,9 +250,16 @@ export default function WeeklySchedule({ isAdmin, onAdminClick }) {
                         </span>
                       ) : (
                         <>
-                          <span className={`font-sans text-sm tracking-wide tabular-nums ${isToday ? 'text-white' : 'text-neutral-400'}`}>
-                            {row.open} – {row.close}
-                          </span>
+                          <div className="flex flex-col items-end">
+                            <span className={`font-sans text-sm tracking-wide tabular-nums ${isToday ? 'text-white' : 'text-neutral-400'}`}>
+                              {row.open} – {row.close}
+                            </span>
+                            {(row.lunchStart && row.lunchEnd) && (
+                              <span className={`font-cyber text-[9px] tracking-widest uppercase mt-0.5 ${isToday ? 'text-neonOrange/80' : 'text-neutral-500'}`}>
+                                Lunch: {row.lunchStart} – {row.lunchEnd}
+                              </span>
+                            )}
+                          </div>
                           <div className={`w-2 h-2 rounded-full shrink-0 ${isToday ? 'bg-neonOrange shadow-[0_0_8px_rgba(212,175,55,0.9)]' : 'bg-emerald-500/40'}`} />
                         </>
                       )}
